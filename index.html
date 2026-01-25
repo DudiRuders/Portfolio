@@ -7,7 +7,6 @@
   <meta name="description" content="Portfolio: automatyzacja marketingu i procesów biznesowych. Python, n8n, Django/FastAPI, PostgreSQL, ETL, dashboardy." />
   <meta name="theme-color" content="#0b1220" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
@@ -15,9 +14,9 @@
     }
   </script>
 
+  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
-      <style>
-  /* małe dopieszczenie bez kombinowania */
   .glass { backdrop-filter: blur(10px); }
 
   /* ✅ LIGHT MODE FIXES — poprawa kontrastu, gdy NIE ma .dark */
@@ -26,7 +25,7 @@
   html:not(.dark) .text-slate-400 { color: rgb(71 85 105) !important; }  /* slate-600 */
 
   html:not(.dark) .border-white\/10 { border-color: rgb(226 232 240) !important; } /* slate-200 */
-  html:not(.dark) .bg-white\/5 { background-color: rgb(241 245 249) !important; } /* slate-100 */
+  html:not(.dark) .bg-white\/5 { background-color: rgb(226 232 240) !important; } /* slate-200 */
 
   /* header w jasnym: zamiast prawie-czarnego tła */
   html:not(.dark) .bg-slate-950\/70 { background-color: rgba(255,255,255,0.85) !important; }
@@ -34,7 +33,6 @@
   /* linki emerald w jasnym trybie były za blade */
   html:not(.dark) .text-emerald-300 { color: rgb(5 150 105) !important; } /* emerald-600 */
 
-    .glass { backdrop-filter: blur(10px); }
   </style>
 </head>
 
@@ -354,7 +352,7 @@
     function applyTheme(mode) {
       if (mode === 'light') {
         document.documentElement.classList.remove('dark');
-        document.body.className = "bg-slate-50 text-slate-950";
+        document.body.className = "bg-slate-100 text-slate-900";
         label.textContent = "jasny";
       } else {
         document.documentElement.classList.add('dark');
