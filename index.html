@@ -7,7 +7,6 @@
   <meta name="description" content="Portfolio: automatyzacja marketingu i procesów biznesowych. Python, n8n, Django/FastAPI, PostgreSQL, ETL, dashboardy." />
   <meta name="theme-color" content="#0b1220" />
 
-  <!-- Tailwind CDN (działa na GitHub Pages) -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -17,7 +16,24 @@
   </script>
 
   <style>
-    /* małe dopieszczenie bez kombinowania */
+      <style>
+  /* małe dopieszczenie bez kombinowania */
+  .glass { backdrop-filter: blur(10px); }
+
+  /* ✅ LIGHT MODE FIXES — poprawa kontrastu, gdy NIE ma .dark */
+  html:not(.dark) .text-slate-100 { color: rgb(15 23 42) !important; }   /* slate-900 */
+  html:not(.dark) .text-slate-300 { color: rgb(51 65 85) !important; }   /* slate-700 */
+  html:not(.dark) .text-slate-400 { color: rgb(71 85 105) !important; }  /* slate-600 */
+
+  html:not(.dark) .border-white\/10 { border-color: rgb(226 232 240) !important; } /* slate-200 */
+  html:not(.dark) .bg-white\/5 { background-color: rgb(241 245 249) !important; } /* slate-100 */
+
+  /* header w jasnym: zamiast prawie-czarnego tła */
+  html:not(.dark) .bg-slate-950\/70 { background-color: rgba(255,255,255,0.85) !important; }
+
+  /* linki emerald w jasnym trybie były za blade */
+  html:not(.dark) .text-emerald-300 { color: rgb(5 150 105) !important; } /* emerald-600 */
+
     .glass { backdrop-filter: blur(10px); }
   </style>
 </head>
@@ -71,7 +87,6 @@
         <a href="#kontakt" class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
           Kontakt
         </a>
-        <!-- później podmienimy na realny plik PDF -->
         <a href="#oferta" class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
           Oferta (PDF)
         </a>
