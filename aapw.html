@@ -6,38 +6,53 @@
   <title>A.A.P.W — Case study | Inteligentna automatyzacja</title>
   <meta name="description" content="A.A.P.W: inteligentna automatyzacja dokumentów (n8n). Airtable → render DOCX → PDF → Drive → statusy + obsługa błędów." />
   <meta name="theme-color" content="#0b1220" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Tailwind Play CDN config (dark mode na klasę "dark")
+
+    <script>
     tailwind.config = {
       darkMode: 'class',
       theme: { extend: {} }
-    };
+    }
   </script>
-<style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
     .glass { backdrop-filter: blur(10px); }
+
+/* ✅ LIGHT MODE FIXES — poprawa kontrastu, gdy NIE ma .dark */
+  html:not(.dark) .text-slate-100 { color: rgb(15 23 42) !important; }   /* slate-900 */
+  html:not(.dark) .text-slate-200 { color: rgb(15 23 42) !important; }   /* slate-900 */
+  html:not(.dark) .text-slate-300 { color: rgb(51 65 85) !important; }   /* slate-700 */
+  html:not(.dark) .text-slate-400 { color: rgb(71 85 105) !important; }  /* slate-600 */
+
+  html:not(.dark) .border-white\/10 { border-color: rgb(226 232 240) !important; } /* slate-200 */
+  html:not(.dark) .bg-white\/5 { background-color: rgb(226 232 240) !important; } /* slate-200 */
+
+  /* header w jasnym: zamiast prawie-czarnego tła */
+  html:not(.dark) .bg-slate-950\/70 { background-color: rgba(255,255,255,0.85) !important; }
+
+  /* linki emerald w jasnym trybie były za blade */
+  html:not(.dark) .text-emerald-300 { color: rgb(5 150 105) !important; } /* emerald-600 */
   </style>
 </head>
 
-<body class="bg-slate-100 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-950 text-slate-100">
   <!-- Header -->
-  <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/55 glass dark:border-white/10 dark:bg-slate-950/70">
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 glass">
     <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
       <a href="./#projekty" class="font-semibold tracking-tight">
-        <span class="text-slate-900 dark:text-slate-100">Portfolio</span>
-        <span class="text-slate-500 dark:text-slate-400"> / A.A.P.W</span>
+        <span class="text-slate-200">Portfolio</span>
+        <span class="text-slate-400"> / A.A.P.W</span>
       </a>
 
       <div class="flex items-center gap-2">
         <button id="themeBtn"
-          class="rounded-xl border border-slate-200/70 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-200/50 dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5"
+          class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5"
           type="button">
           Tryb: <span id="themeLabel">ciemny</span>
         </button>
 
         <a href="https://github.com/DudiRuders/A.A.E.P.W"
            target="_blank" rel="noreferrer"
-           class="rounded-xl bg-slate-800 text-white px-3 py-1.5 text-sm font-semibold hover:bg-slate-700 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200">
+           class="rounded-xl bg-white text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
           Repo mapy
         </a>
       </div>
@@ -46,28 +61,17 @@
 
   <main class="mx-auto max-w-5xl px-4 py-12">
     <!-- Top badge -->
-    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+    <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
       <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-      Intelligent Automation
+      Intelligent Automation • n8n • Dokumenty
     </div>
-    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-      n8n
-    </div>
-    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-      Word
-    </div>
-    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200/70 bg-white/60 px-4 py-2 text-sm text-slate-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-    Airtable</div>
 
     <!-- Title -->
     <h1 class="mt-6 text-3xl md:text-5xl font-bold tracking-tight">
       A.A.P.W — inteligentna automatyzacja dokumentów
     </h1>
 
-    <p class="mt-5 max-w-3xl text-lg md:text-xl text-slate-700 dark:text-slate-300">
+    <p class="mt-5 max-w-3xl text-lg md:text-xl text-slate-300">
       Publicznie pokazuję <b>architekturę i mapę procesu</b> (bez workflow i sekretów). System automatyzuje generowanie dokumentów:
       pobiera dane, uzupełnia szablon DOCX, konwertuje do PDF, zapisuje wynik i aktualizuje status.
     </p>
@@ -79,28 +83,28 @@
         Zobacz mapę działania
       </a>
       <a href="./#projekty"
-         class="rounded-xl border border-slate-200/70 px-5 py-3 font-semibold text-slate-900 hover:bg-slate-200/50 dark:border-white/10 dark:text-slate-100 dark:hover:bg-white/5">
+         class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
         ← Wróć do projektów
       </a>
     </div>
 
     <!-- Summary cards -->
     <section class="mt-10 grid gap-4 md:grid-cols-3">
-      <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
-        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">Inputs</div>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="text-sm font-semibold text-slate-100">Inputs</div>
+        <p class="mt-2 text-sm text-slate-300">
           Airtable (rekordy), szablon DOCX (Drive), obrazy/zasoby (opcjonalnie).
         </p>
       </div>
-      <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
-        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">Outputs</div>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="text-sm font-semibold text-slate-100">Outputs</div>
+        <p class="mt-2 text-sm text-slate-300">
           DOCX + PDF w Google Drive + linki/statusy w Airtable.
         </p>
       </div>
-      <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
-        <div class="text-sm font-semibold text-slate-900 dark:text-slate-100">Wartość</div>
-        <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="text-sm font-semibold text-slate-100">Wartość</div>
+        <p class="mt-2 text-sm text-slate-300">
           Mniej ręcznej pracy, mniej błędów, powtarzalny proces, szybkie generowanie dokumentów.
         </p>
       </div>
@@ -108,9 +112,9 @@
 
     <!-- Problem / Solution -->
     <section class="mt-12 grid gap-6 md:grid-cols-2">
-      <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-7 dark:border-white/10 dark:bg-white/5">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7  ">
         <h2 class="text-xl font-bold">Problem</h2>
-        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
           <li>Generowanie dokumentów ręcznie zajmuje dużo czasu.</li>
           <li>Błędy w danych i wklejaniu treści są częste.</li>
           <li>Brak spójnego statusu „Work / Done / Error”.</li>
@@ -118,9 +122,9 @@
         </ul>
       </div>
 
-      <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-7 dark:border-white/10 dark:bg-white/5">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-7  ">
         <h2 class="text-xl font-bold">Rozwiązanie</h2>
-        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
           <li>Workflow w n8n uruchamiany cronem lub webhookiem.</li>
           <li>Walidacja danych + mapowanie pól do dokumentu.</li>
           <li>Render DOCX + podmiana obrazów.</li>
@@ -135,27 +139,26 @@
       <div class="flex items-end justify-between gap-4 flex-wrap">
         <div>
           <h2 class="text-2xl md:text-3xl font-bold">Mapa działania workflow</h2>
-          <p class="mt-2 text-slate-700 dark:text-slate-300">
+          <p class="mt-2 text-slate-300">
             Diagram wykonany w Excalidraw (repo nie zawiera sekretów ani produkcyjnych workflow).
           </p>
         </div>
         <a href="https://github.com/DudiRuders/A.A.E.P.W"
            target="_blank" rel="noreferrer"
-           class="text-sm text-slate-700 hover:text-slate-900 underline underline-offset-4 dark:text-slate-300 dark:hover:text-white">
+           class="text-sm text-slate-300 hover:text-white underline underline-offset-4">
           Otwórz repo mapy →
         </a>
       </div>
 
 
-      <div class="mt-6 rounded-2xl border border-slate-200/70 bg-white/60 p-4 dark:border-white/10 dark:bg-white/5">
-        <p class="mb-3 text-sm text-slate-600 dark:text-slate-300">
+      <div class="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4  ">
+        <p class="mb-3 text-sm text-slate-300">
           (Opcjonalnie) Podgląd diagramu bezpośrednio na stronie:
         </p>
         
         <img class="w-full rounded-xl" alt="A.A.P.W workflow map"
              src="https://raw.githubusercontent.com/DudiRuders/A.A.E.P.W/refs/heads/main/docs/diagrams/workflow-map.png" />
         </div>
-      </div>
     </section>
 
     <!-- Tech stack -->
@@ -163,44 +166,43 @@
       <h2 class="text-2xl md:text-3xl font-bold">Komponenty i integracje</h2>
 
       <div class="mt-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
           <h3 class="font-semibold">n8n (orchestrator)</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          <p class="mt-2 text-sm text-slate-300">
             Trigger, pobieranie danych, transformacje, kontrola błędów, logika statusów.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
           <h3 class="font-semibold">Airtable (źródło danych + statusy)</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          <p class="mt-2 text-sm text-slate-300">
             Rekordy wejściowe, pola do dokumentu, status Work/Done/Error, linki do wyników.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
           <h3 class="font-semibold">Render DOCX (service)</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          <p class="mt-2 text-sm text-slate-300">
             Uzupełnianie szablonu i podmiana obrazów (HTTP endpoints /render, /replace-image).
           </p>
         </div>
 
-        <div class="rounded-2xl border border-slate-200/70 bg-white/60 p-6 dark:border-white/10 dark:bg-white/5">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
           <h3 class="font-semibold">Google Drive + PDF</h3>
-          <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
+          <p class="mt-2 text-sm text-slate-300">
             Szablony i wyniki w Drive, konwersja DOCX → PDF (np. ConvertAPI).
           </p>
         </div>
-      </div>
     </section>
 
     <!-- Security -->
-    <section class="mt-12 rounded-2xl border border-slate-200/70 bg-white/60 p-7 dark:border-white/10 dark:bg-white/5">
+    <section class="mt-12 rounded-2xl border border-white/10 bg-white/5 p-7  ">
       <h2 class="text-xl font-bold">Security</h2>
-      <p class="mt-3 text-slate-700 dark:text-slate-300">
+      <p class="mt-3 text-slate-300">
         Publiczne repo prezentuje tylko mapę i opis architektury. Produkcyjne workflow i sekrety (tokeny, klucze API)
         nie są publikowane.
       </p>
-      <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+      <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
         <li>Brak tokenów/sekretów w repo.</li>
         <li>Workflow pozostaje prywatny.</li>
         <li>W razie potrzeby: sanitized export + ręczne credentials w n8n.</li>
@@ -208,8 +210,8 @@
     </section>
 
     <!-- Footer -->
-    <footer class="mt-12 py-8 text-sm text-slate-500 dark:text-slate-400">
-      <div class="border-t border-slate-200/70 pt-6 flex items-center justify-between flex-wrap gap-2 dark:border-white/10">
+    <footer class="mt-12 py-8 text-sm text-slate-400">
+      <div class="border-t border-white/10 pt-6 flex items-center justify-between flex-wrap gap-2 ">
         <span>© <span id="year"></span> — A.A.P.W case study</span>
         <span>GitHub Pages • Tailwind CDN</span>
       </div>
@@ -219,29 +221,30 @@
   <script>
     // rok
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    // theme toggle (czysto: tylko klasa "dark" na <html>)
+    // theme toggle
     const btn = document.getElementById('themeBtn');
     const label = document.getElementById('themeLabel');
 
-    function setTheme(mode) {
+    function applyTheme(mode) {
       if (mode === 'light') {
         document.documentElement.classList.remove('dark');
-        label.textContent = 'jasny';
+        document.body.className = "bg-slate-100 text-slate-900";
+        label.textContent = "jasny";
       } else {
         document.documentElement.classList.add('dark');
-        label.textContent = 'ciemny';
+        document.body.className = "bg-slate-950 text-slate-100";
+        label.textContent = "ciemny";
       }
       localStorage.setItem('theme', mode);
     }
 
+    // init
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setTheme(saved ? saved : (prefersDark ? 'dark' : 'light'));
+    applyTheme(saved || 'dark');
 
     btn.addEventListener('click', () => {
       const current = localStorage.getItem('theme') || 'dark';
-      setTheme(current === 'dark' ? 'light' : 'dark');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
     });
   </script>
 </body>
