@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pl" class="scroll-smooth dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CNBP — Case study | Czyszczenie bazy produktów</title>
+  <meta name="description" content="Case study CNBP: czyszczenie i normalizacja bazy produktów. Regex, słowniki, Pandas, output do CSV/PostgreSQL." />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 dark:border-white/10 dark:bg-slate-950/70"
+          style="backdrop-filter: blur(10px);">
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
+      <a href="./#projekty" class="font-semibold tracking-tight">
+        <span class="text-slate-900 dark:text-slate-100">Portfolio</span>
+        <span class="text-slate-500 dark:text-slate-400"> / CNBP</span>
+      </a>
+      <a class="rounded-xl border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100
+                dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5"
+         href="https://github.com/dudiruders/CNBP-product-cleaning-map" target="_blank" rel="noreferrer">
+        Repo mapy →
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-5xl px-4 py-12">
+    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600
+                dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
+      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+      Data Cleaning • ETL • Retail
+    </div>
+
+    <h1 class="mt-6 text-3xl md:text-5xl font-bold tracking-tight">CNBP — czyszczenie i normalizacja bazy produktów</h1>
+    <p class="mt-5 max-w-3xl text-lg text-slate-700 dark:text-slate-300">
+      Pipeline do ujednolicania brudnych danych produktowych (nazwy + gramatury + skróty + literówki) z wielu źródeł,
+      z raportem wyjątków i spójnym outputem do dalszych procesów.
+    </p>
+
+    <section class="mt-10 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl border border-slate-200 bg-white p-7 dark:border-white/10 dark:bg-white/5">
+        <h2 class="text-xl font-bold">Problem</h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+          <li>Niespójne nazwy produktów, literówki, skróty.</li>
+          <li>Gramatura i jednostki w różnych formatach.</li>
+          <li>Dane z wielu działów → brak standardu.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl border border-slate-200 bg-white p-7 dark:border-white/10 dark:bg-white/5">
+        <h2 class="text-xl font-bold">Rozwiązanie</h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
+          <li>Reguły czyszczenia tekstu + normalizacja.</li>
+          <li>Ekstrakcja gramatur (regex).</li>
+          <li>Słowniki zamian + lista wyjątków do ręcznej walidacji.</li>
+          <li>Output: CSV i/lub PostgreSQL.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-2xl font-bold">Stack</h2>
+      <div class="mt-4 flex flex-wrap gap-2 text-sm text-slate-700 dark:text-slate-300">
+        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">Python</span>
+        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">Pandas</span>
+        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">Regex</span>
+        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">CSV/XLSX</span>
+        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">PostgreSQL (opc.)</span>
+      </div>
+    </section>
+
+    <footer class="mt-12 text-sm text-slate-500 dark:text-slate-400">
+      <div class="border-t border-slate-200 pt-6 dark:border-white/10">
+        <a href="./#projekty" class="underline underline-offset-4 hover:text-slate-900 dark:hover:text-white">← Wróć do projektów</a>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>
