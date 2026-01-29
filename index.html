@@ -20,6 +20,7 @@
   .glass { backdrop-filter: blur(10px); }
 
   /* ✅ LIGHT MODE FIXES — poprawa kontrastu, gdy NIE ma .dark */
+  html:not(.dark) .text-slate-200 { color: rgb(30 41 59) !important; } /* slate-800 */
   html:not(.dark) .text-slate-100 { color: rgb(15 23 42) !important; }   /* slate-900 */
   html:not(.dark) .text-slate-300 { color: rgb(51 65 85) !important; }   /* slate-700 */
   html:not(.dark) .text-slate-400 { color: rgb(71 85 105) !important; }  /* slate-600 */
@@ -55,7 +56,7 @@
         <button id="themeBtn" class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5" type="button">
           Tryb: <span id="themeLabel">ciemny</span>
         </button>
-        <a href="#kontakt" class="rounded-xl bg-white text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
+        <a href="#kontakt" class="rounded-xl bg-emerald-400 text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
           Napisz
         </a>
       </div>
