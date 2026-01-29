@@ -1,76 +1,152 @@
 <!doctype html>
-<html lang="pl" class="scroll-smooth dark">
+<html lang="pl" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KPI — Case study | Dashboardy Metabase</title>
   <meta name="description" content="Case study KPI: PostgreSQL + SQL + Metabase. KPI marketingu/zarządu, trendy, alerty, raporty cykliczne." />
+  <meta name="theme-color" content="#0b1220" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { } }
+    }
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+  .glass { backdrop-filter: blur(10px); }
+
+  /* ✅ LIGHT MODE FIXES — poprawa kontrastu, gdy NIE ma .dark */
+  html:not(.dark) .text-slate-200 { color: rgb(30 41 59) !important; } /* slate-800 */
+  html:not(.dark) .text-slate-100 { color: rgb(15 23 42) !important; }   /* slate-900 */
+  html:not(.dark) .text-slate-300 { color: rgb(51 65 85) !important; }   /* slate-700 */
+  html:not(.dark) .text-slate-400 { color: rgb(71 85 105) !important; }  /* slate-600 */
+
+  html:not(.dark) .border-white\/10 { border-color: rgb(226 232 240) !important; } /* slate-200 */
+  html:not(.dark) .bg-white\/5 { background-color: rgb(226 232 240) !important; } /* slate-200 */
+
+  /* header w jasnym: zamiast prawie-czarnego tła */
+  html:not(.dark) .bg-slate-950\/70 { background-color: rgba(255,255,255,0.85) !important; }
+
+  /* linki emerald w jasnym trybie były za blade */
+  html:not(.dark) .text-emerald-300 { color: rgb(5 150 105) !important; } /* emerald-600 */
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-  <header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 dark:border-white/10 dark:bg-slate-950/70"
-          style="backdrop-filter: blur(10px);">
-    <div class="mx-auto max-w-5xl px-4 py-3 flex items-center justify-between">
-      <a href="./#projekty" class="font-semibold tracking-tight">
-        <span class="text-slate-900 dark:text-slate-100">Portfolio</span>
-        <span class="text-slate-500 dark:text-slate-400"> / KPI</span>
+
+<body class="bg-slate-950 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/70 glass">
+    <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <a href="index.html#top" class="font-semibold tracking-tight">
+        <span class="text-slate-200">Mateusz Wienskowski</span><span class="text-slate-400">/portfolio</span>
       </a>
-      <a class="rounded-xl border border-slate-200 px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-100
-                dark:border-white/10 dark:text-slate-200 dark:hover:bg-white/5"
-         href="https://github.com/dudiruders/kpi-dashboard-map" target="_blank" rel="noreferrer">
-        Repo mapy →
-      </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
+        <a class="hover:text-white" href="index.html#projekty">Projekty</a>
+        <a class="hover:text-white" href="index.html#stack">Stack</a>
+        <a class="hover:text-white" href="index.html#jak-pracuje">Jak pracuję</a>
+        <a class="hover:text-white" href="index.html#kontakt">Kontakt</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="themeBtn" class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5" type="button">
+          Tryb: <span id="themeLabel">ciemny</span>
+        </button>
+        <a href="index.html#kontakt" class="rounded-xl bg-emerald-400 text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
+          Napisz
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="mx-auto max-w-5xl px-4 py-12">
-    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm text-slate-600
-                dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
-      <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-      Reporting • SQL • Metabase
-    </div>
-
-    <h1 class="mt-6 text-3xl md:text-5xl font-bold tracking-tight">KPI — dashboardy i raportowanie (Metabase)</h1>
-    <p class="mt-5 max-w-3xl text-lg text-slate-700 dark:text-slate-300">
-      Koncepcja raportowania KPI dla marketingu i zarządu: jedno źródło prawdy (PostgreSQL), KPI w SQL, dashboardy w Metabase,
-      alerty i cykliczne raporty.
-    </p>
-
-    <section class="mt-10 grid gap-6 md:grid-cols-2">
-      <div class="rounded-2xl border border-slate-200 bg-white p-7 dark:border-white/10 dark:bg-white/5">
-        <h2 class="text-xl font-bold">Problem</h2>
-        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
-          <li>Dane rozproszone, raporty ręczne.</li>
-          <li>Brak spójnych KPI i trendów.</li>
-          <li>Trudno szybko reagować na odchylenia.</li>
-        </ul>
+  <main id="top" class="mx-auto max-w-6xl px-4">
+    <section class="py-16 md:py-24">
+      <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300">
+        <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+        Reporting • SQL • Metabase
       </div>
-      <div class="rounded-2xl border border-slate-200 bg-white p-7 dark:border-white/10 dark:bg-white/5">
-        <h2 class="text-xl font-bold">Rozwiązanie</h2>
-        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-700 dark:text-slate-300">
-          <li>Model danych w PostgreSQL.</li>
-          <li>Widoki/Zapytania SQL pod KPI.</li>
-          <li>Metabase: dashboardy, filtry, drill-down.</li>
-          <li>Alerty i raporty cykliczne.</li>
-        </ul>
+
+      <h1 class="mt-6 text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+        KPI — dashboardy i raportowanie (Metabase)
+      </h1>
+
+      <p class="mt-5 max-w-3xl text-lg md:text-xl text-slate-300">
+        Koncepcja raportowania KPI dla marketingu i zarządu: jedno źródło prawdy (PostgreSQL), KPI w SQL, dashboardy w Metabase, alerty i cykliczne raporty.
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="https://github.com/dudiruders/kpi-dashboard-map" target="_blank" rel="noreferrer"
+           class="rounded-xl bg-emerald-400 text-slate-950 px-5 py-3 font-semibold hover:bg-emerald-300">
+          Repo mapy →
+        </a>
+        <a href="index.html#projekty"
+           class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
+          Wróć do projektów
+        </a>
+      </div>
+
+      <div class="mt-10 grid gap-4 md:grid-cols-2 text-sm text-slate-300">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div class="text-slate-100 font-semibold">Problem</div>
+          <ul class="mt-3 list-disc pl-5 space-y-1">
+            <li>Dane rozproszone, raporty ręczne.</li><li>Brak spójnych KPI i trendów.</li><li>Trudno szybko reagować na odchylenia.</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div class="text-slate-100 font-semibold">Rozwiązanie</div>
+          <ul class="mt-3 list-disc pl-5 space-y-1">
+            <li>Model danych w PostgreSQL.</li><li>Widoki/Zapytania SQL pod KPI.</li><li>Metabase: dashboardy, filtry, drill-down.</li><li>Alerty i raporty cykliczne.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <h2 class="text-2xl md:text-3xl font-bold">Stack</h2>
+        <div class="mt-4 flex flex-wrap gap-2 text-sm text-slate-300">
+          <span class="rounded-full border border-white/10 px-3 py-1">PostgreSQL</span><span class="rounded-full border border-white/10 px-3 py-1">SQL</span><span class="rounded-full border border-white/10 px-3 py-1">Metabase</span><span class="rounded-full border border-white/10 px-3 py-1">KPI / Alerts</span>
+        </div>
       </div>
     </section>
 
-    <section class="mt-10">
-      <h2 class="text-2xl font-bold">Stack</h2>
-      <div class="mt-4 flex flex-wrap gap-2 text-sm text-slate-700 dark:text-slate-300">
-        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">PostgreSQL</span>
-        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">SQL</span>
-        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">Metabase</span>
-        <span class="rounded-full border border-slate-200 px-3 py-1 dark:border-white/10">KPI / Alerts</span>
-      </div>
-    </section>
-
-    <footer class="mt-12 text-sm text-slate-500 dark:text-slate-400">
-      <div class="border-t border-slate-200 pt-6 dark:border-white/10">
-        <a href="./#projekty" class="underline underline-offset-4 hover:text-slate-900 dark:hover:text-white">← Wróć do projektów</a>
+    <footer class="py-10 text-sm text-slate-400">
+      <div class="border-t border-white/10 pt-6 flex items-center justify-between flex-wrap gap-2">
+        <a href="index.html#projekty" class="underline underline-offset-4 hover:text-white">← Wróć do projektów</a>
+        <span>© <span id="year"></span> dudiruders</span>
       </div>
     </footer>
   </main>
+
+  <script>
+// rok w stopce
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // theme toggle
+    const btn = document.getElementById('themeBtn');
+    const label = document.getElementById('themeLabel');
+
+    function applyTheme(mode) {
+      if (mode === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.body.className = "bg-slate-100 text-slate-900";
+        label.textContent = "jasny";
+      } else {
+        document.documentElement.classList.add('dark');
+        document.body.className = "bg-slate-950 text-slate-100";
+        label.textContent = "ciemny";
+      }
+      localStorage.setItem('theme', mode);
+    }
+
+    // init
+    const saved = localStorage.getItem('theme');
+    applyTheme(saved || 'dark');
+
+    btn.addEventListener('click', () => {
+      const current = localStorage.getItem('theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
 </body>
 </html>
