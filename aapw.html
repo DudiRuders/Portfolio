@@ -50,6 +50,18 @@
           Tryb: <span id="themeLabel">ciemny</span>
         </button>
 
+        <a href="https://github.com/DudiRuders/AAEPW-render-service"
+           target="_blank" rel="noreferrer"
+           class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">
+          Render service
+        </a>
+
+        <a href="https://github.com/DudiRuders/AAEPW-render-demo"
+           target="_blank" rel="noreferrer"
+           class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">
+          Demo (Excel→DOCX)
+        </a>
+
         <a href="https://github.com/DudiRuders/A.A.E.P.W"
            target="_blank" rel="noreferrer"
            class="rounded-xl bg-emerald-400 text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
@@ -82,6 +94,12 @@
          class="rounded-xl bg-emerald-500 text-slate-950 px-5 py-3 font-semibold hover:bg-emerald-400">
         Zobacz mapę działania
       </a>
+      <a href="#demo"
+         class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
+        Zobacz demo
+      </a>
+
+
       <a href="./#projekty"
          class="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-100 hover:bg-white/5">
         ← Wróć do projektów
@@ -162,37 +180,79 @@
     </section>
 
     <!-- Tech stack -->
-    <section class="mt-12">
+    <section class="mt-12" id="komponenty">
       <h2 class="text-2xl md:text-3xl font-bold">Komponenty i integracje</h2>
+      <p class="mt-2 text-slate-300">
+        Poniżej jest publiczny opis komponentów. Kod demo usług jest w osobnych repozytoriach (bez sekretów i bez workflow produkcyjnych).
+      </p>
 
       <div class="mt-6 grid gap-4 md:grid-cols-2">
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
           <h3 class="font-semibold">n8n (orchestrator)</h3>
           <p class="mt-2 text-sm text-slate-300">
             Trigger, pobieranie danych, transformacje, kontrola błędów, logika statusów.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
           <h3 class="font-semibold">Airtable (źródło danych + statusy)</h3>
           <p class="mt-2 text-sm text-slate-300">
             Rekordy wejściowe, pola do dokumentu, status Work/Done/Error, linki do wyników.
           </p>
         </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
-          <h3 class="font-semibold">Render DOCX (service)</h3>
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div class="flex items-start justify-between gap-3">
+            <h3 class="font-semibold">Render service (DOCX/PDF)</h3>
+            <a href="https://github.com/DudiRuders/AAEPW-render-service"
+               target="_blank" rel="noreferrer"
+               class="text-sm text-slate-300 hover:text-white underline underline-offset-4">
+              Repo →
+            </a>
+          </div>
           <p class="mt-2 text-sm text-slate-300">
-            Uzupełnianie szablonu i podmiana obrazów (HTTP endpoints /render, /replace-image).
+            Uzupełnianie szablonu DOCX + podmiana obrazów (endpoints <code class="px-1 rounded bg-white/5 border border-white/10">/render</code>,
+            <code class="px-1 rounded bg-white/5 border border-white/10">/replace-image</code>) oraz stempel na PDF (<code class="px-1 rounded bg-white/5 border border-white/10">/stamp</code>).
           </p>
         </div>
 
-        <div class="rounded-2xl border border-white/10 bg-white/5 p-6  ">
+        <div class="rounded-2xl border border-white/10 bg-white/5 p-6">
           <h3 class="font-semibold">Google Drive + PDF</h3>
           <p class="mt-2 text-sm text-slate-300">
-            Szablony i wyniki w Drive, konwersja DOCX → PDF (np. ConvertAPI).
+            Szablony i wyniki w Drive, konwersja DOCX → PDF (np. ConvertAPI) + porządek w linkach i statusach.
           </p>
         </div>
+      </div>
+
+      <!-- Demo -->
+      <section id="demo" class="mt-10 rounded-2xl border border-white/10 bg-white/5 p-7">
+        <div class="flex items-start justify-between gap-4 flex-wrap">
+          <div>
+            <h3 class="text-xl font-bold">Demo lokalne: Excel → DOCX → podmiana obrazu</h3>
+            <p class="mt-2 text-slate-300">
+              Przykład pokazuje, że dane z Excela mogą automatycznie wypełniać szablon Worda (tekst + tabela) oraz podmieniać obraz placeholdera.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="https://github.com/DudiRuders/AAEPW-render-service"
+               target="_blank" rel="noreferrer"
+               class="rounded-xl border border-white/10 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/5">
+              Render repo
+            </a>
+            <a href="https://github.com/DudiRuders/AAEPW-render-demo"
+               target="_blank" rel="noreferrer"
+               class="rounded-xl bg-emerald-400 text-slate-950 px-3 py-1.5 text-sm font-semibold hover:bg-slate-200">
+              Demo pack
+            </a>
+          </div>
+        </div>
+
+        <ol class="mt-4 list-decimal pl-5 space-y-2 text-slate-300">
+          <li>Start render service lokalnie (<span class="text-slate-100">Node.js</span>).</li>
+          <li>Uruchom skrypt demo, który czyta Excel i woła endpointy (<code class="px-1 rounded bg-white/5 border border-white/10">/render</code> → <code class="px-1 rounded bg-white/5 border border-white/10">/replace-image</code>).</li>
+          <li>Wynik: gotowy <span class="text-slate-100">DOCX</span> (i opcjonalnie PDF w dalszym kroku workflow).</li>
+        </ol>
+      </section>
     </section>
 
     <!-- Security -->
