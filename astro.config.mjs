@@ -1,11 +1,13 @@
-// @ts-check
 import { defineConfig } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  vite: {
-    plugins: [tailwindcss()]
-  }
+  // Podstawowy adres Twojej strony na GitHub Pages
+  site: 'https://DudiRuders.github.io',
+  
+  // Nazwa Twojego repozytorium (zwróć uwagę na wielkość liter!)
+  base: '/Portfolio',
+
+  integrations: [tailwind()],
 });
