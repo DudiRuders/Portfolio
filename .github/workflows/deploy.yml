@@ -5,6 +5,10 @@ on:
     branches: [ master, main ]
   workflow_dispatch:
 
+# Ustawienie globalne dla całego procesu, aby uciszyć ostrzeżenia o Node 20
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
 permissions:
   contents: read
   pages: write
@@ -20,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # Zmienione z 20 na 22
+          node-version: 24 # Ustawiamy najnowszy standard
           cache: 'npm'
 
       - name: Install dependencies
