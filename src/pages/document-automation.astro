@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+// Importujemy Twój pobrany diagram z folderu lokalnego
+import workflowImage from '../assets/workflow.png';
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+    
+    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      Intelligent Automation • n8n • Microservices
+    </div>
+
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+      Document <span class="text-emerald-500">Automation Engine</span>
+    </h1>
+
+    <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+      Architektura oparta na mikroserwisach automatyzująca proces generowania dokumentów. Pobiera dane z Airtable, renderuje pliki DOCX poprzez autorskie API (Node.js), konwertuje je do PDF i synchronizuje statusy.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="https://github.com/DudiRuders/document-automation-engine" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 transition-all">
+        Główne Repozytorium (n8n)
+      </a>
+      <a href="https://github.com/DudiRuders/docx-render-api" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-3 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+        API Service
+      </a>
+      <a href="https://github.com/DudiRuders/docx-render-demo" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-3 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+        Demo (Excel)
+      </a>
+    </div>
+
+    <div class="mt-4">
+      <a href="/#projekty" class="inline-block text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors">
+        ← Wróć do projektów
+      </a>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Architektura procesu (Workflow)</h2>
+      
+      <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 shadow-sm overflow-hidden">
+        <Image 
+          src={workflowImage} 
+          alt="Diagram przepływu n8n dla automatyzacji dokumentów" 
+          class="w-full rounded-2xl border border-slate-200 dark:border-white/5"
+          quality="high"
+        />
+      </div>
+      <p class="mt-4 text-sm text-slate-500 dark:text-slate-400 text-center">
+        Przepływ danych pomiędzy n8n, Airtable, autorskim Render API oraz usługami Google.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-2">
+      <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="text-red-500">✕</span> Wyzwanie
+        </h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
+          <li>Ręczne generowanie dokumentów ("kopiuj-wklej") prowadzące do błędów.</li>
+          <li>Brak spójnego statusu dokumentów w zespole.</li>
+          <li>Ograniczenia gotowych narzędzi no-code przy skomplikowanym renderowaniu DOCX.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="text-emerald-500">✓</span> Rozwiązanie
+        </h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
+          <li>Stworzenie dedykowanego <strong>Render API</strong> w Node.js obsługującego szablony DOCX.</li>
+          <li>Orkiestracja całego ruchu w n8n (walidacja, trigger z Airtable).</li>
+          <li>Zapis plików PDF do Google Drive i automatyczny update URL w bazie danych.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
+      <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">n8n</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Node.js</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">REST API</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Airtable</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Google Drive API</span>
+      </div>
+    </div>
+
+  </main>
+</BaseLayout>

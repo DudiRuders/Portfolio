@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+    
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300 shadow-sm mb-6">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        Oferta Współpracy B2B
+      </div>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+        Odblokuj potencjał <br /> <span class="text-emerald-500">swojego zespołu.</span>
+      </h1>
+      <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+        Większość firm traci setki godzin na powtarzalne zadania. Eliminuję "wąskie gardła" za pomocą inteligentnych automatyzacji i inżynierii danych, aby Twój biznes mógł skalować się bez zatrudniania kolejnych osób.
+      </p>
+    </div>
+
+    <div class="mt-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Główne obszary wsparcia</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🔄 Workflow & Dokumenty</h3>
+          <p class="text-slate-600 dark:text-slate-400">Łączę narzędzia (CRM, ERP, Slack) w jeden ekosystem. Automatyzuję obieg dokumentów, generowanie umów i powiadomień. Koniec z "kopiuj-wklej" i błędami ludzkimi.</p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🧹 ETL & Inżynieria Danych</h3>
+          <p class="text-slate-600 dark:text-slate-400">Buduję potoki (pipelines), które pobierają, czyszczą i standaryzują chaotyczne dane produktowe czy finansowe z wielu źródeł w jeden spójny format.</p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">📊 Raportowanie BI & KPI</h3>
+          <p class="text-slate-600 dark:text-slate-400">Wdrażam analityczne dashboardy, które w czasie rzeczywistym pokazują kondycję biznesu. Jedno źródło prawdy dla zarządu bez czekania na ręczne raporty w Excelu.</p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🎬 Creative Automation</h3>
+          <p class="text-slate-600 dark:text-slate-400">Programistyczne generowanie tysięcy spersonalizowanych materiałów marketingowych (wideo MP4, banery) na podstawie danych z bazy lub API.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-20 border-t border-slate-200 dark:border-white/10 pt-20">
+      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Modele współpracy</h2>
+      <div class="grid gap-6 md:grid-cols-3">
+        
+        <div class="flex flex-col rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Wdrożenie Projektowe</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow">Wycena stała (Fixed-Price) dla jasno sprecyzowanych problemów (np. budowa potoku danych). Płacisz za dowieziony efekt.</p>
+        </div>
+
+        <div class="flex flex-col rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm relative overflow-hidden">
+          <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Polecane</div>
+          <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400">Partnerstwo (Retainer)</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 flex-grow">Stałe wsparcie w automatyzowaniu kolejnych działów oraz utrzymywanie (SLA) działających systemów. Abonament miesięczny.</p>
+        </div>
+
+        <div class="flex flex-col rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Konsultacje / Audyt</h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow">Doradztwo techniczne przy projektowaniu architektury w n8n, Pythonie lub mapowaniu problemów biznesowych.</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="mt-20 rounded-3xl bg-slate-900 dark:bg-white/5 border border-slate-800 dark:border-white/10 p-10 text-center shadow-xl">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Porozmawiajmy o Twoim biznesie</h2>
+      <p class="text-slate-300 max-w-2xl mx-auto mb-8">
+        Zacznijmy od 30-minutowej, niezobowiązującej rozmowy. Opowiesz mi, co w Twojej firmie zajmuje najwięcej czasu, a ja powiem Ci, czy i jak można to zautomatyzować.
+      </p>
+      
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href="mailto:mateusz.wienskowski@onet.pl" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-8 py-4 text-sm font-bold text-white shadow-lg hover:bg-emerald-400 transition-all">
+          Napisz do mnie
+        </a>
+        
+        <a href="/oferta.pdf" target="_blank" download class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 dark:border-white/20 bg-transparent px-8 py-4 text-sm font-bold text-white hover:bg-white/10 transition-all">
+          <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+          </svg>
+          Pobierz ofertę w PDF
+        </a>
+      </div>
+    </div>
+
+  </main>
+</BaseLayout>

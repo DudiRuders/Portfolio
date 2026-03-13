@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+    
+    <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      Data Cleaning • ETL • Retail
+    </div>
+
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+        ETL Pipeline: <span class="text-emerald-500">Czyszczenie Bazy Produktów</span>
+     </h1>
+
+    <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+      Pipeline do ujednolicania brudnych danych produktowych (nazwy + gramatury + skróty + literówki) z wielu źródeł, z raportem wyjątków i spójnym outputem do dalszych procesów.
+    </p>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="https://github.com/DudiRuders/ETL-product-normalization" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-6 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 transition-all">
+        Repo mapy
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+      </a>
+      <a href="/#projekty" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+        ← Wróć do projektów
+      </a>
+    </div>
+
+    <div class="mt-16 grid gap-6 md:grid-cols-2">
+      <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="text-red-500">✕</span> Problem
+        </h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
+          <li>Niespójne nazwy produktów, literówki, skróty.</li>
+          <li>Gramatura i jednostki w różnych formatach.</li>
+          <li>Dane z wielu działów → brak standardu.</li>
+        </ul>
+      </div>
+
+      <div class="rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <span class="text-emerald-500">✓</span> Rozwiązanie
+        </h2>
+        <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
+          <li>Reguły czyszczenia tekstu + normalizacja.</li>
+          <li>Ekstrakcja gramatur (regex).</li>
+          <li>Słowniki zamian + lista wyjątków do ręcznej walidacji.</li>
+          <li>Output: CSV i/lub PostgreSQL.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
+      <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Python</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Pandas</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Regex</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CSV/XLSX</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">PostgreSQL</span>
+      </div>
+    </div>
+
+  </main>
+</BaseLayout>
