@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpecialMonitor from '../components/SpecialMonitor.astro';
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout title="Nicpoń - System Observer">
+  <div class="min-h-screen bg-slate-950 flex flex-col items-center justify-center py-20 px-4 overflow-hidden">
+    
+    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      
+      <div class="flex flex-col gap-16 items-center lg:mt-12">
+        <SpecialMonitor title="ETL PIPELINE" subtitle="ZAKOŃCZONY" delay="-1s" href="/etl" />
+        <SpecialMonitor title="KPI DASHBOARD" subtitle="POMYŚLNY" delay="-4s" href="/kpi" />
+      </div>
+
+    <div class="flex flex-col items-center gap-12">
+        
+        <SpecialMonitor title="LINKEDIN" subtitle="SYGNAŁ NADAWANY" isComingSoon={true} />
+
+        <div class="flex flex-col items-center w-full max-w-[400px] transition-transform hover:scale-105 duration-500">
+          
+          <img 
+            src={`${base}/nicpon.png`.replace(/\/+/g, '/')} 
+            alt="kot Nicpoń" 
+            class="w-full h-auto rounded-[32px] shadow-2xl mb-8" 
+          />
+          
+          <div class="text-center w-full">
+            <p class="text-emerald-500 font-mono text-sm tracking-[0.3em] uppercase opacity-80 mb-2">System Observer</p>
+            <h2 class="text-slate-100 font-mono text-2xl flex items-baseline justify-center gap-2 mb-3">
+              <span class="text-emerald-500/80 italic font-serif text-2xl">kot</span> 
+              <span class="font-black tracking-tighter text-3xl">Nicpoń</span>
+            </h2>
+            <p class="text-slate-500 text-[11px] uppercase tracking-[0.3em] font-bold">Mateusz Wienskowski</p>
+            <div class="mt-5 py-3 px-2 bg-slate-950 rounded-lg border border-emerald-500/20">
+                <p class="text-emerald-400 font-mono text-[11px] opacity-90 animate-pulse">"Analiza zakończona. Wyniki: Optymalne."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-16 items-center lg:mt-12">
+        <SpecialMonitor title="VIDEO AUTOMATION" subtitle="URUCHOMIONY" delay="-2s" href="/video-automation" />
+        <SpecialMonitor title="INTEGRACJE AI" subtitle="UAKTYWNIONY" delay="-0.5s" href="/#stack" />
+      </div>
+
+    </div>
+  </div>
+</BaseLayout>
