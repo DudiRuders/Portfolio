@@ -6,9 +6,19 @@ interface Props {
   delay?: string; // Losowe opóźnienie animacji
   href?: string;
   isComingSoon?: boolean; // Nowa właściwość dla LinkedIn
+  buttonText?: string; // <-- Dodajemy informację, że taki tekst może istnieć
 }
 
-const { title, subtitle, details, delay = "0s", href = "/", isComingSoon = false } = Astro.props;
+// Wyciągam buttonText i nadaje mu domyślną wartość "ZOBACZ PROJEKT" teraz będzie git pamietaj o tym bo znowu 2 h w plecy
+const { 
+  title, 
+  subtitle, 
+  details, 
+  delay = "0s", 
+  href = "/", 
+  isComingSoon = false, 
+  buttonText = "ZOBACZ PROJEKT" 
+} = Astro.props;
 
 // Automatyczne dodawanie bazy /Portfolio/ do linków
 const base = import.meta.env.BASE_URL;
@@ -49,7 +59,7 @@ const link = href.startsWith('http') ? href : `${base}${href}`.replace(/\/+/g, '
         </div>
       ) : (
         <a href={link} class="mt-auto relative z-10 w-full text-center bg-emerald-500 text-slate-950 font-mono font-bold text-sm px-6 py-3 rounded shadow-[0_0_15px_rgba(16,185,129,0.5)] hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.8)] transition-all uppercase cursor-pointer">
-          ZOBACZ PROJEKT
+          {buttonText}
         </a>
       )}
     </div>
