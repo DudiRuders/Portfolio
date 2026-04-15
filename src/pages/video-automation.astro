@@ -18,12 +18,29 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Programistyczne generowanie materiałów wideo (MP4, 30fps) dla kampanii marketingowych. System przyjmuje dynamiczne dane (ceny, zdjęcia produktów, daty promocji) i wstrzykuje je do payloadu JSON, renderując gotowe spoty reklamowe w chmurze.
     </p>
 
-    <div class="mt-8 flex flex-wrap gap-4">
+    <div class="mt-8 flex flex-wrap items-center gap-4">
       <a href="/Portfolio/" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
-        ← Wróć do projektów
+        ← Wróć
+      </a>
+      
+      <a href="https://github.com/dudiruders/creative-automation-engine-DEMO" target="_blank" rel="noreferrer" data-umami-event="Video_GitHub_Top" class="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all duration-300">
+        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+        <span>Zobacz pełną architekturę (GitHub)</span>
       </a>
     </div>
-
+  <div class="mt-12 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl relative group aspect-video bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center">
+      <span class="text-slate-500 dark:text-slate-400 text-sm z-0 font-mono">Ładowanie podglądu z GitHuba...</span>
+      
+      <img src="https://raw.githubusercontent.com/dudiruders/creative-automation-engine-DEMO/main/architecture/creatomate-template.jpg" alt="Interfejs silnika wideo" class="absolute inset-0 w-full h-full object-cover z-10" />
+      
+      <div class="absolute bottom-0 left-0 right-0 p-4 bg-slate-900/90 backdrop-blur-sm z-20 border-t border-white/10">
+        <p class="text-slate-200 text-sm font-medium flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+          Podgląd środowiska produkcyjnego (Creatomate & API)
+        </p>
+      </div>
+    </div>
+    
     <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Inżynieria wideo (JSON Payload)</h2>
       <p class="mt-2 text-slate-600 dark:text-slate-400 mb-6">
@@ -40,31 +57,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="ml-4 text-xs font-mono text-slate-400">render-payload.json</span>
         </div>
         <div class="p-4 overflow-x-auto">
-<pre class="text-sm font-mono text-emerald-300"><code>&#123;
+<pre class="text-sm font-mono text-emerald-300"><code>{`{
   "output_format": "mp4",
   "width": 1920,
   "height": 1080,
   "frame_rate": "30 fps",
   "duration": 15,
   "elements": [
-    &#123;
+    {
       "name": "produkt-1",
       "type": "image",
       "dynamic": ["x", "y", "source"],
       "animations": [
-        &#123; "time": 5.94, "type": "wiggle", "frequency": "1 Hz" &#125;
+        { "time": 5.94, "type": "wiggle", "frequency": "1 Hz" }
       ]
-    &#125;,
-    &#123;
+    },
+    {
       "name": "cena-1",
       "type": "image",
       "dynamic": ["source", "x_scale", "y_scale"],
       "animations": [
-        &#123; "type": "scale", "start_scale": "100%", "end_scale": "125%" &#125;
+        { "type": "scale", "start_scale": "100%", "end_scale": "125%" }
       ]
-    &#125;
+    }
   ]
-&#125;</code></pre>
+}`}</code></pre>
         </div>
       </div>
     </div>
@@ -92,5 +109,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
+    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Wielokanałowa dystrybucja</h2>
+      <p class="mt-2 text-slate-600 dark:text-slate-400 mb-8">
+        Silnik jest agnostyczny względem formatu. Poniżej przykłady logiki, którą system potrafi generować w pełni automatycznie:
+      </p>
+      
+      <div class="grid gap-6 md:grid-cols-3">
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+          <div class="aspect-square w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">1:1</span>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">E-commerce Matrix</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Karuzele produktowe. Dynamicznie podmienia poszczególne kafelki, zdjęcia butów i nakładki z procentem zniżki na podstawie pliku CSV.</p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+          <div class="aspect-[9/16] w-full max-h-[200px] mx-auto rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">9:16</span>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Reels / TikTok</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Krótkie formy wideo. Dynamiczne śledzenie tekstu, napisy i formatowanie dopasowane pod interfejs urządzeń mobilnych.</p>
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+          <div class="aspect-video w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">16:9</span>
+          </div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Quick Promo</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Szybkie kampanie zasięgowe na YouTube i Facebook. Złożone animacje typograficzne (wave, slide) mapowane na tekst z bazy.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Orkiestracja Workflow (n8n)</h2>
+      <div class="rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm">
+        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
+          Sam skrypt to za mało, by wyskalować dział marketingu. Cały proces został zorkiestrowany za pomocą środowiska <strong>n8n</strong>, tworząc z niego bezobsługowy system (zero-touch).
+        </p>
+        <ol class="list-decimal pl-5 space-y-4 text-slate-700 dark:text-slate-200 font-medium">
+          <li><strong>Trigger:</strong> Zmiana statusu wiersza w Airtable na "Do wyrenderowania" natychmiastowo uruchamia proces.</li>
+          <li><strong>Generowanie Payloadu:</strong> Węzeł n8n (Code) mapuje dane z bazy na właściwy szablon JSON dla konkretnego wariantu wideo.</li>
+          <li><strong>Render API:</strong> System wysyła dynamiczny JSON bezpośrednio do API Creatomate.</li>
+          <li><strong>Async Wait:</strong> Pętla czeka asynchronicznie na zwrotny Webhook potwierdzający 100% wyrenderowania pliku.</li>
+          <li><strong>Dystrybucja:</strong> Link do gotowego pliku MP4 jest zapisywany w bazie, a zespół otrzymuje powiadomienie na Slacku wraz z podglądem.</li>
+        </ol>
+      </div>
+    </div>
+    
   </main>
 </BaseLayout>
