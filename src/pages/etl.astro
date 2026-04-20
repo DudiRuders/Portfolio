@@ -185,9 +185,9 @@ import { Code } from 'astro:components';
           <span class="text-xs text-slate-400 font-mono">normalize_weight.py</span>
         </div>
         
-  <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Definicja mapowania do standardu SI</span>
-  <span class="text-purple-400">import</span> re
-  <span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
+        <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Mapowanie jednostek do standardu SI</span>
+<span class="text-purple-400">import</span> re
+<span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
 
 UNIT_MAP = &#123;
     "kg": 1000, "g": 1, "gr": 1,
@@ -195,7 +195,7 @@ UNIT_MAP = &#123;
 &#125;
 
 <span class="text-purple-400">def</span> <span class="text-blue-400">normalize_weight</span>(raw: str) -> dict:
-    <span class="text-slate-500">"""Parsuje gramaturę do wartości + jednostki SI."""</span>
+    <span class="text-slate-500">"""Parsuje gramaturę do wartości i jednostki SI."""</span>
     <span class="text-purple-400">if not</span> raw:
         <span class="text-purple-400">return</span> &#123;"value": None, "unit": None, "exception": "brak_gramatury"&#125;
 
@@ -210,16 +210,16 @@ UNIT_MAP = &#123;
     multiplier = UNIT_MAP.get(unit, 1)
 
     <span class="text-purple-400">return</span> &#123;
-        "value": value * (multiplier or 1),
-        "unit": "g" if multiplier else "szt",
+        "value": value * (multiplier <span class="text-purple-400">or</span> 1),
+        "unit": "g" <span class="text-purple-400">if</span> multiplier <span class="text-purple-400">else</span> "szt",
         "exception": None
     &#125;
 
 <span class="text-slate-500"># Zastosowanie na DataFrame</span>
 df["weight_parsed"] = df["gramatura_raw"].apply(normalize_weight)
-df_exceptions = df[df["weight_parsed"].apply(<span class="text-purple-400">lambda</span> x: x["exception"] <span class="text-purple-400">is not</span> None)]</code></pre>
-
-    &#125;
+df_exceptions = df[df["weight_parsed"].apply(
+    <span class="text-purple-400">lambda</span> x: x["exception"] <span class="text-purple-400">is not None</span>
+)]</code></pre>
       </div>
     </div>
 
@@ -228,7 +228,7 @@ df_exceptions = df[df["weight_parsed"].apply(<span class="text-purple-400">lambd
     <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
       <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
       <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
-        Największym wyzwaniem nie był sam regex, ale obsługa <strong class="text-slate-900 dark:text-white">edge case'ów bez wzorca</strong> – rekordy, które pipeline odrzucał po cichu zanim dodałem system wyjątków. Nauczyło mnie to, że każdy pipeline ETL musi mieć jawny kontrakt: albo dane są przetworzone, albo trafiają do raportu błędów z powodem. Zero cichej utraty danych. Tę zasadę stosuję w każdej integracji API, którą buduję dziś.
+        Największym wyzwaniem nie był sam regex, ale obsługa <strong class="text-slate-900 dark:text-white">edge case'ów bez wzorca</strong>. Pipeline odrzucał część rekordów po cichu, zanim dodałem system wyjątków z jawnym opisem powodu. Od tamtej pory stosuję prostą zasadę w każdej integracji: rekord albo przechodzi przetwarzanie, albo trafia do raportu błędów. Żadnych danych, które po cichu znikają w trakcie przebiegu.
       </p>
     </div>
 
@@ -242,6 +242,7 @@ df_exceptions = df[df["weight_parsed"].apply(<span class="text-purple-400">lambd
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">SQLAlchemy</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CSV / XLSX</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">PostgreSQL</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">pytest</span>
       </div>
     </div>
 
