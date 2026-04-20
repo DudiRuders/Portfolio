@@ -1,43 +1,68 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Code } from 'astro:components';
 ---
 
 <BaseLayout>
   <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
-    
+
+    <!-- Badge -->
     <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       Data Cleaning • ETL • Retail
     </div>
 
+    <!-- Tytuł -->
     <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-        ETL Pipeline: <span class="text-emerald-500">Czyszczenie Bazy Produktów</span>
-     </h1>
+      ETL Pipeline: <span class="text-emerald-500">Czyszczenie Bazy Produktów</span>
+    </h1>
 
     <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-      Pipeline do ujednolicania brudnych danych produktowych (nazwy + gramatury + skróty + literówki) z wielu źródeł, z raportem wyjątków i spójnym outputem do dalszych procesów.
+      Automatyczny pipeline normalizujący brudne dane produktowe z czterech działów firmy. Ujednolicałem nazwy, gramatury, skróty i literówki, a na wyjściu dostawałem spójny model gotowy do dalszego przetwarzania w PostgreSQL lub CSV.
     </p>
 
-  <div class="mt-8 flex flex-wrap items-center gap-4">
+    <!-- Przyciski -->
+    <div class="mt-8 flex flex-wrap items-center gap-4">
       <a href="/Portfolio/" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
         ← Wróć
       </a>
-      
       <a href="https://github.com/DudiRuders/ETL-product-normalization" target="_blank" rel="noreferrer" class="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all duration-300">
         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
         <span>Zobacz kod (GitHub)</span>
       </a>
     </div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-2">
+    <!-- Metryki -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">12k+</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">rekordów produktowych</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">4</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">źródła danych</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">94%</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">auto-normalizacja</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">~2s</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">czas przetwarzania</div>
+      </div>
+    </div>
+
+    <!-- Problem / Rozwiązanie -->
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
           <span class="text-red-500">✕</span> Problem
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-          <li>Niespójne nazwy produktów, literówki, skróty.</li>
-          <li>Gramatura i jednostki w różnych formatach.</li>
-          <li>Dane z wielu działów → brak standardu.</li>
+          <li>Każdy dział prowadził własny format nazw produktów. Magazyn, marketing i e-commerce używały zupełnie innych konwencji.</li>
+          <li>Gramatura tego samego produktu pojawiała się jako "250g", "250 g", "0.25kg" i "250gr", przez co rekordy nie matchowały w raportach.</li>
+          <li>Ręczne czyszczenie przed każdym raportem zajmowało 2–3 godziny tygodniowo.</li>
+          <li>Duplikaty w bazie zawyżały stany magazynowe i fałszowały analizy sprzedaży.</li>
         </ul>
       </div>
 
@@ -46,21 +71,177 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="text-emerald-500">✓</span> Rozwiązanie
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>Reguły czyszczenia tekstu + normalizacja.</li>
-          <li>Ekstrakcja gramatur (regex).</li>
-          <li>Słowniki zamian + lista wyjątków do ręcznej walidacji.</li>
-          <li>Output: CSV i/lub PostgreSQL.</li>
+          <li>Pipeline Python/Pandas wczytujący dane z CSV, XLSX i PostgreSQL w jednym przebiegu.</li>
+          <li>Regex do ekstrakcji i ujednolicenia gramatur (wszystkie formaty → liczba + jednostka SI).</li>
+          <li>Słowniki zamian dla skrótów i błędów typograficznych + lista wyjątków do ręcznej walidacji.</li>
+          <li>Automatyczny raport wyjątków. Rekordy nierozpoznane przez pipeline lądują w osobnym pliku z podaniem przyczyny odrzucenia.</li>
+          <li>Output: PostgreSQL (produkcja) + CSV (raportowanie manualne).</li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10">
+    <!-- Before / After tabela -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Dane wejściowe vs wyjściowe</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Przykładowe rekordy pokazujące efekt normalizacji</p>
+
+      <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/10">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5">
+              <th class="px-4 py-3 text-left font-semibold text-slate-600 dark:text-slate-300">Pole</th>
+              <th class="px-4 py-3 text-left font-semibold text-red-500">❌ Przed (brudne)</th>
+              <th class="px-4 py-3 text-left font-semibold text-emerald-500">✅ Po (czyste)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-white/5 bg-white dark:bg-white/[0.02]">
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-700 dark:text-slate-300">nazwa_produktu</td>
+              <td class="px-4 py-3 text-red-500 font-mono text-xs">jogurt naturalny 2% 400G</td>
+              <td class="px-4 py-3 text-emerald-500 font-mono text-xs">Jogurt Naturalny 2%</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-700 dark:text-slate-300">gramatura</td>
+              <td class="px-4 py-3 text-red-500 font-mono text-xs">400G / 0.4kg / 400 gr</td>
+              <td class="px-4 py-3 text-emerald-500 font-mono text-xs">400g</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-700 dark:text-slate-300">kategoria</td>
+              <td class="px-4 py-3 text-red-500 font-mono text-xs">Nab. / nabial / NABIAŁ</td>
+              <td class="px-4 py-3 text-emerald-500 font-mono text-xs">Nabiał</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-700 dark:text-slate-300">kod_ean</td>
+              <td class="px-4 py-3 text-red-500 font-mono text-xs">590123456789 0 (spacja, zero)</td>
+              <td class="px-4 py-3 text-emerald-500 font-mono text-xs">5901234567890</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium text-slate-700 dark:text-slate-300">producent</td>
+              <td class="px-4 py-3 text-red-500 font-mono text-xs">mlekovita / MLEKOVITA / Mlekow.</td>
+              <td class="px-4 py-3 text-emerald-500 font-mono text-xs">Mlekovita</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Architektura pipeline -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Architektura pipeline'u</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Przepływ danych od surowego inputu do czystego outputu</p>
+
+      <div class="mt-6 flex flex-col gap-2">
+        <!-- Krok 1 -->
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">1</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Ingestion</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Pandas wczytuje pliki CSV/XLSX z każdego działu oraz dane z PostgreSQL przez SQLAlchemy. Wszystkie źródła łączone w jeden DataFrame z kolumną <span class="font-mono text-emerald-500 text-xs">source_id</span> do śledzenia pochodzenia.</div>
+          </div>
+        </div>
+        <!-- Strzałka -->
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <!-- Krok 2 -->
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">2</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Transform</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Regex czyści i ujednolica gramatury. Słowniki zamian korygują skróty i literówki. Nazwy produktów przechodzą przez pipeline titlecase + strip białych znaków + usunięcie zduplikowanych tokenów.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <!-- Krok 3 -->
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">3</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Validate</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Rekordy nierozpoznane przez pipeline (nieznane skróty, brak EAN, anomalie gramatur) trafiają do osobnego pliku <span class="font-mono text-emerald-500 text-xs">exceptions.csv</span> z powodem odrzucenia. Żadnych cichych błędów w danych wyjściowych.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <!-- Krok 4 -->
+        <div class="flex items-start gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">4</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Load</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Znormalizowane dane zapisywane do PostgreSQL przez upsert po EAN oraz eksportowane jako CSV. Każdy przebieg logowany z timestampem i liczbą przetworzonych oraz odrzuconych rekordów.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fragment kodu -->
+<div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Fragment kodu (Python)</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm mb-6">Regex obsługujący i standaryzujący różne formaty gramatur z brudnych danych.</p>
+
+      <div class="relative rounded-xl bg-slate-900 shadow-2xl overflow-hidden border border-white/10">
+        <div class="flex items-center justify-between px-4 py-3 bg-slate-800/50 border-b border-white/5">
+          <div class="flex gap-1.5">
+            <div class="w-3 h-3 rounded-full bg-red-500 border border-red-500/40"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500 border border-yellow-500/40"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500 border border-green-500/40"></div>
+          </div>
+          <span class="text-xs text-slate-400 font-mono">normalize_weight.py</span>
+        </div>
+        
+        <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Definicja mapowania do standardu SI</span>
+<span class="text-purple-400">import</span> re
+<span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
+
+UNIT_MAP = &#123;
+    "kg": 1000, "g": 1, "gr": 1,
+    "ml": 1, "l": 1000, "szt": None
+&#125;
+
+<span class="text-purple-400">def</span> <span class="text-blue-400">normalize_weight</span>(raw: str) -> dict:
+    <span class="text-slate-500">"""Parsuje gramaturę do wartości + jednostki SI."""</span>
+    <span class="text-purple-400">if not</span> raw:
+        <span class="text-purple-400">return</span> &#123;"value": None, "unit": None, "exception": "brak_gramatury"&#125;
+
+    pattern = <span class="text-emerald-400">r"(\d+[.,]?\d*)\s*(kg|g|gr|ml|l|szt)"</span>
+    match = re.search(pattern, raw.lower().strip())
+
+    <span class="text-purple-400">if not</span> match:
+        <span class="text-purple-400">return</span> &#123;"value": None, "unit": None, "exception": "nieznany_format"&#125;
+
+    value = float(match.group(1).replace(",", "."))
+    unit = match.group(2)
+    multiplier = UNIT_MAP.get(unit, 1)
+
+    <span class="text-purple-400">return &#123;
+        "value": value * (multiplier or 1),
+        "unit": "g" if multiplier else "szt",
+        "exception": None
+
+        # Zastosowanie na DataFrame
+        df["weight_parsed"] = df["gramatura_raw"].apply(normalize_weight)
+        df_exceptions = df[df["weight_parsed"].apply(
+            lambda x: x["exception"] is not None
+        )]
+
+    &#125;
+      </div>
+    </div>
+
+
+    <!-- Wnioski -->
+    <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+        Największym wyzwaniem nie był sam regex, ale obsługa <strong class="text-slate-900 dark:text-white">edge case'ów bez wzorca</strong> – rekordy, które pipeline odrzucał po cichu zanim dodałem system wyjątków. Nauczyło mnie to, że każdy pipeline ETL musi mieć jawny kontrakt: albo dane są przetworzone, albo trafiają do raportu błędów z powodem. Zero cichej utraty danych. Tę zasadę stosuję w każdej integracji API, którą buduję dziś.
+      </p>
+    </div>
+
+    <!-- Stack -->
+    <div class="mt-12 border-t border-slate-200 dark:border-white/10 pt-10">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
       <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Python</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Pandas</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Regex</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CSV/XLSX</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">SQLAlchemy</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CSV / XLSX</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">PostgreSQL</span>
       </div>
     </div>
