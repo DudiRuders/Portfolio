@@ -185,9 +185,9 @@ import { Code } from 'astro:components';
           <span class="text-xs text-slate-400 font-mono">normalize_weight.py</span>
         </div>
         
-        <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Definicja mapowania do standardu SI</span>
-<span class="text-purple-400">import</span> re
-<span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
+  <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Definicja mapowania do standardu SI</span>
+  <span class="text-purple-400">import</span> re
+  <span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
 
 UNIT_MAP = &#123;
     "kg": 1000, "g": 1, "gr": 1,
@@ -209,16 +209,15 @@ UNIT_MAP = &#123;
     unit = match.group(2)
     multiplier = UNIT_MAP.get(unit, 1)
 
-    <span class="text-purple-400">return &#123;
+    <span class="text-purple-400">return</span> &#123;
         "value": value * (multiplier or 1),
         "unit": "g" if multiplier else "szt",
         "exception": None
+    &#125;
 
-        # Zastosowanie na DataFrame
-        df["weight_parsed"] = df["gramatura_raw"].apply(normalize_weight)
-        df_exceptions = df[df["weight_parsed"].apply(
-            lambda x: x["exception"] is not None
-        )]
+<span class="text-slate-500"># Zastosowanie na DataFrame</span>
+df["weight_parsed"] = df["gramatura_raw"].apply(normalize_weight)
+df_exceptions = df[df["weight_parsed"].apply(<span class="text-purple-400">lambda</span> x: x["exception"] <span class="text-purple-400">is not</span> None)]</code></pre>
 
     &#125;
       </div>
