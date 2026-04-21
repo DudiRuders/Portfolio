@@ -208,8 +208,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
-<<<<<<< Updated upstream
-=======
     <!-- Wnioski -->
     <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
       <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
@@ -217,25 +215,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         Najtrudniejszy był async webhook, nie samo API. Pierwotnie czekałem na ukończenie renderowania przez polling co kilka sekund. Przy równoległym renderowaniu 50 spotów n8n zacinał się na odpytywaniu i gubił callbacki. Przejście na model webhook-driven (Creatomate wysyła sygnał gdy skończy) rozwiązało problem i przy okazji zwolniło zasoby workflowa. Drugi wniosek: szablony wideo muszą mieć ścisły kontrakt nazewniczy. Literówka w nazwie elementu (<span class="font-mono text-emerald-500 text-sm">cena-1</span> vs <span class="font-mono text-emerald-500 text-sm">Cena-1</span>) powoduje ciche pominięcie danych bez żadnego błędu w API. To samo co w ETL pipeline: brak jawnej walidacji inputu zawsze mści się później.
       </p>
     </div>
->>>>>>> Stashed changes
 
     <!-- Stack -->
     <div class="mt-12 border-t border-slate-200 dark:border-white/10 pt-10">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
       <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
-<<<<<<< Updated upstream
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Json Payload</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Rest API</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Creative Automation</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">SQLAlchemy</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CSV / XLSX</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">PostgreSQL</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">n8n</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Creatomat</span>
-      </div>
-    </div>
-    
-=======
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Creatomate</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">n8n</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">REST API</span>
@@ -247,6 +231,5 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
 
->>>>>>> Stashed changes
   </main>
 </BaseLayout>
