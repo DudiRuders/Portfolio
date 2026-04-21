@@ -4,40 +4,61 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout>
   <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
-    
+
     <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       Business Intelligence • Metabase • SQL
     </div>
 
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
       BI & KPI <span class="text-emerald-500">Reporting System</span>
     </h1>
 
     <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-      Scentralizowany system raportowania dla zarządu i działu marketingu. Zastąpił dziesiątki ręcznie aktualizowanych arkuszy Excel, dostarczając w czasie rzeczywistym interaktywne dashboardy ("Jedno Źródło Prawdy").
+      Scentralizowany system raportowania dla zarządu i działu marketingu. Zastąpił kilkanaście ręcznie aktualizowanych arkuszy Excel, dostarczając interaktywne dashboardy w czasie rzeczywistym. Jeden widok, jedno źródło prawdy, zero ręcznego eksportu.
     </p>
 
-  <div class="mt-8 flex flex-wrap items-center gap-4">
+    <div class="mt-8 flex flex-wrap items-center gap-4">
       <a href="/Portfolio/" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
         ← Wróć
       </a>
-      
       <a href="https://github.com/DudiRuders/KPI" target="_blank" rel="noreferrer" class="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all duration-300">
         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
         <span>Zobacz kod (GitHub)</span>
       </a>
     </div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-2">
+    <!-- Metryki -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">15+</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">arkuszy Excel zastąpionych</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">3h</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">tygodniowo zaoszczędzone</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">RT</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">dane w czasie rzeczywistym</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">2</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">zespoły korzystające</div>
+      </div>
+    </div>
+
+    <!-- Problem / Rozwiązanie -->
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <span class="text-red-500">✕</span> Wyzwanie
+          <span class="text-red-500">✕</span> Problem
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-          <li>Raportowanie wymagało wielogodzinnego, ręcznego eksportu danych z różnych systemów do Excela.</li>
-          <li>Zarząd podejmował decyzje na podstawie nieaktualnych (historycznych) danych.</li>
-          <li>Brak zaufania do liczb przez powielanie plików (tzw. "Excel Hell").</li>
+          <li>Raportowanie wymagało wielogodzinnego ręcznego eksportu danych z różnych systemów do Excela.</li>
+          <li>Zarząd podejmował decyzje na podstawie nieaktualnych danych. Raport z poniedziałku opisywał stan sprzed tygodnia.</li>
+          <li>Kilkanaście wersji tego samego pliku krążyło między działami. Nikt nie wiedział, które liczby są właściwe.</li>
+          <li>Każde niestandardowe zapytanie wymagało angażowania osoby technicznej do napisania makra lub formuły.</li>
         </ul>
       </div>
 
@@ -46,20 +67,155 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="text-emerald-500">✓</span> Rozwiązanie
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>Wdrożenie Metabase i spięcie go z hurtownią danych PostgreSQL.</li>
-          <li>Napisanie zoptymalizowanych widoków SQL (CTEs, Window Functions) agregujących logikę biznesową.</li>
-          <li>Konfiguracja automatycznych alertów na Slack/Email przy spadkach kluczowych wskaźników (KPI).</li>
+          <li>Wdrożenie Metabase spiętego z hurtownią danych PostgreSQL jako jedynym źródłem prawdy.</li>
+          <li>Napisanie zoptymalizowanych widoków SQL (CTEs, Window Functions, Materialized Views) agregujących logikę biznesową na poziomie bazy.</li>
+          <li>Konfiguracja automatycznych alertów na Slack i Email przy spadkach kluczowych wskaźników poniżej progów.</li>
+          <li>Self-service analytics: każdy członek zespołu filtruje i przegląda dane bez pisania SQL i bez angażowania działu IT.</li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10">
+    <!-- Architektura -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Architektura systemu</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Przepływ danych od źródeł do dashboardu</p>
+
+      <div class="mt-6 flex flex-col gap-2">
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">1</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Źródła danych</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Dane sprzedażowe, marketingowe i operacyjne spływają z różnych systemów do centralnej bazy PostgreSQL. Docker Compose zarządza całym środowiskiem lokalnie i produkcyjnie.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">2</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Warstwa SQL</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Widoki i zmaterializowane widoki SQL enkapsulują logikę biznesową. CTEs upraszczają złożone agregacje. Window Functions obliczają trendy, wzrosty rok do roku i rankingi produktów bez obciążania dashboardu.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">3</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Metabase</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Dashboardy podpięte bezpośrednio pod widoki SQL. Filtry, drill-down i eksport do PDF dostępne dla każdego użytkownika bez wiedzy technicznej.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">4</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Alerty i monitoring</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Zdefiniowane progi KPI. Przy spadku poniżej wartości granicznej system automatycznie wysyła powiadomienie na Slack i email do odpowiedniego działu. Zero ręcznego monitorowania.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fragment SQL -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Fragment kodu SQL</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Widok obliczający wzrost sprzedaży rok do roku z wykorzystaniem Window Functions</p>
+
+      <div class="mt-6 rounded-2xl bg-slate-900 dark:bg-slate-950 border border-slate-700 dark:border-white/10 overflow-x-auto">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-700 dark:border-white/10">
+          <span class="h-3 w-3 rounded-full bg-red-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-yellow-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
+          <span class="ml-2 text-xs text-slate-400 font-mono">kpi_sales_yoy.sql</span>
+        </div>
+        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500">-- Widok: wzrost sprzedaży rok do roku (YoY) per kategoria</span>
+<span class="text-purple-400">CREATE</span> <span class="text-purple-400">OR REPLACE VIEW</span> <span class="text-blue-400">kpi_sales_yoy</span> <span class="text-purple-400">AS</span>
+
+<span class="text-purple-400">WITH</span> <span class="text-blue-400">monthly_sales</span> <span class="text-purple-400">AS</span> (
+    <span class="text-purple-400">SELECT</span>
+        DATE_TRUNC(<span class="text-emerald-400">'month'</span>, order_date)    <span class="text-purple-400">AS</span> month,
+        category,
+        SUM(revenue)                         <span class="text-purple-400">AS</span> total_revenue,
+        COUNT(DISTINCT order_id)             <span class="text-purple-400">AS</span> order_count
+    <span class="text-purple-400">FROM</span> orders
+    <span class="text-purple-400">WHERE</span> status <span class="text-purple-400">!=</span> <span class="text-emerald-400">'cancelled'</span>
+    <span class="text-purple-400">GROUP BY</span> <span class="text-emerald-400">1</span>, <span class="text-emerald-400">2</span>
+),
+
+<span class="text-blue-400">with_yoy</span> <span class="text-purple-400">AS</span> (
+    <span class="text-purple-400">SELECT</span>
+        month,
+        category,
+        total_revenue,
+        order_count,
+        <span class="text-slate-500">-- Wartość z analogicznego miesiąca rok wcześniej</span>
+        LAG(total_revenue, <span class="text-emerald-400">12</span>) <span class="text-purple-400">OVER</span> (
+            <span class="text-purple-400">PARTITION BY</span> category
+            <span class="text-purple-400">ORDER BY</span> month
+        )                                    <span class="text-purple-400">AS</span> revenue_prev_year
+    <span class="text-purple-400">FROM</span> monthly_sales
+)
+
+<span class="text-purple-400">SELECT</span>
+    month,
+    category,
+    total_revenue,
+    order_count,
+    revenue_prev_year,
+    <span class="text-slate-500">-- Procentowy wzrost YoY, zabezpieczony przed dzieleniem przez zero</span>
+    <span class="text-purple-400">CASE</span>
+        <span class="text-purple-400">WHEN</span> revenue_prev_year <span class="text-purple-400">IS NULL OR</span> revenue_prev_year <span class="text-purple-400">=</span> <span class="text-emerald-400">0</span> <span class="text-purple-400">THEN NULL</span>
+        <span class="text-purple-400">ELSE</span> ROUND(
+            (total_revenue - revenue_prev_year) / revenue_prev_year * <span class="text-emerald-400">100</span>, <span class="text-emerald-400">2</span>
+        )
+    <span class="text-purple-400">END</span>                                      <span class="text-purple-400">AS</span> yoy_growth_pct
+<span class="text-purple-400">FROM</span> with_yoy
+<span class="text-purple-400">ORDER BY</span> month <span class="text-purple-400">DESC</span>, category;</code></pre>
+      </div>
+    </div>
+
+    <!-- Co zawiera dashboard -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Co mierzą dashboardy</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Trzy obszary pokryte przez system raportowania</p>
+
+      <div class="mt-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <div class="text-2xl mb-3">📈</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Sprzedaż</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Przychód dzienny, tygodniowy i miesięczny. Wzrost YoY per kategoria. Ranking produktów i kanałów sprzedaży.</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <div class="text-2xl mb-3">📣</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Marketing</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">CTR, OR, konwersje per kampania. Koszt pozyskania klienta (CAC). Efektywność kanałów email i płatnych.</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <div class="text-2xl mb-3">⚙️</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Operacje</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Stany magazynowe, czas realizacji zamówień, wskaźnik zwrotów. Alerty przy stanach poniżej minimum.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wnioski -->
+    <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+        Najtrudniejsza część tego projektu nie była techniczna. Problemem było przekonanie ludzi, żeby przestali ufać swoim lokalnym Excelom i zaczęli korzystać z jednego wspólnego widoku. Pierwsze tygodnie to rozmowy, a nie kod. Technicznie najważniejsza lekcja dotyczyła zmaterializowanych widoków: bez nich część zapytań agregujących dane z 2 lat ładowała się 8 sekund. Po optymalizacji poniżej 400ms. Wydajność dashboardu to też UX.
+      </p>
+    </div>
+
+    <!-- Stack -->
+    <div class="mt-12 border-t border-slate-200 dark:border-white/10 pt-10">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
       <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Metabase</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">PostgreSQL</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Advanced SQL</span>
-        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Data Visualization</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">CTEs</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Window Functions</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Materialized Views</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Docker</span>
       </div>
     </div>
 

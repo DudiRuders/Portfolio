@@ -1,70 +1,75 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
-// Importujemy Twój pobrany diagram z folderu lokalnego
 import workflowImage from '../assets/workflow.png';
 ---
 
 <BaseLayout>
   <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
-    
+
     <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       Intelligent Automation • n8n • Microservices
     </div>
 
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
       Document <span class="text-emerald-500">Automation Engine</span>
     </h1>
 
     <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-      Architektura oparta na mikroserwisach automatyzująca proces generowania dokumentów. Pobiera dane z Airtable, renderuje pliki DOCX poprzez autorskie API (Node.js), konwertuje je do PDF i synchronizuje statusy.
+      System oparty na mikroserwisach do masowego generowania dokumentów DOCX i PDF. Orkiestrator n8n zarządza przepływem danych, własne Render API obsługuje renderowanie szablonów, a całość zamknięta jest w Dockerze. Zero ręcznego "kopiuj-wklej", zero błędów typograficznych w kontraktach.
     </p>
 
-  <div class="mt-8 flex flex-wrap items-center gap-4">
+    <!-- Przyciski repo -->
+    <div class="mt-8 flex flex-wrap items-center gap-3">
       <a href="/Portfolio/" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
         ← Wróć
       </a>
-      
-      <a href="https://github.com/DudiRuders/document-automation-engine" target="_blank" rel="noreferrer" class="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all duration-300">
-        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
-        <span>Główne Repo (n8n)</span>
+      <a href="https://github.com/DudiRuders/document-automation-engine" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-6 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 transition-all duration-300">
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+        Orchestrator (n8n)
       </a>
-
-      <a href="https://github.com/DudiRuders/document-render-service" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
-        API Service
+      <a href="https://github.com/DudiRuders/document-render-service" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+        Render API
       </a>
-      
-      <a href="https://github.com/DudiRuders/excel-to-docx-pipeline" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
-        Demo (Excel)
+      <a href="https://github.com/DudiRuders/excel-to-docx-pipeline" target="_blank" rel="noreferrer" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-5 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
+        <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
+        Excel Demo
       </a>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Architektura procesu (Workflow)</h2>
-      
-      <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 shadow-sm overflow-hidden">
-        <Image 
-          src={workflowImage} 
-          alt="Diagram przepływu n8n dla automatyzacji dokumentów" 
-          class="w-full rounded-2xl border border-slate-200 dark:border-white/5"
-          quality="high"
-        />
+    <!-- Metryki -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">3</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">osobne mikroserwisy</div>
       </div>
-      <p class="mt-4 text-sm text-slate-500 dark:text-slate-400 text-center">
-        Przepływ danych pomiędzy n8n, Airtable, autorskim Render API oraz usługami Google.
-      </p>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">3</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">endpointy Render API</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">0</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">ręcznych kroków</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">Docker</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">pełna przenośność</div>
+      </div>
     </div>
 
-    <div class="mt-16 grid gap-6 md:grid-cols-2">
+    <!-- Problem / Rozwiązanie -->
+    <div class="mt-10 grid gap-6 md:grid-cols-2">
       <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <span class="text-red-500">✕</span> Wyzwanie
+          <span class="text-red-500">✕</span> Problem
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-          <li>Ręczne generowanie dokumentów ("kopiuj-wklej") prowadzące do błędów.</li>
-          <li>Brak spójnego statusu dokumentów w zespole.</li>
-          <li>Ograniczenia gotowych narzędzi no-code przy skomplikowanym renderowaniu DOCX.</li>
+          <li>Generowanie kontraktów, faktur i raportów wymagało ręcznego kopiowania danych do szablonu Word. Przy każdym dokumencie ktoś musiał siedzieć przy komputerze.</li>
+          <li>Gotowe narzędzia no-code (Make, Zapier) nie radziły sobie ze złożonym formatowaniem DOCX: dynamiczne tabele, zagnieżdżone listy, podpisy graficzne.</li>
+          <li>Brak centralnego statusu dokumentów. Zespół nie wiedział, co zostało wysłane, co jest w trakcie, co czeka.</li>
+          <li>Każda zmiana szablonu wymagała ręcznej aktualizacji wszystkich plików w folderach współdzielonych.</li>
         </ul>
       </div>
 
@@ -73,21 +78,139 @@ import workflowImage from '../assets/workflow.png';
           <span class="text-emerald-500">✓</span> Rozwiązanie
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>Stworzenie dedykowanego <strong>Render API</strong> w Node.js obsługującego szablony DOCX.</li>
-          <li>Orkiestracja całego ruchu w n8n (walidacja, trigger z Airtable).</li>
-          <li>Zapis plików PDF do Google Drive i automatyczny update URL w bazie danych.</li>
+          <li>Własne Render API w Node.js obsługujące dynamiczne szablony DOCX (Docxtemplater) z pełnym wsparciem tabel, list i obrazów.</li>
+          <li>n8n jako orkiestrator: nasłuchuje na zmiany statusu w Airtable, buduje payload JSON, wywołuje API i dystrybuuje wynikowe pliki.</li>
+          <li>Trzy endpointy: renderowanie tekstu, podmiana obrazów (QR kody, logo, podpisy) oraz dodawanie pieczątek do PDF.</li>
+          <li>Gotowy plik PDF trafia automatycznie na Google Drive, a URL wraca do Airtable. Status dokumentu aktualizuje się bez żadnej ingerencji użytkownika.</li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-10">
+    <!-- Diagram workflow -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Diagram przepływu (n8n)</h2>
+      <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-2 shadow-sm overflow-hidden">
+        <Image
+          src={workflowImage}
+          alt="Diagram przepływu n8n dla automatyzacji dokumentów"
+          class="w-full rounded-2xl border border-slate-200 dark:border-white/5"
+          quality="high"
+        />
+      </div>
+      <p class="mt-3 text-sm text-slate-500 dark:text-slate-400 text-center">Przepływ danych: Airtable trigger, mapowanie JSON, Render API, Google Drive, status sync.</p>
+    </div>
+
+    <!-- Architektura mikroserwisów -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Architektura mikroserwisów</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Trzy osobne repozytoria, trzy osobne odpowiedzialności</p>
+
+      <div class="mt-6 grid gap-4 md:grid-cols-3">
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <div class="text-xs font-semibold text-emerald-500 uppercase tracking-wider mb-2">Repo 1</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Orchestrator (n8n)</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Zarządza stanem, triggerami i dystrybucją plików. Nasłuchuje na Airtable, buduje JSON payload, wywołuje Render API i synchronizuje statusy.</div>
+        </div>
+        <div class="rounded-2xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-6">
+          <div class="text-xs font-semibold text-emerald-500 uppercase tracking-wider mb-2">Repo 2</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Render API (Node.js)</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Samodzielny mikroserwis Express. Przyjmuje JSON i szablon DOCX, renderuje dokument przez Docxtemplater, konwertuje do PDF przez pdf-lib. Dockerizowany.</div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6">
+          <div class="text-xs font-semibold text-emerald-500 uppercase tracking-wider mb-2">Repo 3</div>
+          <div class="font-semibold text-slate-900 dark:text-white mb-2">Excel Pipeline (demo)</div>
+          <div class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Demonstracja całego pipeline'u na danych Excel. Wejście: arkusz XLSX. Wyjście: gotowy DOCX wypełniony danymi. Uruchamialny bez konfiguracji serwera.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Endpointy API -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Endpointy Render API</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Trzy specjalizowane operacje na dokumentach</p>
+
+      <div class="mt-6 overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/10">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="border-b border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5">
+              <th class="px-4 py-3 text-left font-semibold text-slate-600 dark:text-slate-300">Endpoint</th>
+              <th class="px-4 py-3 text-left font-semibold text-slate-600 dark:text-slate-300">Opis</th>
+              <th class="px-4 py-3 text-left font-semibold text-slate-600 dark:text-slate-300">Output</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 dark:divide-white/5 bg-white dark:bg-white/[0.02]">
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-emerald-500">POST /render</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Przyjmuje szablon DOCX i JSON payload. Wypełnia placeholdery danymi, obsługuje dynamiczne tabele i listy.</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Plik .docx</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-emerald-500">POST /replace-image</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Podmienia placeholdery graficzne: QR kody, logo firmy, podpisy odręczne, pieczątki.</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Plik .docx z obrazami</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-emerald-500">POST /stamp</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Nakłada cyfrową pieczątkę lub watermark na gotowy PDF. Używany do dokumentów wymagających oznaczenia statusu.</td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-400">Plik .pdf</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Payload JSON -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Przykładowy payload JSON</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Dane wysyłane przez n8n do Render API przy generowaniu kontraktu B2B</p>
+
+      <div class="mt-6 rounded-2xl bg-slate-900 dark:bg-slate-950 border border-slate-700 dark:border-white/10 overflow-x-auto">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-700 dark:border-white/10">
+          <span class="h-3 w-3 rounded-full bg-red-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-yellow-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
+          <span class="ml-2 text-xs text-slate-400 font-mono">payload_example.json</span>
+        </div>
+        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500">// Payload budowany przez n8n i wysyłany do POST /render</span>
+<span class="text-slate-400">&#123;</span>
+  <span class="text-emerald-400">"template_id"</span>: <span class="text-yellow-300">"b2b_contract_v2"</span>,
+  <span class="text-emerald-400">"data"</span>: <span class="text-slate-400">&#123;</span>
+    <span class="text-emerald-400">"client_name"</span>:     <span class="text-yellow-300">"Tech Corp LLC"</span>,
+    <span class="text-emerald-400">"contract_date"</span>:   <span class="text-yellow-300">"2025-03-01"</span>,
+    <span class="text-emerald-400">"contract_value"</span>:  <span class="text-yellow-300">"15 000,00 PLN"</span>,
+    <span class="text-emerald-400">"services"</span>: <span class="text-slate-400">[</span>
+      <span class="text-slate-400">&#123;</span> <span class="text-emerald-400">"name"</span>: <span class="text-yellow-300">"API Integration"</span>,  <span class="text-emerald-400">"price"</span>: <span class="text-yellow-300">"10 000 PLN"</span> <span class="text-slate-400">&#125;</span>,
+      <span class="text-slate-400">&#123;</span> <span class="text-emerald-400">"name"</span>: <span class="text-yellow-300">"Maintenance (12m)"</span>, <span class="text-emerald-400">"price"</span>: <span class="text-yellow-300">"5 000 PLN"</span>  <span class="text-slate-400">&#125;</span>
+    <span class="text-slate-400">]</span>,
+    <span class="text-emerald-400">"signature_image"</span>: <span class="text-yellow-300">"base64_encoded_signature_here"</span>
+  <span class="text-slate-400">&#125;</span>,
+  <span class="text-emerald-400">"output_format"</span>: <span class="text-yellow-300">"pdf"</span>,
+  <span class="text-emerald-400">"upload_to_drive"</span>: <span class="text-purple-400">true</span>
+<span class="text-slate-400">&#125;</span></code></pre>
+      </div>
+    </div>
+
+    <!-- Wnioski -->
+    <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+        Główna lekcja to granica między tym, co powinno być w orkiestratorze, a co w osobnym serwisie. Pierwotnie próbowałem renderować DOCX bezpośrednio w węźle n8n przez skrypt. Przy złożonych szablonach z tabelami i obrazami to się nie skalowało: n8n zamulał, timeout'y, brak kontroli nad błędami. Wydzielenie renderowania do osobnego API z własnym Dockerem rozwiązało problem i przy okazji dało możliwość użycia tego serwisu przez inne systemy niezależnie od n8n. Separacja odpowiedzialności to nie teoria z książki, to coś co poczułem na konkretnym problemie.
+      </p>
+    </div>
+
+    <!-- Stack -->
+    <div class="mt-12 border-t border-slate-200 dark:border-white/10 pt-10">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
       <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">n8n</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Node.js</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Express</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Docxtemplater</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">pdf-lib</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">REST API</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Airtable</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Google Drive API</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Docker</span>
       </div>
     </div>
 

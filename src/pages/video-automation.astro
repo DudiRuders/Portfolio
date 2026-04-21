@@ -4,35 +4,54 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout>
   <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
-    
+
     <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 shadow-sm mb-6">
       <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
       Creative Automation • JSON API • Video
     </div>
 
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
+    <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
       Dynamic Video <span class="text-emerald-500">Automation</span>
     </h1>
 
     <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
-      Programistyczne generowanie materiałów wideo (MP4, 30fps) dla kampanii marketingowych. System przyjmuje dynamiczne dane (ceny, zdjęcia produktów, daty promocji) i wstrzykuje je do payloadu JSON, renderując gotowe spoty reklamowe w chmurze.
+      Programistyczne generowanie materiałów wideo (MP4, 30fps) dla kampanii marketingowych. System pobiera dane o promocjach z arkusza, buduje payload JSON i wysyła go do silnika renderującego w chmurze. Setki gotowych spotów reklamowych bez angażowania grafika.
     </p>
 
     <div class="mt-8 flex flex-wrap items-center gap-4">
       <a href="/Portfolio/" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-3.5 text-sm font-semibold text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/10 transition-colors">
         ← Wróć
       </a>
-      
       <a href="https://github.com/dudiruders/creative-automation-engine" target="_blank" rel="noreferrer" data-umami-event="Video_GitHub_Top" class="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-[#24292e] dark:bg-emerald-500 px-8 py-3.5 text-sm font-bold text-white shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:bg-[#2f363d] dark:hover:bg-emerald-400 hover:shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-all duration-300">
         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" /></svg>
         <span>Zobacz pełną architekturę (GitHub)</span>
       </a>
     </div>
-  <div class="mt-12 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl relative group aspect-video bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center">
+
+    <!-- Metryki -->
+    <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">70%</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">szybciej niż ręcznie</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">+15%</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">wzrost CTR kampanii</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">3</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">formaty wideo (1:1, 9:16, 16:9)</div>
+      </div>
+      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
+        <div class="text-3xl font-extrabold text-emerald-500">0</div>
+        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">ręcznych ingerencji</div>
+      </div>
+    </div>
+
+    <!-- Podgląd środowiska -->
+    <div class="mt-12 rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl relative group aspect-video bg-slate-100 dark:bg-slate-800/50 flex items-center justify-center">
       <span class="text-slate-500 dark:text-slate-400 text-sm z-0 font-mono">Ładowanie podglądu z GitHuba...</span>
-      
-      <img src="https://raw.githubusercontent.com/DudiRuders/creative-automation-engine/main/architecture/creatomate-template3.jpg" alt="Interfejs silnika wideo" class="absolute inset-0 w-full h-full object-cover z-10" />
-      
+      <img src="https://raw.githubusercontent.com/DudiRuders/creative-automation-engine/main/architecture/creatomate-template3.jpg" alt="Interfejs silnika wideo Creatomate" class="absolute inset-0 w-full h-full object-cover z-10" />
       <div class="absolute bottom-0 left-0 right-0 p-4 bg-slate-900/90 backdrop-blur-sm z-20 border-t border-white/10">
         <p class="text-slate-200 text-sm font-medium flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
@@ -40,60 +59,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         </p>
       </div>
     </div>
-    
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Inżynieria wideo (JSON Payload)</h2>
-      <p class="mt-2 text-slate-600 dark:text-slate-400 mb-6">
-        Zamiast ręcznie edytować wideo w programach typu Premiere Pro, cały spot promocyjny jest zdefiniowany jako obiekt JSON. Poniżej fragment autentycznego kodu mapującego animacje cen i produktów:
-      </p>
-      
-      <div class="rounded-2xl bg-[#0d1117] border border-white/10 overflow-hidden shadow-2xl">
-        <div class="flex items-center px-4 py-3 bg-white/5 border-b border-white/10">
-          <div class="flex gap-2">
-            <div class="w-3 h-3 rounded-full bg-red-500"></div>
-            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-            <div class="w-3 h-3 rounded-full bg-green-500"></div>
-          </div>
-          <span class="ml-4 text-xs font-mono text-slate-400">render-payload.json</span>
-        </div>
-        <div class="p-4 overflow-x-auto">
-<pre class="text-sm font-mono text-emerald-300"><code>{`{
-  "output_format": "mp4",
-  "width": 1920,
-  "height": 1080,
-  "frame_rate": "30 fps",
-  "duration": 15,
-  "elements": [
-    {
-      "name": "produkt-1",
-      "type": "image",
-      "dynamic": ["x", "y", "source"],
-      "animations": [
-        { "time": 5.94, "type": "wiggle", "frequency": "1 Hz" }
-      ]
-    },
-    {
-      "name": "cena-1",
-      "type": "image",
-      "dynamic": ["source", "x_scale", "y_scale"],
-      "animations": [
-        { "type": "scale", "start_scale": "100%", "end_scale": "125%" }
-      ]
-    }
-  ]
-}`}</code></pre>
-        </div>
-      </div>
-    </div>
 
+    <!-- Problem / Rozwiązanie -->
     <div class="mt-16 grid gap-6 md:grid-cols-2">
       <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
         <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-          <span class="text-red-500">✕</span> Problem Biznesowy
+          <span class="text-red-500">✕</span> Problem
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
-          <li>Ręczne tworzenie dziesiątek wariantów wideo (różne produkty, ceny, formaty 16:9 vs 9:16) zajmowało grafikom całe dnie.</li>
-          <li>Błędy ludzkie przy przepisywaniu cen z bazy do programu graficznego.</li>
+          <li>Ręczne tworzenie dziesiątek wariantów wideo (różne produkty, ceny, formaty 16:9 vs 9:16) zajmowało grafikom całe dnie robocze.</li>
+          <li>Każda zmiana ceny promocyjnej wymagała powrotu do projektu w programie graficznym i ręcznego przeklikania każdego spotu.</li>
+          <li>Błędy przy przepisywaniu cen z arkusza do programu graficznego trafiały na gotowe materiały dopiero po publikacji.</li>
+          <li>Kampania sezonowa z 50 produktami w 3 formatach oznaczała 150 osobnych plików wideo do zrobienia ręcznie.</li>
         </ul>
       </div>
 
@@ -102,67 +79,151 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <span class="text-emerald-500">✓</span> Rozwiązanie
         </h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-300">
-          <li>Stworzenie zautomatyzowanego potoku, który pobiera dane o promocjach i buduje JSON payload.</li>
-          <li>Wysyłka payloadu przez REST API do silnika renderującego (np. Creatomate).</li>
-          <li>Setki gotowych, spersonalizowanych spotów MP4 gotowych do publikacji w kilka minut.</li>
+          <li>Pipeline pobierający dane o promocjach z arkusza Excel i budujący payload JSON dla każdego wariantu wideo.</li>
+          <li>Wysyłka payloadu przez REST API do Creatomate, który renderuje gotowy MP4 w chmurze bez żadnego oprogramowania graficznego.</li>
+          <li>Trzy szablony wideo obsługiwane przez jeden silnik: karuzela produktowa (1:1), Reels/TikTok (9:16), kampania zasięgowa (16:9).</li>
+          <li>n8n orkiestruje cały proces. Trigger z Airtable uruchamia render, webhook czeka na ukończenie, link do pliku wraca do bazy automatycznie.</li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Wielokanałowa dystrybucja</h2>
-      <p class="mt-2 text-slate-600 dark:text-slate-400 mb-8">
-        Silnik jest agnostyczny względem formatu. Poniżej przykłady logiki, którą system potrafi generować w pełni automatycznie:
-      </p>
-      
-      <div class="grid gap-6 md:grid-cols-3">
+    <!-- Inżynieria wideo JSON -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Inżynieria wideo (JSON Payload)</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Zamiast ręcznie edytować wideo w Premiere Pro, cały spot jest zdefiniowany jako obiekt JSON. Fragment autentycznego kodu mapującego animacje cen i produktów:</p>
+
+      <div class="mt-6 rounded-2xl bg-slate-900 dark:bg-slate-950 border border-slate-700 dark:border-white/10 overflow-x-auto">
+        <div class="flex items-center gap-2 px-4 py-3 border-b border-slate-700 dark:border-white/10">
+          <span class="h-3 w-3 rounded-full bg-red-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-yellow-500/70"></span>
+          <span class="h-3 w-3 rounded-full bg-emerald-500/70"></span>
+          <span class="ml-2 text-xs text-slate-400 font-mono">render-payload.json</span>
+        </div>
+        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500">// Payload wysyłany do Creatomate API per każdy wariant wideo</span>
+<span class="text-slate-400">&#123;</span>
+  <span class="text-emerald-400">"output_format"</span>: <span class="text-yellow-300">"mp4"</span>,
+  <span class="text-emerald-400">"width"</span>:         <span class="text-purple-400">1920</span>,
+  <span class="text-emerald-400">"height"</span>:        <span class="text-purple-400">1080</span>,
+  <span class="text-emerald-400">"frame_rate"</span>:    <span class="text-yellow-300">"30 fps"</span>,
+  <span class="text-emerald-400">"duration"</span>:      <span class="text-purple-400">15</span>,
+  <span class="text-emerald-400">"elements"</span>: <span class="text-slate-400">[</span>
+    <span class="text-slate-400">&#123;</span>
+      <span class="text-emerald-400">"name"</span>:    <span class="text-yellow-300">"produkt-1"</span>,
+      <span class="text-emerald-400">"type"</span>:    <span class="text-yellow-300">"image"</span>,
+      <span class="text-emerald-400">"dynamic"</span>: <span class="text-slate-400">[</span><span class="text-yellow-300">"x"</span>, <span class="text-yellow-300">"y"</span>, <span class="text-yellow-300">"source"</span><span class="text-slate-400">]</span>,
+      <span class="text-emerald-400">"animations"</span>: <span class="text-slate-400">[</span>
+        <span class="text-slate-400">&#123;</span> <span class="text-emerald-400">"time"</span>: <span class="text-purple-400">5.94</span>, <span class="text-emerald-400">"type"</span>: <span class="text-yellow-300">"wiggle"</span>, <span class="text-emerald-400">"frequency"</span>: <span class="text-yellow-300">"1 Hz"</span> <span class="text-slate-400">&#125;</span>
+      <span class="text-slate-400">]</span>
+    <span class="text-slate-400">&#125;</span>,
+    <span class="text-slate-400">&#123;</span>
+      <span class="text-emerald-400">"name"</span>:    <span class="text-yellow-300">"cena-1"</span>,
+      <span class="text-emerald-400">"type"</span>:    <span class="text-yellow-300">"image"</span>,
+      <span class="text-emerald-400">"dynamic"</span>: <span class="text-slate-400">[</span><span class="text-yellow-300">"source"</span>, <span class="text-yellow-300">"x_scale"</span>, <span class="text-yellow-300">"y_scale"</span><span class="text-slate-400">]</span>,
+      <span class="text-emerald-400">"animations"</span>: <span class="text-slate-400">[</span>
+        <span class="text-slate-400">&#123;</span> <span class="text-emerald-400">"type"</span>: <span class="text-yellow-300">"scale"</span>, <span class="text-emerald-400">"start_scale"</span>: <span class="text-yellow-300">"100%"</span>, <span class="text-emerald-400">"end_scale"</span>: <span class="text-yellow-300">"125%"</span> <span class="text-slate-400">&#125;</span>
+      <span class="text-slate-400">]</span>
+    <span class="text-slate-400">&#125;</span>
+  <span class="text-slate-400">]</span>
+<span class="text-slate-400">&#125;</span></code></pre>
+      </div>
+    </div>
+
+    <!-- Wielokanałowa dystrybucja -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wielokanałowa dystrybucja</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Jeden silnik obsługuje trzy formaty. Dane wejściowe te same, output dopasowany do każdego kanału.</p>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
         <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
-          <div class="aspect-square w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
-            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">1:1</span>
+          <div class="aspect-square w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 border border-slate-200 dark:border-white/10">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest">1:1</span>
           </div>
           <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">E-commerce Matrix</h3>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Karuzele produktowe. Dynamicznie podmienia poszczególne kafelki, zdjęcia butów i nakładki z procentem zniżki na podstawie pliku CSV.</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Karuzele produktowe. Dynamicznie podmienia kafelki, zdjęcia i nakładki z procentem zniżki na podstawie pliku CSV.</p>
         </div>
 
         <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
-          <div class="aspect-[9/16] w-full max-h-[200px] mx-auto rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
-            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">9:16</span>
+          <div class="aspect-[9/16] w-full max-h-[200px] mx-auto rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 border border-slate-200 dark:border-white/10">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest">9:16</span>
           </div>
           <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Reels / TikTok</h3>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Krótkie formy wideo. Dynamiczne śledzenie tekstu, napisy i formatowanie dopasowane pod interfejs urządzeń mobilnych.</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Krótkie formy wideo z dynamicznym śledzeniem tekstu i napisami dopasowanymi pod urządzenia mobilne.</p>
         </div>
 
         <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
-          <div class="aspect-video w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 overflow-hidden border border-slate-200 dark:border-white/10 relative group">
-            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest group-hover:scale-110 transition-transform">16:9</span>
+          <div class="aspect-video w-full rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-4 border border-slate-200 dark:border-white/10">
+            <span class="text-slate-400 font-mono text-sm font-bold tracking-widest">16:9</span>
           </div>
           <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-2">Quick Promo</h3>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Szybkie kampanie zasięgowe na YouTube i Facebook. Złożone animacje typograficzne (wave, slide) mapowane na tekst z bazy.</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Kampanie zasięgowe na YouTube i Facebook. Złożone animacje typograficzne (wave, slide) mapowane na tekst z bazy.</p>
         </div>
       </div>
     </div>
 
-    <div class="mt-16 border-t border-slate-200 dark:border-white/10 pt-16">
-      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Orkiestracja Workflow (n8n)</h2>
-      <div class="rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm">
-        <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-6">
-          Sam skrypt to za mało, by wyskalować dział marketingu. Cały proces został zorkiestrowany za pomocą środowiska <strong>n8n</strong>, tworząc z niego bezobsługowy system (zero-touch).
-        </p>
-        <ol class="list-decimal pl-5 space-y-4 text-slate-700 dark:text-slate-200 font-medium">
-          <li><strong>Trigger:</strong> Zmiana statusu wiersza w Airtable na "Do wyrenderowania" natychmiastowo uruchamia proces.</li>
-          <li><strong>Generowanie Payloadu:</strong> Węzeł n8n (Code) mapuje dane z bazy na właściwy szablon JSON dla konkretnego wariantu wideo.</li>
-          <li><strong>Render API:</strong> System wysyła dynamiczny JSON bezpośrednio do API Creatomate.</li>
-          <li><strong>Async Wait:</strong> Pętla czeka asynchronicznie na zwrotny Webhook potwierdzający 100% wyrenderowania pliku.</li>
-          <li><strong>Dystrybucja:</strong> Link do gotowego pliku MP4 jest zapisywany w bazie, a zespół otrzymuje powiadomienie na Slacku wraz z podglądem.</li>
-        </ol>
+    <!-- Orkiestracja n8n -->
+    <div class="mt-16">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Orkiestracja workflow (n8n)</h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400 text-sm">Pięć kroków od zmiany statusu w Airtable do powiadomienia na Slacku</p>
+
+      <div class="mt-6 flex flex-col gap-2">
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">1</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Trigger</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Zmiana statusu wiersza w Airtable na "Do wyrenderowania" natychmiastowo uruchamia cały proces. Zero ręcznego inicjowania.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">2</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Generowanie payloadu</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Węzeł Code w n8n mapuje dane z bazy (produkt, cena, zdjęcie, format) na właściwy szablon JSON dla konkretnego wariantu wideo.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">3</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Render API</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">n8n wysyła dynamiczny JSON bezpośrednio do API Creatomate. Renderowanie odbywa się w chmurze bez żadnego lokalnego oprogramowania graficznego.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">4</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Async Wait</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Pętla czeka asynchronicznie na zwrotny webhook potwierdzający 100% wyrenderowania pliku. Bez odpytywania co sekundę, bez blokowania kolejnych zadań.</div>
+          </div>
+        </div>
+        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
+        <div class="flex items-start gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-5">
+          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">5</div>
+          <div>
+            <div class="font-semibold text-slate-900 dark:text-white">Dystrybucja</div>
+            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Link do gotowego pliku MP4 zapisywany w bazie Airtable. Zespół marketingu dostaje powiadomienie na Slacku z podglądem spotu. Status aktualizuje się automatycznie.</div>
+          </div>
+        </div>
       </div>
     </div>
 
+<<<<<<< Updated upstream
+=======
+    <!-- Wnioski -->
+    <div class="mt-16 rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8">
+      <h2 class="text-xl font-bold text-slate-900 dark:text-white">Czego się nauczyłem</h2>
+      <p class="mt-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+        Najtrudniejszy był async webhook, nie samo API. Pierwotnie czekałem na ukończenie renderowania przez polling co kilka sekund. Przy równoległym renderowaniu 50 spotów n8n zacinał się na odpytywaniu i gubił callbacki. Przejście na model webhook-driven (Creatomate wysyła sygnał gdy skończy) rozwiązało problem i przy okazji zwolniło zasoby workflowa. Drugi wniosek: szablony wideo muszą mieć ścisły kontrakt nazewniczy. Literówka w nazwie elementu (<span class="font-mono text-emerald-500 text-sm">cena-1</span> vs <span class="font-mono text-emerald-500 text-sm">Cena-1</span>) powoduje ciche pominięcie danych bez żadnego błędu w API. To samo co w ETL pipeline: brak jawnej walidacji inputu zawsze mści się później.
+      </p>
+    </div>
+>>>>>>> Stashed changes
 
     <!-- Stack -->
     <div class="mt-12 border-t border-slate-200 dark:border-white/10 pt-10">
       <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Wykorzystany Stack</h2>
       <div class="mt-6 flex flex-wrap gap-2 text-sm font-medium">
+<<<<<<< Updated upstream
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Json Payload</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Rest API</span>
         <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Creative Automation</span>
@@ -174,5 +235,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
     </div>
     
+=======
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Creatomate</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">n8n</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">REST API</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">JSON</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Airtable</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Webhooks</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Slack API</span>
+        <span class="rounded-md bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-slate-700 dark:text-slate-300">Excel / CSV</span>
+      </div>
+    </div>
+
+>>>>>>> Stashed changes
   </main>
 </BaseLayout>
