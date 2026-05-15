@@ -1,54 +1,78 @@
-<header class="sticky top-0 z-50 border-b border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md">
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="sticky top-0 z-50 header-glass">
   <div class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-    <a href="/Portfolio/" class="font-semibold tracking-tight">
-      <span class="text-slate-900 dark:text-slate-200">Mateusz Wienskowski</span><span class="text-slate-500 dark:text-slate-400">/portfolio</span>
+    
+    <a href={`${base}`} class="flex items-center gap-3 group">
+      <span class="monogram">MW</span>
+      <span class="hidden sm:block text-sm font-medium text-slate-400 group-hover:text-slate-200 transition-colors">
+        <span class="text-slate-200 font-semibold">Mateusz Wienskowski</span><span class="text-slate-600">/portfolio</span>
+      </span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-      <a class="hover:text-emerald-500 dark:hover:text-white transition-colors" href="/Portfolio/#projekty">Projekty</a>
-      <a class="hover:text-emerald-500 dark:hover:text-white transition-colors" href="/Portfolio/#stack">Stack</a>
-      <a class="hover:text-emerald-500 dark:hover:text-white transition-colors" href="/Portfolio/#jak-pracuje">Jak pracuję</a>
-      <a class="hover:text-emerald-500 dark:hover:text-white transition-colors" href="/Portfolio/#kontakt">Kontakt</a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+      <a class="nav-link" href={`${base}#projekty`}>Projekty</a>
+      <a class="nav-link" href={`${base}#stack`}>Stack</a>
+      <a class="nav-link" href={`${base}#jak-pracuje`}>Jak pracuję</a>
+      <a class="nav-link" href={`${base}#kontakt`}>Kontakt</a>
     </nav>
 
-    <div class="flex items-center gap-3">
-      <button id="themeBtn" class="flex items-center gap-2 rounded-xl border border-slate-300 dark:border-white/20 bg-slate-100 dark:bg-white/10 px-3 py-1.5 text-xs font-bold text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-white/20 transition-all" type="button">
-        <span class="opacity-70">Tryb:</span>
-        <span id="themeLabel">ciemny</span>
-      </button>
-
-      <a href="mailto:mateusz.wienskowski@onet.pl" class="rounded-xl bg-emerald-500 text-white dark:text-slate-950 px-4 py-1.5 text-sm font-bold hover:bg-emerald-400 transition-colors shadow-sm">
-        Napisz
-      </a>
-    </div>
+    <a href={`mailto:mateusz.wienskowski@onet.pl`} class="btn-neon !py-2 !px-4 !text-xs">
+      <span>Napisz</span>
+      <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+      </svg>
+    </a>
   </div>
 </header>
 
-<script is:inline>
-  // Skrypt inicjujący i obsługujący zmianę motywu
-  (function() {
-    const btn = document.getElementById('themeBtn');
-    const label = document.getElementById('themeLabel');
+<style>
+  .header-glass {
+    background: rgba(11, 17, 32, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(16, 185, 129, 0.08);
+  }
 
-    function updateLabel(theme) {
-      if (label) label.textContent = theme === 'dark' ? 'ciemny' : 'jasny';
-    }
+  .monogram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 800;
+    font-size: 0.75rem;
+    color: #34D399;
+    transition: all 0.3s;
+  }
 
-    if (btn && label) {
-      // Pobieramy aktualny stan z localStorage (zsynchronizowany z BaseLayout)
-      const currentTheme = localStorage.getItem('theme') || 'dark';
-      updateLabel(currentTheme);
+  .monogram:hover {
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.4);
+  }
 
-      btn.addEventListener('click', () => {
-        const theme = localStorage.getItem('theme') || 'dark';
-        const newTheme = theme === 'dark' ? 'light' : 'dark';
-        
-        // Wywołujemy funkcję zdefiniowaną globalnie w BaseLayout
-        if (window.applyTheme) {
-          window.applyTheme(newTheme);
-          updateLabel(newTheme);
-        }
-      });
-    }
-  })();
-</script>
+  .nav-link {
+    position: relative;
+    padding-bottom: 2px;
+    transition: color 0.3s;
+  }
+  .nav-link:hover { color: #E2E8F0; }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #10B981;
+    border-radius: 2px;
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-link:hover::after { width: 100%; }
+</style>

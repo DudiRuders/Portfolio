@@ -3,13 +3,12 @@ interface Props {
   title: string;
   subtitle?: string;
   details?: string;
-  delay?: string; // Losowe opóźnienie animacji
+  delay?: string;
   href?: string;
-  isComingSoon?: boolean; // Nowa właściwość dla LinkedIn
-  buttonText?: string; // <-- Dodajemy informację, że taki tekst może istnieć
+  isComingSoon?: boolean;
+  buttonText?: string;
 }
 
-// Wyciągam buttonText i nadaje mu domyślną wartość "ZOBACZ PROJEKT" teraz będzie git pamietaj o tym bo znowu 2 h w plecy
 const { 
   title, 
   subtitle, 
@@ -20,7 +19,6 @@ const {
   buttonText = "ZOBACZ PROJEKT" 
 } = Astro.props;
 
-// Automatyczne dodawanie bazy /Portfolio/ do linków
 const base = import.meta.env.BASE_URL;
 const link = href.startsWith('http') ? href : `${base}${href}`.replace(/\/+/g, '/');
 ---
@@ -31,9 +29,9 @@ const link = href.startsWith('http') ? href : `${base}${href}`.replace(/\/+/g, '
     <div class="w-2 h-24 bg-gradient-to-b from-transparent via-slate-600 to-slate-700 shadow-xl"></div>
   </div>
 
-  <div class="relative z-10 p-4 bg-slate-700 rounded-3xl border-b-8 border-slate-900 shadow-2xl w-[380px] transition-transform hover:scale-105 duration-300">
+  <div class="relative z-10 p-4 bg-slate-800/80 rounded-3xl border-b-8 border-slate-900 shadow-2xl w-[380px] transition-transform hover:scale-105 duration-300 backdrop-blur-sm">
     
-    <div class="relative bg-slate-950 rounded-xl overflow-hidden border-4 border-slate-800 p-8 flex flex-col items-center justify-center min-h-[220px]">
+    <div class="relative bg-[#080e1a] rounded-xl overflow-hidden border-4 border-slate-800 p-8 flex flex-col items-center justify-center min-h-[220px]">
       
       <div class="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(transparent_50%,rgba(0,0,0,1)_50%)] bg-[length:100%_4px]"></div>
 

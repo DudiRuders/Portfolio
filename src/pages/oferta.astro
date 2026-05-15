@@ -2,152 +2,103 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout>
+<BaseLayout title="Oferta B2B — Mateusz Wienskowski">
   <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
 
-    <!-- Hero -->
-    <div class="text-center mb-16">
-      <div class="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-700 dark:text-emerald-300 shadow-sm mb-6">
-        <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+    <div class="text-center mb-16 reveal">
+      <div class="badge-neon mx-auto mb-6">
+        <span class="badge-dot"></span>
         Oferta Współpracy B2B
       </div>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-        Odblokuj potencjał <br /> <span class="text-emerald-500">swojego zespołu.</span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+        Odblokuj potencjał <br /> <span class="neon-text">swojego zespołu.</span>
       </h1>
-      <p class="mt-6 text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
+      <p class="mt-6 text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
         Większość firm traci setki godzin miesięcznie na zadania, które można zautomatyzować. Buduję systemy, które eliminują powtarzalną pracę i pozwalają Twojemu zespołowi skupić się na tym, co naprawdę przynosi wynik.
       </p>
     </div>
 
-    <!-- Social proof -->
-    <div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
-      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
-        <div class="text-3xl font-extrabold text-emerald-500">70%</div>
-        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">szybsze generowanie kreacji</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
-        <div class="text-3xl font-extrabold text-emerald-500">3h→5min</div>
-        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">czas generowania raportów</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
-        <div class="text-3xl font-extrabold text-emerald-500">+15%</div>
-        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">wzrost CTR kampanii</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5 text-center">
-        <div class="text-3xl font-extrabold text-emerald-500">4+</div>
-        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">wdrożone systemy w produkcji</div>
-      </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20 reveal">
+      <div class="glass-card p-5 text-center"><div class="metric-value">70%</div><div class="metric-label">szybsze generowanie kreacji</div></div>
+      <div class="glass-card p-5 text-center"><div class="metric-value text-lg">3h→5min</div><div class="metric-label">czas generowania raportów</div></div>
+      <div class="glass-card p-5 text-center"><div class="metric-value">+15%</div><div class="metric-label">wzrost CTR kampanii</div></div>
+      <div class="glass-card p-5 text-center"><div class="metric-value">4+</div><div class="metric-label">wdrożone systemy w produkcji</div></div>
     </div>
 
-    <!-- Obszary wsparcia -->
-    <div class="mt-4">
-      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Główne obszary wsparcia</h2>
+    <div class="reveal">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Główne obszary wsparcia</h2>
       <div class="grid gap-6 md:grid-cols-2">
-
-        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🔄 Workflow i automatyzacja dokumentów</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Twoje narzędzia (CRM, ERP, Slack, Google Workspace) przestają działać w izolacji. Buduję integracje, które automatycznie generują umowy, wysyłają powiadomienia i aktualizują statusy bez udziału człowieka. Zero przepisywania, zero pomyłek przy kopiowaniu.</p>
+        <div class="glass-card p-8">
+          <h3 class="text-xl font-bold text-white mb-3">🔄 Workflow i automatyzacja dokumentów</h3>
+          <p class="text-slate-400 leading-relaxed">Twoje narzędzia (CRM, ERP, Slack, Google Workspace) przestają działać w izolacji. Buduję integracje, które automatycznie generują umowy, wysyłają powiadomienia i aktualizują statusy bez udziału człowieka.</p>
         </div>
-
-        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🧹 ETL i inżynieria danych</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Dane z różnych działów rzadko wyglądają tak samo. Buduję pipeline'y, które pobierają, czyszczą i ujednolicają dane produktowe, finansowe lub sprzedażowe z wielu źródeł w jeden spójny model gotowy do analizy.</p>
+        <div class="glass-card p-8">
+          <h3 class="text-xl font-bold text-white mb-3">🧹 ETL i inżynieria danych</h3>
+          <p class="text-slate-400 leading-relaxed">Dane z różnych działów rzadko wyglądają tak samo. Buduję pipeline'y, które pobierają, czyszczą i ujednolicają dane z wielu źródeł w jeden spójny model gotowy do analizy.</p>
         </div>
-
-        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">📊 Raportowanie BI i KPI</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Wdrażam dashboardy analityczne (Metabase), które pokazują kondycję biznesu w czasie rzeczywistym. Zarząd widzi liczby bez czekania na poniedziałkowy raport. Jedno miejsce, aktualne dane, zero Excela.</p>
+        <div class="glass-card p-8">
+          <h3 class="text-xl font-bold text-white mb-3">📊 Raportowanie BI i KPI</h3>
+          <p class="text-slate-400 leading-relaxed">Wdrażam dashboardy analityczne (Metabase), które pokazują kondycję biznesu w czasie rzeczywistym. Zarząd widzi liczby bez czekania na poniedziałkowy raport.</p>
         </div>
-
-        <div class="rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
-          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">🎬 Creative Automation</h3>
-          <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Masowe generowanie spersonalizowanych materiałów marketingowych: wideo MP4 w trzech formatach, banery, dokumenty ofertowe. System pobiera dane z arkusza i produkuje gotowe pliki bez angażowania grafika przy każdej zmianie ceny.</p>
+        <div class="glass-card p-8">
+          <h3 class="text-xl font-bold text-white mb-3">🎬 Creative Automation</h3>
+          <p class="text-slate-400 leading-relaxed">Masowe generowanie spersonalizowanych materiałów marketingowych: wideo MP4, banery, dokumenty ofertowe. System produkuje gotowe pliki bez angażowania grafika.</p>
         </div>
-
       </div>
     </div>
 
-    <!-- Modele współpracy -->
-    <div class="mt-20 border-t border-slate-200 dark:border-white/10 pt-20">
-      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Modele współpracy</h2>
+    <div class="section-divider my-20"></div>
+
+    <div class="reveal">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Modele współpracy</h2>
       <div class="grid gap-6 md:grid-cols-3">
-
-        <div class="flex flex-col rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+        <div class="glass-card p-8 flex flex-col">
           <div class="text-2xl mb-3">🎯</div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Projekt (Fixed-Price)</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow leading-relaxed">Dla konkretnego, jasno opisanego problemu. Wycena z góry po audycie zakresu. Płacisz za dowieziony efekt, nie za czas.</p>
-          <div class="mt-4 text-xs text-slate-500 dark:text-slate-500">Budżet ustalany indywidualnie</div>
+          <h3 class="text-lg font-bold text-white">Projekt (Fixed-Price)</h3>
+          <p class="mt-2 text-sm text-slate-400 flex-grow leading-relaxed">Dla konkretnego, jasno opisanego problemu. Wycena z góry po audycie zakresu. Płacisz za dowieziony efekt, nie za czas.</p>
+          <div class="mt-4 text-xs text-slate-500 font-mono">Budżet ustalany indywidualnie</div>
         </div>
-
-        <div class="flex flex-col rounded-3xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-8 shadow-sm relative overflow-hidden">
+        <div class="glass-card-accent p-8 flex flex-col relative overflow-hidden">
           <div class="absolute top-0 right-0 bg-emerald-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider">Polecane</div>
           <div class="text-2xl mb-3">🤝</div>
-          <h3 class="text-lg font-bold text-emerald-600 dark:text-emerald-400">Partnerstwo (Retainer)</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300 flex-grow leading-relaxed">Stały abonament miesięczny. Automatyzujesz kolejne działy, a systemy są na bieżąco monitorowane i utrzymywane w ramach SLA.</p>
-          <div class="mt-4 text-xs text-emerald-600 dark:text-emerald-400">Ustalona pula godzin miesięcznie</div>
+          <h3 class="text-lg font-bold text-emerald-400">Partnerstwo (Retainer)</h3>
+          <p class="mt-2 text-sm text-slate-300 flex-grow leading-relaxed">Stały abonament miesięczny. Automatyzujesz kolejne działy, a systemy są monitorowane i utrzymywane w ramach SLA.</p>
+          <div class="mt-4 text-xs text-emerald-400 font-mono">Ustalona pula godzin miesięcznie</div>
         </div>
-
-        <div class="flex flex-col rounded-3xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-8 shadow-sm">
+        <div class="glass-card p-8 flex flex-col">
           <div class="text-2xl mb-3">💡</div>
-          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Konsultacje i audyt</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-grow leading-relaxed">Masz już zespół, ale potrzebujesz kogoś kto zaprojektuje architekturę lub wskaże gdzie jest prawdziwy problem. Doradztwo techniczne bez wdrożenia.</p>
-          <div class="mt-4 text-xs text-slate-500 dark:text-slate-500">Rozliczane godzinowo</div>
+          <h3 class="text-lg font-bold text-white">Konsultacje i audyt</h3>
+          <p class="mt-2 text-sm text-slate-400 flex-grow leading-relaxed">Masz już zespół, ale potrzebujesz kogoś kto zaprojektuje architekturę lub wskaże problem. Doradztwo techniczne bez wdrożenia.</p>
+          <div class="mt-4 text-xs text-slate-500 font-mono">Rozliczane godzinowo</div>
         </div>
-
       </div>
     </div>
 
-    <!-- Jak wygląda współpraca -->
-    <div class="mt-20 border-t border-slate-200 dark:border-white/10 pt-20">
-      <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-8 text-center">Jak wygląda współpraca</h2>
-      <div class="flex flex-col gap-2">
+    <div class="section-divider my-20"></div>
 
-        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">1</div>
-          <div>
-            <div class="font-semibold text-slate-900 dark:text-white">Bezpłatna konsultacja (30 min)</div>
-            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Opowiadasz mi co zajmuje Twojemu zespołowi najwięcej czasu. Mówię Ci szczerze, czy i jak to można zautomatyzować. Bez zobowiązań.</div>
-          </div>
-        </div>
-        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
-        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">2</div>
-          <div>
-            <div class="font-semibold text-slate-900 dark:text-white">Audyt i propozycja architektury</div>
-            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Mapuję obecny proces (AS-IS) i projektuję rozwiązanie (TO-BE). Dostajesz wycenę i zakres przed podjęciem decyzji.</div>
-          </div>
-        </div>
-        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
-        <div class="flex items-start gap-4 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 p-5">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-sm">3</div>
-          <div>
-            <div class="font-semibold text-slate-900 dark:text-white">Wdrożenie iteracyjne</div>
-            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Buduję etapami z bieżącym wglądem w postęp. Testuję każdy element zanim trafi na produkcję. Żadnych niespodzianek przy odbiorze.</div>
-          </div>
-        </div>
-        <div class="text-center text-slate-300 dark:text-slate-600 text-lg">↓</div>
-        <div class="flex items-start gap-4 rounded-2xl border border-emerald-500/30 bg-emerald-50 dark:bg-emerald-500/10 p-5">
-          <div class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm">4</div>
-          <div>
-            <div class="font-semibold text-slate-900 dark:text-white">Przekazanie i dokumentacja</div>
-            <div class="mt-1 text-sm text-slate-500 dark:text-slate-400">Działający system z pełną dokumentacją i instrukcjami SOP. Twój zespół może samodzielnie obsługiwać i modyfikować to co dostarczam.</div>
-          </div>
-        </div>
-
+    <div class="reveal">
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-8 text-center">Jak wygląda współpraca</h2>
+      <div class="flex flex-col gap-1">
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">1</div><div><div class="font-semibold text-white">Bezpłatna konsultacja (30 min)</div><div class="mt-1 text-sm text-slate-400">Opowiadasz co zajmuje Twojemu zespołowi najwięcej czasu. Mówię szczerze, czy i jak to można zautomatyzować. Bez zobowiązań.</div></div></div>
+        <div class="step-connector">↓</div>
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">2</div><div><div class="font-semibold text-white">Audyt i propozycja architektury</div><div class="mt-1 text-sm text-slate-400">Mapuję obecny proces (AS-IS) i projektuję rozwiązanie (TO-BE). Dostajesz wycenę i zakres przed podjęciem decyzji.</div></div></div>
+        <div class="step-connector">↓</div>
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">3</div><div><div class="font-semibold text-white">Wdrożenie iteracyjne</div><div class="mt-1 text-sm text-slate-400">Buduję etapami z bieżącym wglądem w postęp. Testuję każdy element zanim trafi na produkcję.</div></div></div>
+        <div class="step-connector">↓</div>
+        <div class="flex items-start gap-4 glass-card-accent p-5"><div class="step-node step-node-active">4</div><div><div class="font-semibold text-white">Przekazanie i dokumentacja</div><div class="mt-1 text-sm text-slate-400">Działający system z pełną dokumentacją i instrukcjami SOP. Twój zespół może samodzielnie obsługiwać to co dostarczam.</div></div></div>
       </div>
     </div>
 
     <!-- CTA -->
-    <div class="mt-20 rounded-3xl bg-slate-900 dark:bg-white/5 border border-slate-800 dark:border-white/10 p-10 text-center shadow-xl">
+    <div class="mt-20 glass-card-accent p-10 text-center reveal">
       <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Porozmawiajmy o Twoim biznesie</h2>
       <p class="text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
         Zacznijmy od 30 minut. Opowiedz mi co w Twojej firmie zajmuje najwięcej czasu, a ja powiem Ci konkretnie, czy i jak można to zautomatyzować.
       </p>
-
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-        <a href="mailto:mateusz.wienskowski@onet.pl" data-umami-event="Oferta_NapiszEmail" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-8 py-4 text-sm font-bold text-white shadow-lg hover:bg-emerald-400 transition-all">
-          Napisz do mnie
-        </a>
+      <a href="mailto:mateusz.wienskowski@onet.pl" data-umami-event="Oferta_NapiszEmail" class="btn-neon !px-8 !py-4 !text-base">
+        <span>Napisz do mnie</span>
+      </a>
+    </div>
 
   </main>
 </BaseLayout>
