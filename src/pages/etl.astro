@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseNav from '../components/CaseNav.astro';
 ---
 
 <BaseLayout title="ETL Pipeline — Case Study | Mateusz Wienskowski">
-  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+  <article class="mx-auto max-w-4xl px-4 py-20 md:py-32">
 
     <div class="badge-neon mb-6 reveal">
       <span class="badge-dot"></span>
@@ -25,6 +26,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span>Zobacz kod (GitHub)</span>
       </a>
     </div>
+    <p class="repo-note mt-4 text-sm text-slate-500 reveal reveal-delay-3">W repozytorium: odchudzone demo na przykładowych danych, które da się uruchomić, i 14 testów w pytest.</p>
 
     <!-- Metryki -->
     <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
@@ -48,11 +50,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="glass-card-accent p-8">
         <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-emerald-400">✓</span> Rozwiązanie</h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
-          <li>Pipeline Python/Pandas wczytujący dane z CSV, XLSX i PostgreSQL w jednym przebiegu.</li>
+          <li>Pipeline Python/Pandas, który w jednym przebiegu czyści dane spływające z różnych działów.</li>
           <li>Regex do ekstrakcji i ujednolicenia gramatur (wszystkie formaty → liczba + jednostka SI).</li>
-          <li>Słowniki zamian dla skrótów i błędów typograficznych + lista wyjątków do ręcznej walidacji.</li>
+          <li>Reguły słownikowe dla literówek (np. w nazwach marek) i lista wyjątków do ręcznej walidacji.</li>
           <li>Automatyczny raport wyjątków. Rekordy nierozpoznane przez pipeline lądują w osobnym pliku z podaniem przyczyny odrzucenia.</li>
-          <li>Output: PostgreSQL (produkcja) + CSV (raportowanie manualne).</li>
+          <li>Output: CSV do raportów i opcjonalnie PostgreSQL przez SQLAlchemy.</li>
         </ul>
       </div>
     </div>
@@ -60,22 +62,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- Before / After -->
     <div class="mt-16 reveal">
       <h2 class="text-2xl font-bold text-white">Dane wejściowe vs wyjściowe</h2>
-      <p class="mt-2 text-slate-500 text-sm">Przykładowe rekordy pokazujące efekt normalizacji</p>
+      <p class="mt-2 text-slate-500 text-sm">Prawdziwy wynik uruchomienia demo z repozytorium na pliku <span class="font-mono text-emerald-400 text-xs">data/raw_data.csv</span></p>
       <div class="mt-6 overflow-x-auto glass-card !rounded-xl">
         <table class="w-full text-sm">
           <thead>
             <tr class="border-b border-white/5 bg-white/[0.02]">
-              <th class="px-4 py-3 text-left font-semibold text-slate-300">Pole</th>
-              <th class="px-4 py-3 text-left font-semibold text-red-400">❌ Przed (brudne)</th>
-              <th class="px-4 py-3 text-left font-semibold text-emerald-400">✅ Po (czyste)</th>
+              <th class="px-4 py-3 text-left font-semibold text-red-400">❌ Wejście (product_name)</th>
+              <th class="px-4 py-3 text-left font-semibold text-emerald-400">✅ clean_name</th>
+              <th class="px-4 py-3 text-left font-semibold text-emerald-400">Gramatura</th>
+              <th class="px-4 py-3 text-left font-semibold text-emerald-400">Marka</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-white/5">
-            <tr><td class="px-4 py-3 font-medium text-slate-300">nazwa_produktu</td><td class="px-4 py-3 text-red-400 font-mono text-xs">jogurt naturalny 2% 400G</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Jogurt Naturalny 2%</td></tr>
-            <tr><td class="px-4 py-3 font-medium text-slate-300">gramatura</td><td class="px-4 py-3 text-red-400 font-mono text-xs">400G / 0.4kg / 400 gr</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">400g</td></tr>
-            <tr><td class="px-4 py-3 font-medium text-slate-300">kategoria</td><td class="px-4 py-3 text-red-400 font-mono text-xs">Nab. / nabial / NABIAŁ</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Nabiał</td></tr>
-            <tr><td class="px-4 py-3 font-medium text-slate-300">kod_ean</td><td class="px-4 py-3 text-red-400 font-mono text-xs">590123456789 0 (spacja, zero)</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">5901234567890</td></tr>
-            <tr><td class="px-4 py-3 font-medium text-slate-300">producent</td><td class="px-4 py-3 text-red-400 font-mono text-xs">mlekovita / MLEKOVITA / Mlekow.</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Mlekovita</td></tr>
+            <tr><td class="px-4 py-3 text-red-400 font-mono text-xs whitespace-pre">"  Kawa LAvazza 1kg  "</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Kawa Lavazza 1Kg</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">1000g</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Lavazza</td></tr>
+            <tr><td class="px-4 py-3 text-red-400 font-mono text-xs whitespace-pre">"  kawa lavaza 250G"</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Kawa Lavaza 250G</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">250g</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Lavazza</td></tr>
+            <tr><td class="px-4 py-3 text-red-400 font-mono text-xs">Mleko Łaciate 3,2% 1 L</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Mleko Łaciate 3,2% 1 L</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">1000ml</td><td class="px-4 py-3 text-slate-500 font-mono text-xs">–</td></tr>
+            <tr><td class="px-4 py-3 text-red-400 font-mono text-xs">woda gaz. 1.5l Muszynianka</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">Woda Gaz. 1.5L Muszynianka</td><td class="px-4 py-3 text-emerald-400 font-mono text-xs">1500ml</td><td class="px-4 py-3 text-slate-500 font-mono text-xs">–</td></tr>
+            <tr><td class="px-4 py-3 text-red-400 font-mono text-xs">Bulka kajzerka</td><td class="px-4 py-3 text-amber-400 font-mono text-xs" colspan="3">→ quarantine_report.csv: „brak lub nieczytelna gramatura”</td></tr>
           </tbody>
         </table>
       </div>
@@ -86,60 +89,48 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2 class="text-2xl font-bold text-white">Architektura pipeline'u</h2>
       <p class="mt-2 text-slate-500 text-sm">Przepływ danych od surowego inputu do czystego outputu</p>
       <div class="mt-6 flex flex-col gap-1">
-        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">1</div><div><div class="font-semibold text-white">Ingestion</div><div class="mt-1 text-sm text-slate-400">Pandas wczytuje pliki CSV/XLSX z każdego działu oraz dane z PostgreSQL przez SQLAlchemy. Wszystkie źródła łączone w jeden DataFrame z kolumną <span class="font-mono text-emerald-400 text-xs">source_id</span> do śledzenia pochodzenia.</div></div></div>
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">1</div><div><div class="font-semibold text-white">Ingestion</div><div class="mt-1 text-sm text-slate-400">Pandas wczytuje surowy plik <span class="font-mono text-emerald-400 text-xs">raw_data.csv</span>. Brak pliku kończy przebieg czytelnym błędem w logu zamiast wyjątku.</div></div></div>
         <div class="step-connector">↓</div>
-        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">2</div><div><div class="font-semibold text-white">Transform</div><div class="mt-1 text-sm text-slate-400">Regex czyści i ujednolica gramatury. Słowniki zamian korygują skróty i literówki. Nazwy produktów przechodzą przez pipeline titlecase + strip białych znaków + usunięcie zduplikowanych tokenów.</div></div></div>
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">2</div><div><div class="font-semibold text-white">Transform</div><div class="mt-1 text-sm text-slate-400">Nazwy i kategorie: strip, zwinięcie wielokrotnych spacji i titlecase. Regex wyciąga gramaturę i przelicza ją na g albo ml (kg → g, l → ml, polski przecinek → kropka). Reguła słownikowa poprawia literówki w marce.</div></div></div>
         <div class="step-connector">↓</div>
-        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">3</div><div><div class="font-semibold text-white">Validate</div><div class="mt-1 text-sm text-slate-400">Rekordy nierozpoznane przez pipeline (nieznane skróty, brak EAN, anomalie gramatur) trafiają do osobnego pliku <span class="font-mono text-emerald-400 text-xs">exceptions.csv</span> z powodem odrzucenia. Żadnych cichych błędów w danych wyjściowych.</div></div></div>
+        <div class="flex items-start gap-4 glass-card p-5"><div class="step-node">3</div><div><div class="font-semibold text-white">Validate</div><div class="mt-1 text-sm text-slate-400">Rekordy bez czytelnej gramatury trafiają do <span class="font-mono text-emerald-400 text-xs">quarantine_report.csv</span> z kolumną <span class="font-mono text-emerald-400 text-xs">reject_reason</span>. Żadnych cichych błędów w danych wyjściowych.</div></div></div>
         <div class="step-connector">↓</div>
-        <div class="flex items-start gap-4 glass-card-accent p-5"><div class="step-node step-node-active">4</div><div><div class="font-semibold text-white">Load</div><div class="mt-1 text-sm text-slate-400">Znormalizowane dane zapisywane do PostgreSQL przez upsert po EAN oraz eksportowane jako CSV. Każdy przebieg logowany z timestampem i liczbą przetworzonych oraz odrzuconych rekordów.</div></div></div>
+        <div class="flex items-start gap-4 glass-card-accent p-5"><div class="step-node step-node-active">4</div><div><div class="font-semibold text-white">Load</div><div class="mt-1 text-sm text-slate-400">Czyste dane zapisywane do <span class="font-mono text-emerald-400 text-xs">clean_data.csv</span>, a przy ustawionym <span class="font-mono text-emerald-400 text-xs">DATABASE_URL</span> także do PostgreSQL. Każdy przebieg logowany z timestampem i liczbą czystych oraz odrzuconych rekordów.</div></div></div>
       </div>
     </div>
 
     <!-- Fragment kodu -->
     <div class="mt-16 reveal">
       <h2 class="text-2xl font-bold text-white mb-2">Fragment kodu (Python)</h2>
-      <p class="text-slate-500 text-sm mb-6">Regex obsługujący i standaryzujący różne formaty gramatur z brudnych danych.</p>
+      <p class="text-slate-500 text-sm mb-6">Regex wyciągający gramaturę i reguła kwarantanny. Kod 1:1 z repozytorium, pokryty testami w pytest.</p>
       <div class="code-window">
         <div class="code-window-header">
           <div class="code-window-dots"><span></span><span></span><span></span></div>
-          <span class="code-window-title">normalize_weight.py</span>
+          <span class="code-window-title">src/etl_pipeline.py</span>
         </div>
-        <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># Mapowanie jednostek do standardu SI</span>
-<span class="text-purple-400">import</span> re
-<span class="text-purple-400">import</span> pandas <span class="text-purple-400">as</span> pd
+        <pre class="p-6 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500"># src/etl_pipeline.py (fragment)</span>
+WEIGHT_PATTERN = re.compile(<span class="text-emerald-400">r"([\d\.,]+)\s*(kg|g|l|ml)"</span>)
 
-UNIT_MAP = &#123;
-    "kg": 1000, "g": 1, "gr": 1,
-    "ml": 1, "l": 1000, "szt": None
-&#125;
+<span class="text-purple-400">def</span> <span class="text-blue-400">extract_weight</span>(product_name):
+    <span class="text-slate-500">"""Wyciąga gramaturę lub pojemność z nazwy i sprowadza ją do g albo ml."""</span>
+    <span class="text-purple-400">if</span> pd.isna(product_name):
+        <span class="text-purple-400">return</span> NO_DATA
 
-<span class="text-purple-400">def</span> <span class="text-blue-400">normalize_weight</span>(raw: str) -&gt; dict:
-    <span class="text-slate-500">"""Parsuje gramaturę do wartości i jednostki SI."""</span>
-    <span class="text-purple-400">if not</span> raw:
-        <span class="text-purple-400">return</span> &#123;"value": None, "unit": None, "exception": "brak_gramatury"&#125;
-
-    pattern = <span class="text-emerald-400">r"(\d+[.,]?\d*)\s*(kg|g|gr|ml|l|szt)"</span>
-    match = re.search(pattern, raw.lower().strip())
-
+    match = WEIGHT_PATTERN.search(str(product_name).lower())
     <span class="text-purple-400">if not</span> match:
-        <span class="text-purple-400">return</span> &#123;"value": None, "unit": None, "exception": "nieznany_format"&#125;
+        <span class="text-purple-400">return</span> NO_DATA
 
-    value = float(match.group(1).replace(",", "."))
+    value = float(match.group(1).replace(<span class="text-emerald-400">","</span>, <span class="text-emerald-400">"."</span>))  <span class="text-slate-500"># polski przecinek</span>
     unit = match.group(2)
-    multiplier = UNIT_MAP.get(unit, 1)
+    <span class="text-purple-400">if</span> unit == <span class="text-emerald-400">"kg"</span>:
+        <span class="text-purple-400">return</span> f<span class="text-emerald-400">"&#123;int(value * 1000)&#125;g"</span>
+    <span class="text-purple-400">if</span> unit == <span class="text-emerald-400">"l"</span>:
+        <span class="text-purple-400">return</span> f<span class="text-emerald-400">"&#123;int(value * 1000)&#125;ml"</span>
+    <span class="text-purple-400">return</span> f<span class="text-emerald-400">"&#123;int(value)&#125;&#123;unit&#125;"</span>
 
-    <span class="text-purple-400">return</span> &#123;
-        "value": value * (multiplier <span class="text-purple-400">or</span> 1),
-        "unit": "g" <span class="text-purple-400">if</span> multiplier <span class="text-purple-400">else</span> "szt",
-        "exception": None
-    &#125;
-
-<span class="text-slate-500"># Zastosowanie na DataFrame</span>
-df["weight_parsed"] = df["gramatura_raw"].apply(normalize_weight)
-df_exceptions = df[df["weight_parsed"].apply(
-    <span class="text-purple-400">lambda</span> x: x["exception"] <span class="text-purple-400">is not None</span>
-)]</code></pre>
+<span class="text-slate-500"># Transform: rekord albo przechodzi, albo trafia do kwarantanny z powodem</span>
+rejected = df[<span class="text-emerald-400">"standardized_weight"</span>].isna() | (df[<span class="text-emerald-400">"standardized_weight"</span>] == NO_DATA)
+quarantine = df[rejected].assign(reject_reason=<span class="text-emerald-400">"brak lub nieczytelna gramatura"</span>)</code></pre>
       </div>
     </div>
 
@@ -166,5 +157,7 @@ df_exceptions = df[df["weight_parsed"].apply(
       </div>
     </div>
 
-  </main>
+    <CaseNav current="etl" />
+
+  </article>
 </BaseLayout>

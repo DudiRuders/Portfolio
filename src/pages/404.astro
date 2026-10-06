@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import nicponImg from '../assets/nicpon.png';
+
+const root = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<BaseLayout title="404 — Nicpoń zgubił tę stronę" description="Tej strony nie ma. Kot Nicpoń szuka jej pod biurkiem." noindex>
+  <section class="mx-auto max-w-3xl px-4 py-24 md:py-32 text-center">
+    <p class="font-mono text-sm tracking-[0.3em] text-emerald-400/80 uppercase reveal">Błąd systemu</p>
+    <h1 class="mt-4 font-mono font-black text-7xl md:text-9xl tracking-tighter neon-text reveal reveal-delay-1">404</h1>
+    <p class="mt-4 text-xl text-slate-300 reveal reveal-delay-2">Nicpoń przeszukał wszystkie pipeline’y i tej strony nie ma.</p>
+    <p class="mt-2 text-slate-500 reveal reveal-delay-2">Możliwe, że zrzucił ją z biurka w ramach testów chaosu.</p>
+
+    <div class="mx-auto mt-12 w-full max-w-sm reveal reveal-delay-3">
+      <Image src={nicponImg} alt="Kot Nicpoń przy klawiaturze" widths={[400, 800]} sizes="384px" class="w-full h-auto rounded-[28px] shadow-2xl" />
+    </div>
+
+    <div class="mt-12 flex flex-wrap items-center justify-center gap-4 reveal reveal-delay-4">
+      <a href={`${root}/`} class="btn-neon"><span>Wróć na start</span></a>
+      <a href={`${root}/#projekty`} class="btn-ghost">Zobacz projekty</a>
+    </div>
+  </section>
+</BaseLayout>

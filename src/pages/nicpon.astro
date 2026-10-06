@@ -1,51 +1,329 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SpecialMonitor from '../components/SpecialMonitor.astro';
+import { Image } from 'astro:assets';
+import nicponImg from '../assets/nicpon.png';
 
-const base = import.meta.env.BASE_URL;
+const terminalLines = [
+  'init system_observer --kot=Nicpoń',
+  'skanowanie repozytoriów… 7/7 OK',
+  'ETL: 12 000 rekordów, 0 cichych błędów',
+  'Factorio: taśmy płyną, zębatki się kręcą',
+  'BRAVVM: herezji nie wykryto',
+  'status: drzemka zasłużona 😺',
+];
+
+// Pozycje i opóźnienia drobinek w tle (stałe, żeby HTML był deterministyczny)
+const particles = Array.from({ length: 16 }, (_, i) => ({
+  left: (i * 37 + 11) % 100,
+  delay: -((i * 1.7) % 14),
+  duration: 12 + ((i * 5) % 9),
+  size: 2 + (i % 3),
+}));
 ---
 
-<BaseLayout title="Nicpoń - System Observer">
-  <div class="min-h-screen flex flex-col items-center justify-center py-20 px-4 overflow-hidden">
-    
-    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-      
-      <div class="flex flex-col gap-16 items-center lg:mt-12">
-        <SpecialMonitor title="ETL PIPELINE" subtitle="ZAKOŃCZONY" delay="-1s" href="/etl" />
-        <SpecialMonitor title="KPI DASHBOARD" subtitle="POMYŚLNY" delay="-4s" href="/kpi" />
+<BaseLayout title="Nicpoń — System Observer" description="Centrum dowodzenia kota Nicponia: monitory z projektami, terminal i trochę mruczenia.">
+  <div class="particles" aria-hidden="true">
+    {particles.map((p) => (
+      <span style={`left:${p.left}%;animation-delay:${p.delay}s;animation-duration:${p.duration}s;width:${p.size}px;height:${p.size}px`}></span>
+    ))}
+  </div>
+
+  <div class="relative min-h-screen flex flex-col items-center justify-center py-16 md:py-20 px-4 overflow-hidden">
+
+    <div class="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 items-start">
+
+      <div class="flex flex-col gap-14 items-center lg:mt-12 order-2 lg:order-1">
+        <SpecialMonitor title="ETL PIPELINE" subtitle="ZAKOŃCZONY" delay="-1s" boot="0.2s" href="/etl" />
+        <SpecialMonitor title="KPI DASHBOARD" subtitle="POMYŚLNY" delay="-4s" boot="0.6s" href="/kpi" />
+        <SpecialMonitor title="DOKUMENTY" subtitle="WYGENEROWANO" delay="-3s" boot="1s" href="/document-automation" />
       </div>
 
-    <div class="flex flex-col items-center gap-12">
-        
-        <SpecialMonitor title="LINKEDIN" subtitle="POŁĄCZONO" href="https://www.linkedin.com/in/mateusz-wienskowski" buttonText="ZOBACZ PROFIL" />
+      <div class="flex flex-col items-center gap-12 order-1 lg:order-2">
+        <SpecialMonitor title="LINKEDIN" subtitle="POŁĄCZONO" boot="0s" href="https://www.linkedin.com/in/mateusz-wienskowski" buttonText="ZOBACZ PROFIL" />
 
-        <div class="flex flex-col items-center w-full max-w-[400px] transition-transform hover:scale-105 duration-500">
-          
-          <img 
-            src={`${base}/nicpon.png`.replace(/\/+/g, '/')} 
-            alt="kot Nicpoń" 
-            class="w-full h-auto rounded-[32px] shadow-2xl mb-8" 
-          />
-          
-          <div class="text-center w-full">
+        <div class="observer flex flex-col items-center w-full max-w-[400px]">
+          <div class="relative w-full">
+            <p class="cat-bubble" id="catBubble" role="status" aria-live="polite"></p>
+            <button type="button" class="cat-btn" id="catBtn" aria-label="Pogłaszcz Nicponia">
+              <Image src={nicponImg} alt="Kot Nicpoń przy klawiaturze" widths={[400, 800]} sizes="400px" class="cat-img w-full h-auto rounded-[32px]" loading="eager" />
+              <span class="cat-glow" aria-hidden="true"></span>
+            </button>
+            <div class="cat-fx" id="catFx" aria-hidden="true"></div>
+          </div>
+
+          <div class="text-center w-full mt-8">
             <p class="text-emerald-400 font-mono text-sm tracking-[0.3em] uppercase opacity-80 mb-2">System Observer</p>
-            <h2 class="text-slate-100 font-mono text-2xl flex items-baseline justify-center gap-2 mb-3">
-              <span class="text-emerald-500/80 italic font-serif text-2xl">kot</span> 
+            <h1 class="text-slate-100 font-mono text-2xl flex items-baseline justify-center gap-2 mb-3">
+              <span class="text-emerald-500/80 italic font-serif text-2xl">kot</span>
               <span class="font-black tracking-tighter text-3xl">Nicpoń</span>
-            </h2>
+            </h1>
             <p class="text-slate-500 text-[11px] uppercase tracking-[0.3em] font-bold">Mateusz Wienskowski</p>
-            <div class="mt-5 py-3 px-2 glass-card !rounded-lg">
-                <p class="text-emerald-400 font-mono text-[11px] opacity-90 animate-pulse">"Analiza zakończona. Wyniki: Optymalne."</p>
+
+            <div class="terminal mt-6 text-left" aria-label="Log systemu">
+              <div class="code-window-header">
+                <div class="code-window-dots"><span></span><span></span><span></span></div>
+                <span class="code-window-title">observer.log</span>
+              </div>
+              <pre id="terminal" class="p-4 font-mono text-[12px] leading-relaxed text-emerald-400/90 min-h-[10.5rem] whitespace-pre-wrap" data-lines={JSON.stringify(terminalLines)}>{terminalLines.map((l) => `> ${l}`).join('\n')}</pre>
             </div>
+            <p class="mt-3 text-[11px] text-slate-500 font-mono">wskazówka: Nicpoń lubi, jak się go klika</p>
           </div>
         </div>
+
+        <SpecialMonitor title="GITHUB" subtitle="7 REPOZYTORIÓW" delay="-2.5s" boot="1.2s" href="https://github.com/DudiRuders" buttonText="OTWÓRZ KOD" />
       </div>
 
-      <div class="flex flex-col gap-16 items-center lg:mt-12">
-        <SpecialMonitor title="VIDEO AUTOMATION" subtitle="URUCHOMIONY" delay="-2s" href="/video-automation" />
-        <SpecialMonitor title="INTEGRACJE AI" subtitle="UAKTYWNIONY" delay="-0.5s" href="/#stack" />
+      <div class="flex flex-col gap-14 items-center lg:mt-12 order-3">
+        <SpecialMonitor title="VIDEO AUTOMATION" subtitle="URUCHOMIONY" delay="-2s" boot="0.4s" href="/video-automation" />
+        <SpecialMonitor title="INTEGRACJE AI" subtitle="UAKTYWNIONY" delay="-0.5s" boot="0.8s" href="/#stack" />
+        <SpecialMonitor title="PO GODZINACH" subtitle="GRY: 3" delay="-5s" boot="1.4s" href="/#po-godzinach" buttonText="ZAGRAJ" />
       </div>
 
     </div>
   </div>
 </BaseLayout>
+
+<style>
+  /* Drobinki unoszące się w tle */
+  .particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .particles span {
+    position: absolute;
+    bottom: -10px;
+    border-radius: 50%;
+    background: #34d399;
+    box-shadow: 0 0 8px rgba(16, 185, 129, 0.9);
+    animation: float-particle linear infinite;
+  }
+
+  /* Kot: oddychanie, poświata i reakcja na kliknięcie */
+  .cat-btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    background: none;
+    border: 0;
+    border-radius: 32px;
+    cursor: pointer;
+    animation: breathe 4.5s ease-in-out infinite;
+  }
+  .cat-btn:focus-visible { outline: 3px solid #34d399; outline-offset: 6px; }
+  .cat-img { position: relative; z-index: 1; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); }
+  .cat-glow {
+    position: absolute;
+    inset: -14px;
+    z-index: 0;
+    border-radius: 44px;
+    background: radial-gradient(closest-side, rgba(16, 185, 129, 0.35), transparent);
+    filter: blur(12px);
+    animation: glow 4.5s ease-in-out infinite;
+  }
+  .cat-btn.boop { animation: boop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+  .cat-btn.spin { animation: spin 1.2s cubic-bezier(0.5, 0, 0.3, 1); }
+  @keyframes breathe { 50% { transform: translateY(-6px) scale(1.01); } }
+  @keyframes glow { 50% { opacity: 0.55; transform: scale(1.04); } }
+  @keyframes boop { 40% { transform: scale(0.94, 1.04); } 70% { transform: scale(1.03, 0.97); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .cat-bubble {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    z-index: 3;
+    max-width: 90%;
+    margin: 0;
+    padding: 8px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: #0b1120;
+    background: #d1fae5;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.45);
+    opacity: 0;
+    transform: translate(-50%, -80%) scale(0.8);
+    transition: opacity 0.25s, transform 0.25s cubic-bezier(0.3, 1.5, 0.5, 1);
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .cat-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    border: 6px solid transparent;
+    border-bottom: 0;
+    border-top-color: #d1fae5;
+    transform: translateX(-50%);
+  }
+  .cat-bubble.show { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+
+  .cat-fx { position: absolute; inset: 0; z-index: 4; pointer-events: none; }
+  :global(.fx-heart) {
+    position: absolute;
+    font-size: 20px;
+    animation: rise 1.2s ease-out forwards;
+  }
+  @keyframes rise {
+    from { opacity: 1; transform: translate(0, 0) scale(0.6); }
+    to { opacity: 0; transform: translate(var(--dx), -140px) scale(1.2) rotate(var(--rot)); }
+  }
+
+  /* Ślady łapek za kursorem */
+  :global(.paw) {
+    position: fixed;
+    z-index: 60;
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    opacity: 0.55;
+    animation: paw-fade 1.4s ease-out forwards;
+  }
+  @keyframes paw-fade { to { opacity: 0; transform: scale(0.6); } }
+
+  .terminal {
+    border-radius: 1rem;
+    background: #080e1a;
+    border: 1px solid rgba(16, 185, 129, 0.12);
+    overflow: hidden;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  }
+  /* Globalna reguła `* { font-family }` nadpisałaby monospace w wierszach dodawanych przez JS */
+  :global(#terminal), :global(#terminal *) { font-family: var(--font-mono); }
+  :global(.term-caret) { display: inline-block; width: 0.55em; background: #34d399; animation: caret 1s steps(1) infinite; }
+  @keyframes caret { 50% { opacity: 0; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .particles { display: none; }
+    .cat-btn, .cat-glow { animation: none; }
+  }
+</style>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Kot: dymki, serduszka i tryb turbo ---------- */
+  const MEOWS = [
+    'Miau. Deploy zatwierdzony.',
+    'Mrrr… pipeline zielony.',
+    'Kot nie ma bugów. Ma feature’y.',
+    'Testy chaosu: zrzucam kubek.',
+    'Zero ręcznej pracy. Drzemka.',
+    'Mrau? Dashboard się odświeżył.',
+    'Psst… zagraj w psychotest.',
+  ];
+  const btn = document.getElementById('catBtn');
+  const bubble = document.getElementById('catBubble');
+  const fx = document.getElementById('catFx');
+  let clicks = 0;
+  let bubbleTimer = 0;
+
+  function say(text: string) {
+    if (!bubble) return;
+    bubble.textContent = text;
+    bubble.classList.add('show');
+    clearTimeout(bubbleTimer);
+    bubbleTimer = window.setTimeout(() => bubble.classList.remove('show'), 2600);
+  }
+
+  function hearts(count: number) {
+    if (!fx || reduceMotion) return;
+    for (let i = 0; i < count; i++) {
+      const h = document.createElement('span');
+      h.className = 'fx-heart';
+      h.textContent = i % 3 === 0 ? '🐾' : '💚';
+      h.style.left = `${30 + Math.random() * 40}%`;
+      h.style.top = `${35 + Math.random() * 20}%`;
+      h.style.setProperty('--dx', `${(Math.random() - 0.5) * 120}px`);
+      h.style.setProperty('--rot', `${(Math.random() - 0.5) * 60}deg`);
+      h.style.animationDelay = `${i * 60}ms`;
+      fx.append(h);
+      h.addEventListener('animationend', () => h.remove());
+    }
+  }
+
+  function replay(el: Element, cls: string) {
+    el.classList.remove(cls);
+    void (el as HTMLElement).offsetWidth;
+    el.classList.add(cls);
+  }
+
+  btn?.addEventListener('click', () => {
+    clicks += 1;
+    if (clicks % 7 === 0) {
+      say('TRYB TURBO MRUCZENIA 200% 🚀');
+      if (!reduceMotion) {
+        replay(btn, 'spin');
+        document.body.classList.add('purr');
+        window.setTimeout(() => document.body.classList.remove('purr'), 2200);
+      }
+      hearts(14);
+      return;
+    }
+    say(MEOWS[(clicks - 1) % MEOWS.length]);
+    if (!reduceMotion) replay(btn, 'boop');
+    hearts(5);
+  });
+
+  /* ---------- Terminal: pisanie linijka po linijce ---------- */
+  const term = document.getElementById('terminal');
+  const lines: string[] = term ? JSON.parse(term.dataset.lines || '[]') : [];
+
+  async function typeLoop() {
+    if (!term) return;
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+    for (;;) {
+      term.textContent = '';
+      for (const line of lines) {
+        const row = document.createElement('div');
+        const caret = document.createElement('span');
+        caret.className = 'term-caret';
+        caret.textContent = ' ';
+        row.textContent = '> ';
+        term.append(row);
+        row.append(caret);
+        for (const ch of line) {
+          caret.before(ch);
+          await sleep(28 + Math.random() * 40);
+        }
+        caret.remove();
+        await sleep(420);
+      }
+      const idle = document.createElement('span');
+      idle.className = 'term-caret';
+      idle.textContent = ' ';
+      term.append(document.createTextNode('> '), idle);
+      await sleep(5000);
+    }
+  }
+  if (!reduceMotion) {
+    window.setTimeout(typeLoop, 900);
+    window.setTimeout(() => say('Mrrr… system online.'), 1700);
+  }
+
+  /* ---------- Ślady łapek za kursorem (tylko mysz) ---------- */
+  if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
+    const PAW = '<svg viewBox="0 0 24 24" fill="#34d399"><ellipse cx="12" cy="16" rx="5" ry="4"/><circle cx="6" cy="10" r="2.2"/><circle cx="10" cy="6.5" r="2.2"/><circle cx="14" cy="6.5" r="2.2"/><circle cx="18" cy="10" r="2.2"/></svg>';
+    let lastX = 0;
+    let lastY = 0;
+    let flip = false;
+    window.addEventListener('pointermove', (e) => {
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      if (dx * dx + dy * dy < 70 * 70) return;
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      flip = !flip;
+      const paw = document.createElement('div');
+      paw.className = 'paw';
+      paw.innerHTML = PAW;
+      const offset = flip ? 8 : -8;
+      paw.style.left = `${e.clientX - 9 + offset * Math.cos((angle * Math.PI) / 180)}px`;
+      paw.style.top = `${e.clientY - 9 + offset * Math.sin((angle * Math.PI) / 180)}px`;
+      paw.style.rotate = `${angle}deg`;
+      document.body.append(paw);
+      paw.addEventListener('animationend', () => paw.remove());
+    }, { passive: true });
+  }
+</script>

@@ -5,7 +5,8 @@
    FORGE — Design System (CV-aligned palette)
    ═══════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/* Fonty (Outfit, JetBrains Mono) ładuje <link> w BaseLayout.astro:
+   @import po regułach Tailwinda był wycinany z builda. */
 
 :root {
   /* ── Background ── */
@@ -46,7 +47,9 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-* { font-family: var(--font-display); }
+/* Font ustawiony na html i dziedziczony. Wcześniejsze `* { font-family }` było poza warstwami CSS,
+   więc przebijało każde `font-mono` z Tailwinda (kod w case studies wyświetlał się w Outfit). */
+html, body { font-family: var(--font-display); }
 
 html {
   scroll-behavior: smooth;
@@ -59,6 +62,9 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
+
+/* Kotwice nie chowają się pod przyklejonym nagłówkiem */
+section[id] { scroll-margin-top: 5.5rem; }
 
 /* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 5px; }
@@ -317,6 +323,167 @@ body {
 }
 
 /* ═══════════════════════════════════════════════════════
+   REPOZYTORIA I PROJEKTY PO GODZINACH
+   ═══════════════════════════════════════════════════════ */
+
+.repo-card {
+  display: block;
+  height: 100%;
+  padding: 1rem 1.125rem;
+  border-radius: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.repo-card:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-glow);
+  transform: translateY(-2px);
+}
+
+.game-card { --accent: var(--emerald); }
+
+.game-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.game-thumb {
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.game-card:hover .game-thumb { transform: scale(1.04); }
+
+.game-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.btn-game {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  color: #0b1120;
+  background: var(--accent);
+  box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 35%, transparent);
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.btn-game:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* ═══════════════════════════════════════════════════════
+   SZLIFY: KONSOLA W HERO, ETYKIETY SEKCJI, SPOTLIGHT
+   ═══════════════════════════════════════════════════════ */
+
+.hero-console {
+  position: relative;
+  transform: perspective(1200px) rotateY(-6deg) rotateX(2deg);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(16, 185, 129, 0.08);
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.hero-console:hover { transform: perspective(1200px) rotateY(0) rotateX(0); }
+
+.console-line {
+  display: grid;
+  grid-template-columns: 1.25rem 6.5rem 1fr;
+  opacity: 0;
+  animation: console-in 0.4s var(--ease-out-expo) forwards;
+  animation-delay: calc(0.9s + var(--i) * 0.35s);
+}
+
+.console-job { color: var(--accent-cyan); }
+.console-run { color: var(--accent-gold); animation: blink-soft 1.4s ease-in-out infinite; }
+
+@keyframes blink-soft { 50% { opacity: 0.35; } }
+
+@keyframes console-in {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: none; }
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--emerald-light);
+}
+
+.section-kicker::after {
+  content: '';
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(16, 185, 129, 0.5), transparent);
+}
+
+.section-kicker.justify-center::before {
+  content: '';
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(270deg, rgba(16, 185, 129, 0.5), transparent);
+}
+
+/* Poświata pod kursorem na kartach (pozycję ustawia skrypt w BaseLayout) */
+.glass-card,
+.glass-card-accent,
+.repo-card { position: relative; }
+
+.glass-card::after,
+.glass-card-accent::after,
+.repo-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(16, 185, 129, 0.09), transparent 45%);
+  transition: opacity 0.3s;
+}
+
+.glass-card:hover::after,
+.glass-card-accent:hover::after,
+.repo-card:hover::after { opacity: 1; }
+
+.game-card::after {
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent) 12%, transparent), transparent 45%);
+}
+
+/* Pasek postępu czytania w case studies */
+.read-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 2px;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(90deg, var(--emerald), var(--accent-cyan));
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+/* ═══════════════════════════════════════════════════════
    GRADIENT BORDER (featured card)
    ═══════════════════════════════════════════════════════ */
 
@@ -439,4 +606,10 @@ body {
 
 @media (max-width: 768px) {
   .project-number { font-size: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
 }

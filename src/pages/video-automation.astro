@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseNav from '../components/CaseNav.astro';
 ---
 
 <BaseLayout title="Video Automation — Case Study | Mateusz Wienskowski">
-  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+  <article class="mx-auto max-w-4xl px-4 py-20 md:py-32">
 
     <div class="badge-neon mb-6 reveal"><span class="badge-dot"></span> Creative Automation • JSON API • Video</div>
 
@@ -12,7 +13,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </h1>
 
     <p class="mt-6 text-lg md:text-xl text-slate-400 leading-relaxed reveal reveal-delay-2">
-      Programistyczne generowanie materiałów wideo (MP4, 30fps) dla kampanii marketingowych. System pobiera dane o promocjach z arkusza, buduje payload JSON i wysyła go do silnika renderującego w chmurze. Setki gotowych spotów reklamowych bez angażowania grafika.
+      Programistyczne generowanie materiałów wideo (MP4) dla kampanii marketingowych. System pobiera dane o promocjach z Airtable lub pliku CSV, buduje payload JSON i wysyła go do silnika renderującego w chmurze. Setki gotowych spotów reklamowych bez angażowania grafika.
     </p>
 
     <div class="mt-8 flex flex-wrap items-center gap-4 reveal reveal-delay-3">
@@ -22,6 +23,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span>Zobacz pełną architekturę (GitHub)</span>
       </a>
     </div>
+    <p class="repo-note mt-4 text-sm text-slate-500 reveal reveal-delay-3">W repozytorium: architektura, przykładowe feedy i mapowanie szablonów, payload z n8n i wyrenderowane pliki MP4.</p>
 
     <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
       <div class="glass-card p-5 text-center"><div class="metric-value">70%</div><div class="metric-label">szybciej niż ręcznie</div></div>
@@ -55,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="glass-card-accent p-8">
         <h2 class="text-xl font-bold text-white flex items-center gap-2"><span class="text-emerald-400">✓</span> Rozwiązanie</h2>
         <ul class="mt-4 list-disc pl-5 space-y-2 text-slate-300">
-          <li>Pipeline pobierający dane o promocjach z Excel i budujący payload JSON.</li>
+          <li>Pipeline pobierający dane o promocjach z Airtable lub CSV i budujący payload JSON.</li>
           <li>Wysyłka payloadu przez REST API do Creatomate, rendering w chmurze.</li>
           <li>Trzy szablony wideo obsługiwane przez jeden silnik.</li>
           <li>n8n orkiestruje cały proces. Trigger → render → webhook → link do pliku → status update.</li>
@@ -66,27 +68,27 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- JSON payload -->
     <div class="mt-16 reveal">
       <h2 class="text-2xl font-bold text-white">Inżynieria wideo (JSON Payload)</h2>
-      <p class="mt-2 text-slate-500 text-sm">Zamiast ręcznie edytować wideo w Premiere Pro, cały spot jest zdefiniowany jako obiekt JSON.</p>
+      <p class="mt-2 text-slate-500 text-sm">Zamiast ręcznie edytować wideo w Premiere Pro, wypełniam szablon danymi. Klucze w <span class="font-mono text-emerald-400 text-xs">dynamic_elements</span> to nazwy elementów w szablonie Creatomate.</p>
       <div class="mt-6 code-window">
         <div class="code-window-header">
           <div class="code-window-dots"><span></span><span></span><span></span></div>
-          <span class="code-window-title">render-payload.json</span>
+          <span class="code-window-title">data/webhook_n8n_payload.json</span>
         </div>
-        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500">// Payload wysyłany do Creatomate API per wariant</span>
-&#123;
-  <span class="text-emerald-400">"output_format"</span>: <span class="text-yellow-300">"mp4"</span>,
-  <span class="text-emerald-400">"width"</span>: <span class="text-purple-400">1920</span>,
-  <span class="text-emerald-400">"height"</span>: <span class="text-purple-400">1080</span>,
-  <span class="text-emerald-400">"frame_rate"</span>: <span class="text-yellow-300">"30 fps"</span>,
-  <span class="text-emerald-400">"elements"</span>: [
-    &#123;
-      <span class="text-emerald-400">"name"</span>: <span class="text-yellow-300">"produkt-1"</span>,
-      <span class="text-emerald-400">"type"</span>: <span class="text-yellow-300">"image"</span>,
-      <span class="text-emerald-400">"animations"</span>: [
-        &#123; <span class="text-emerald-400">"type"</span>: <span class="text-yellow-300">"wiggle"</span>, <span class="text-emerald-400">"frequency"</span>: <span class="text-yellow-300">"1 Hz"</span> &#125;
-      ]
+        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code>&#123;
+  <span class="text-emerald-400">"event"</span>: <span class="text-yellow-300">"airtable_row_updated"</span>,
+  <span class="text-emerald-400">"timestamp"</span>: <span class="text-yellow-300">"2024-04-15T10:30:00Z"</span>,
+  <span class="text-emerald-400">"data"</span>: &#123;
+    <span class="text-emerald-400">"record_id"</span>: <span class="text-yellow-300">"rec8a7XyZ9..."</span>,
+    <span class="text-emerald-400">"campaign_name"</span>: <span class="text-yellow-300">"Wiosenna Wyprzedaż Butów 2024"</span>,
+    <span class="text-emerald-400">"template_id"</span>: <span class="text-yellow-300">"04037256-3c15-47c7-aa5e-..."</span>,
+    <span class="text-emerald-400">"dynamic_elements"</span>: &#123;
+      <span class="text-emerald-400">"Product Image 1"</span>: <span class="text-yellow-300">"https://storage.com/img/shoe_blue.png"</span>,
+      <span class="text-emerald-400">"Product Offer 1"</span>: <span class="text-yellow-300">"-20%"</span>,
+      <span class="text-emerald-400">"Product Image 2"</span>: <span class="text-yellow-300">"https://storage.com/img/shoe_red.png"</span>,
+      <span class="text-emerald-400">"Product Offer 2"</span>: <span class="text-yellow-300">"-25%"</span>,
+      <span class="text-emerald-400">"Call to Action"</span>: <span class="text-yellow-300">"Zobacz moje Portfolio"</span>
     &#125;
-  ]
+  &#125;
 &#125;</code></pre>
       </div>
     </div>
@@ -145,8 +147,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="mt-6 flex flex-wrap gap-2">
         <span class="tech-tag">Creatomate</span><span class="tech-tag">n8n</span><span class="tech-tag">REST API</span>
         <span class="tech-tag">JSON</span><span class="tech-tag">Airtable</span><span class="tech-tag">Webhooks</span>
-        <span class="tech-tag">Slack API</span><span class="tech-tag">Excel / CSV</span>
+        <span class="tech-tag">Slack API</span><span class="tech-tag">CSV</span>
       </div>
     </div>
-  </main>
+    <CaseNav current="video-automation" />
+
+  </article>
 </BaseLayout>

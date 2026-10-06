@@ -1,14 +1,21 @@
 ---
 const currentYear = new Date().getFullYear();
+const root = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <footer class="mt-auto py-10 text-sm text-slate-500 dark:text-slate-400">
   <div class="mx-auto max-w-6xl px-4">
     <div
-      class="border-t border-slate-200 dark:border-white/10 pt-6 flex items-center justify-between flex-wrap gap-2"
+      class="border-t border-slate-200 dark:border-white/10 pt-6 flex items-center justify-between flex-wrap gap-x-6 gap-y-3"
     >
       <span>© {currentYear} Mateusz Wienskowski</span>
-      <span>Zbudowane w Astro & Tailwind v4</span>
+      <nav class="flex flex-wrap items-center gap-x-5 gap-y-2" aria-label="Stopka">
+        <a class="hover:text-emerald-400 transition-colors" href="https://github.com/DudiRuders" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="hover:text-emerald-400 transition-colors" href="https://www.linkedin.com/in/mateusz-wienskowski" target="_blank" rel="noreferrer">LinkedIn</a>
+        <a class="hover:text-emerald-400 transition-colors" href={`${root}/oferta`}>Oferta B2B</a>
+        <a class="hover:text-emerald-400 transition-colors" href={`${root}/nicpon`} title="System Observer">🐾 Nicpoń</a>
+      </nav>
+      <span>Zbudowane w Astro i Tailwind v4</span>
     </div>
   </div>
 </footer>

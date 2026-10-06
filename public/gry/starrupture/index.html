@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StarRupture · kalkulator produkcji</title>
+  <meta name="description" content="Kalkulator linii produkcyjnych do StarRupture: tempo jednej maszyny, liczba maszyn do celu i zapotrzebowanie na wszystkie wejścia.">
+  <meta name="theme-color" content="#070b16">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='14' fill='%23ff8a3d'/%3E%3Cpath d='M32 4v10M32 50v10M4 32h10M50 32h10M12 12l7 7M45 45l7 7M12 52l7-7M45 19l7-7' stroke='%23ffc65c' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b16;
+      --panel: rgba(16, 24, 44, .78);
+      --inset: rgba(4, 8, 18, .75);
+      --line: rgba(120, 170, 255, .16);
+      --text: #e6ecff;
+      --muted: #8d9bbd;
+      --sun: #ff8a3d;
+      --sun-2: #ffc65c;
+      --cyan: #3fd8ff;
+      --red: #ff6b6b;
+      --f-body: 'Exo 2', 'Segoe UI', system-ui, sans-serif;
+      --f-mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      position: relative;
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--f-body);
+      font-size: 15px;
+      line-height: 1.45;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+    }
+    /* Płonące słońce w tle – ukłon w stronę cyklicznych erupcji z gry */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -38vmax;
+      right: -24vmax;
+      z-index: -1;
+      width: 80vmax;
+      height: 80vmax;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 198, 92, .5) 0, rgba(255, 138, 61, .28) 22%, rgba(255, 80, 40, .1) 42%, transparent 62%);
+      animation: flare 9s ease-in-out infinite;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        radial-gradient(1.2px 1.2px at 12% 30%, #fff8, transparent),
+        radial-gradient(1px 1px at 40% 70%, #fff6, transparent),
+        radial-gradient(1.4px 1.4px at 70% 20%, #fff5, transparent),
+        radial-gradient(1px 1px at 85% 80%, #fff7, transparent),
+        radial-gradient(1.2px 1.2px at 25% 85%, #fff5, transparent),
+        radial-gradient(1px 1px at 55% 45%, #fff4, transparent);
+      background-size: 420px 420px;
+    }
+    @keyframes flare { 50% { transform: scale(1.06); opacity: .85; } }
+    button, input, select { font: inherit; color: inherit; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 40px; }
+
+    .top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px; }
+    .back { display: inline-block; margin-bottom: 8px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; }
+    .back:hover { color: var(--sun-2); }
+    .kicker { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--sun-2); }
+    h1 { margin: 2px 0 0; font-size: clamp(30px, 5.4vw, 46px); font-weight: 900; line-height: 1; letter-spacing: .02em; text-transform: uppercase; }
+    h1 span { background: linear-gradient(90deg, var(--sun-2), var(--sun) 55%, #ff5a3c); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .lead { max-width: 620px; margin: 8px 0 0; color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .btn { padding: 9px 14px; font-weight: 700; background: rgba(63, 216, 255, .08); border: 1px solid var(--line); border-radius: 10px; cursor: pointer; transition: border-color .15s, background-color .15s; }
+    .btn:hover { border-color: var(--cyan); background: rgba(63, 216, 255, .14); }
+    .btn-sun { color: #1d0d02; background: linear-gradient(90deg, var(--sun-2), var(--sun)); border-color: transparent; }
+    .btn-sun:hover { background: linear-gradient(90deg, #ffd47e, #ff9b55); }
+
+    .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px; margin-top: 22px; align-items: start; }
+    .panel { padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 16px; backdrop-filter: blur(8px); box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
+    .panel + .panel { margin-top: 18px; }
+    .panel h2 { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--cyan); }
+    .panel h2 b { display: grid; place-items: center; width: 24px; height: 24px; font-size: 12px; color: var(--bg); background: var(--cyan); border-radius: 6px; }
+    .fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .span-all { grid-column: 1 / -1; }
+    label { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 600; color: var(--muted); }
+    input[type="text"], select { width: 100%; padding: 9px 11px; background: var(--inset); border: 1px solid var(--line); border-radius: 9px; }
+    input[type="text"]:focus, select:focus { border-color: var(--cyan); outline: none; }
+    input.num { font-family: var(--f-mono); }
+    input.bad { border-color: var(--red); }
+    .err { min-height: 1em; margin: 3px 0 0; font-size: 12px; color: var(--red); }
+    .seg { display: flex; padding: 3px; background: var(--inset); border: 1px solid var(--line); border-radius: 10px; }
+    .seg label { flex: 1; margin: 0; padding: 7px 10px; font-size: 13px; text-align: center; color: var(--muted); border-radius: 7px; cursor: pointer; }
+    .seg input { position: absolute; opacity: 0; pointer-events: none; }
+    .seg label:has(input:checked) { color: var(--bg); background: var(--cyan); font-weight: 700; }
+    .seg label:has(input:focus-visible) { outline: 2px solid var(--sun-2); }
+    .check { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; font-size: 14px; color: var(--text); }
+    .check input { width: 16px; height: 16px; accent-color: var(--cyan); }
+    .hint { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
+
+    .ins { display: grid; gap: 8px; }
+    .in-row { display: grid; grid-template-columns: minmax(0, 1fr) 80px 128px 34px; gap: 6px; }
+    .icon-btn { padding: 0; background: var(--inset); border: 1px solid var(--line); border-radius: 9px; cursor: pointer; }
+    .icon-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .results { position: sticky; top: 16px; border-color: rgba(255, 138, 61, .3); background: linear-gradient(180deg, rgba(60, 28, 12, .55), var(--panel) 180px); }
+    .results h2 { color: var(--sun-2); }
+    .results h2 b { background: var(--sun-2); }
+    .hero { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .card { padding: 12px 14px; background: var(--inset); border: 1px solid var(--line); border-radius: 12px; }
+    .card > span { display: block; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .card b { display: block; margin-top: 2px; font-family: var(--f-mono); font-size: 26px; line-height: 1.1; color: #fff; }
+    .card small { color: var(--muted); }
+    .card.main b { font-size: 40px; color: var(--sun-2); }
+    .sec-title { margin: 16px 0 8px; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .need { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); }
+    .need:first-child { border-top: 0; }
+    .need strong { overflow-wrap: anywhere; }
+    .need .r { font-family: var(--f-mono); font-weight: 700; color: var(--sun-2); text-align: right; white-space: nowrap; }
+    .need .r small { display: block; font-family: var(--f-body); font-weight: 400; font-size: 12px; color: var(--muted); white-space: normal; }
+    .status { margin: 12px 0 0; font-size: 12px; color: var(--muted); }
+
+    footer { margin-top: 28px; padding-top: 16px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); }
+    footer a { color: var(--sun-2); }
+    .toast { position: fixed; bottom: 18px; left: 50%; padding: 10px 16px; font-weight: 700; color: #1d0d02; background: var(--sun-2); border-radius: 10px; visibility: hidden; transform: translate(-50%, 150%); transition: transform .25s, visibility .25s; }
+    .toast.show { visibility: visible; transform: translate(-50%, 0); }
+
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: minmax(0, 1fr); }
+      .results { position: static; }
+    }
+    @media (max-width: 520px) {
+      .fields, .hero { grid-template-columns: minmax(0, 1fr); }
+      .in-row { grid-template-columns: minmax(0, 1fr) 70px 34px; }
+      .in-row select { grid-column: 1 / 3; grid-row: 2; }
+    }
+    @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="top">
+      <div>
+        <a class="back" href="https://dudiruders.github.io/Portfolio/#po-godzinach">← Portfolio</a>
+        <p class="kicker">StarRupture · planowanie linii</p>
+        <h1>Kalkulator <span>produkcji</span></h1>
+        <p class="lead">Wpisz tempo maszyny i cel. Dostaniesz liczbę maszyn i zapotrzebowanie na każde wejście, zanim słońce znowu spali ci bazę.</p>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-sun" id="shareBtn">Kopiuj link</button>
+        <button type="button" class="btn" id="copyBtn">Kopiuj podsumowanie</button>
+        <button type="button" class="btn" id="resetBtn">Reset</button>
+      </div>
+    </header>
+
+    <form class="grid" id="calcForm" autocomplete="off" novalidate>
+      <div>
+        <section class="panel">
+          <h2><b>1</b> Maszyna</h2>
+          <div class="fields">
+            <div class="span-all">
+              <label for="machineName">Nazwa maszyny / receptury (opcjonalnie)</label>
+              <input type="text" id="machineName" placeholder="np. Smelter: sztabki tytanu">
+            </div>
+            <div class="span-all seg" role="radiogroup" aria-label="Jak podajesz tempo maszyny">
+              <label><input type="radio" name="rateMode" value="cycle" checked> Cykl i czas</label>
+              <label><input type="radio" name="rateMode" value="perMin"> Tempo z gry (/min)</label>
+            </div>
+            <div id="cycleFields" class="span-all fields">
+              <div>
+                <label for="outPerCycle">Wyjście na cykl (szt.)</label>
+                <input type="text" class="num" id="outPerCycle" inputmode="decimal" value="1">
+                <p class="err" id="errOut"></p>
+              </div>
+              <div>
+                <label for="cycleSec">Czas cyklu (s)</label>
+                <input type="text" class="num" id="cycleSec" inputmode="decimal" value="2">
+                <p class="err" id="errCycle"></p>
+              </div>
+            </div>
+            <div id="rateFields" class="span-all" hidden>
+              <label for="outPerMin">Wyjście jednej maszyny (szt./min, tak jak pokazuje gra)</label>
+              <input type="text" class="num" id="outPerMin" inputmode="decimal" value="30">
+              <p class="err" id="errRate"></p>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2><b>2</b> Wejścia</h2>
+          <div class="ins" id="ins"></div>
+          <button type="button" class="btn" id="addIn" style="margin-top: 10px">+ Dodaj wejście</button>
+          <p class="hint">Ilość możesz podać na cykl, na 1 sztukę wyjścia albo na minutę pracy jednej maszyny.</p>
+        </section>
+
+        <section class="panel">
+          <h2><b>3</b> Cel</h2>
+          <div class="fields">
+            <div>
+              <label for="targetOut">Ile chcesz produkować</label>
+              <input type="text" class="num" id="targetOut" inputmode="decimal" value="120">
+              <p class="err" id="errTarget"></p>
+            </div>
+            <div>
+              <label for="targetUnit">Jednostka</label>
+              <select id="targetUnit">
+                <option value="min">szt./min</option>
+                <option value="sec">szt./s</option>
+                <option value="hour">szt./h</option>
+              </select>
+            </div>
+          </div>
+          <label class="check"><input type="checkbox" id="roundUp" checked> Zaokrąglaj liczbę maszyn w górę</label>
+          <label class="check"><input type="checkbox" id="lockMachines"> Mam już konkretną liczbę maszyn</label>
+          <div id="manualWrap" hidden style="margin-top: 8px; max-width: 200px">
+            <label for="machinesManual">Liczba maszyn</label>
+            <input type="text" class="num" id="machinesManual" inputmode="numeric" value="4">
+          </div>
+        </section>
+      </div>
+
+      <aside class="panel results" aria-live="polite">
+        <h2><b>⚡</b> Wynik <span id="resName" style="color: var(--muted); letter-spacing: 0; text-transform: none"></span></h2>
+        <div class="hero">
+          <div class="card main"><span>Maszyny</span><b id="resMachines">–</b><small>dokładnie <i id="resExact" style="font-style: normal">–</i></small></div>
+          <div class="card"><span>1 maszyna</span><b id="resOne">–</b><small>szt./min · <i id="resOneSec" style="font-style: normal">–</i>/s</small></div>
+          <div class="card"><span>Realne wyjście</span><b id="resReal">–</b><small>szt./min przy tej liczbie maszyn</small></div>
+          <div class="card"><span>Wykorzystanie</span><b id="resUtil">–</b><small>średnio na maszynę</small></div>
+        </div>
+        <p class="sec-title">Zapotrzebowanie na wejścia</p>
+        <div id="resIns"></div>
+        <p class="status" id="status"></p>
+      </aside>
+    </form>
+
+    <footer>
+      Projekt fanowski do StarRupture (Creepy Jar), niezwiązany z twórcami gry. Działa z każdą grą fabryczną, w której maszyna ma cykl albo tempo na minutę.
+      <a href="https://github.com/DudiRuders/Gry">Kod na GitHubie</a>.
+    </footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const $ = (id) => document.getElementById(id);
+    const LS_KEY = 'starruptureCalc.v2';
+    const PER = { cycle: 'na cykl', out: 'na 1 szt.', min: 'na min pracy' };
+    const UNIT = { min: 'szt./min', sec: 'szt./s', hour: 'szt./h' };
+    const DEFAULT = {
+      n: '', rm: 'cycle', o: 1, t: 2, r: 30, g: 120, u: 'min', ru: true, l: false, k: 4,
+      i: [['Ruda', 1, 'out']],
+    };
+    const nf = new Intl.NumberFormat('pl-PL', { maximumFractionDigits: 2 });
+    const fmt = (x) => (Number.isFinite(x) ? nf.format(x) : '–');
+    const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    // Akceptuje "1,5", "1.5" i " 1 000,25 ".
+    function num(v) {
+      const s = String(v ?? '').trim().replace(/\s+/g, '').replace(',', '.');
+      return s === '' ? NaN : Number(s);
+    }
+
+    function addIn(name = '', amount = 1, per = 'out') {
+      const row = document.createElement('div');
+      row.className = 'in-row';
+      row.innerHTML = `
+        <input type="text" class="in-name" placeholder="np. Ruda tytanu" aria-label="Nazwa wejścia">
+        <input type="text" class="num in-amount" inputmode="decimal" aria-label="Ilość">
+        <select class="in-per" aria-label="Ilość podana">${Object.entries(PER).map(([v, l]) => `<option value="${v}">${l}</option>`).join('')}</select>
+        <button type="button" class="icon-btn" aria-label="Usuń wejście" title="Usuń wejście">✕</button>`;
+      row.querySelector('.in-name').value = name;
+      row.querySelector('.in-amount').value = String(amount).replace('.', ',');
+      row.querySelector('.in-per').value = PER[per] ? per : 'out';
+      $('ins').append(row);
+    }
+
+    function readState() {
+      return {
+        n: $('machineName').value.trim(),
+        rm: document.querySelector('input[name="rateMode"]:checked').value,
+        o: num($('outPerCycle').value),
+        t: num($('cycleSec').value),
+        r: num($('outPerMin').value),
+        g: num($('targetOut').value),
+        u: $('targetUnit').value,
+        ru: $('roundUp').checked,
+        l: $('lockMachines').checked,
+        k: num($('machinesManual').value),
+        i: [...document.querySelectorAll('.in-row')].map((row) => [
+          row.querySelector('.in-name').value.trim(),
+          num(row.querySelector('.in-amount').value),
+          row.querySelector('.in-per').value,
+        ]),
+      };
+    }
+
+    function applyState(st) {
+      const s = { ...DEFAULT, ...st };
+      const show = (v) => (Number.isFinite(v) ? String(v).replace('.', ',') : '');
+      $('machineName').value = s.n || '';
+      document.querySelector(`input[name="rateMode"][value="${s.rm === 'perMin' ? 'perMin' : 'cycle'}"]`).checked = true;
+      $('outPerCycle').value = show(s.o);
+      $('cycleSec').value = show(s.t);
+      $('outPerMin').value = show(s.r);
+      $('targetOut').value = show(s.g);
+      $('targetUnit').value = UNIT[s.u] ? s.u : 'min';
+      $('roundUp').checked = !!s.ru;
+      $('lockMachines').checked = !!s.l;
+      $('machinesManual').value = show(s.k);
+      $('ins').innerHTML = '';
+      (Array.isArray(s.i) ? s.i : []).forEach(([n, a, p]) => addIn(n, Number.isFinite(a) ? a : '', p));
+    }
+
+    function setErr(id, inputId, msg) {
+      $(id).textContent = msg || '';
+      $(inputId).classList.toggle('bad', !!msg);
+      return !msg;
+    }
+
+    /* ---------- Obliczenia ---------- */
+    function compute(s) {
+      const perCycleMode = s.rm === 'cycle';
+      let ok = true;
+      if (perCycleMode) {
+        ok = setErr('errOut', 'outPerCycle', s.o > 0 ? '' : 'Musi być większe od 0') && ok;
+        ok = setErr('errCycle', 'cycleSec', s.t > 0 ? '' : 'Musi być większe od 0') && ok;
+        setErr('errRate', 'outPerMin', '');
+      } else {
+        ok = setErr('errRate', 'outPerMin', s.r > 0 ? '' : 'Musi być większe od 0') && ok;
+        setErr('errOut', 'outPerCycle', '');
+        setErr('errCycle', 'cycleSec', '');
+      }
+      ok = setErr('errTarget', 'targetOut', s.g >= 0 ? '' : 'Podaj liczbę ≥ 0') && ok;
+      if (!ok) return null;
+
+      const onePerMin = perCycleMode ? (s.o / s.t) * 60 : s.r;
+      // Ile cykli na minutę robi jedna maszyna (w trybie tempa przyjmujemy 1 szt. = 1 cykl).
+      const cyclesPerMin = perCycleMode ? 60 / s.t : s.r;
+      const targetPerMin = s.u === 'sec' ? s.g * 60 : s.u === 'hour' ? s.g / 60 : s.g;
+      const exact = targetPerMin / onePerMin;
+      let machines = s.ru ? Math.ceil(exact - 1e-9) : exact;
+      if (s.l && s.k > 0) machines = Math.floor(s.k);
+      const fullPerMin = machines * onePerMin;
+      const realPerMin = Math.min(targetPerMin, fullPerMin);
+
+      const inputs = s.i.map(([name, amount, per]) => {
+        const a = Number.isFinite(amount) ? amount : 0;
+        // Zużycie jednej maszyny przy 100% pracy, w szt./min.
+        const perMachine = per === 'cycle' ? a * cyclesPerMin : per === 'out' ? a * onePerMin : a;
+        const perOut = perMachine / onePerMin;
+        return { name, perOut, forTarget: perOut * realPerMin, full: perMachine * machines };
+      });
+      return { onePerMin, exact, machines, realPerMin, fullPerMin, targetPerMin, inputs };
+    }
+
+    function render() {
+      const s = readState();
+      $('cycleFields').hidden = s.rm !== 'cycle';
+      $('rateFields').hidden = s.rm === 'cycle';
+      $('manualWrap').hidden = !s.l;
+      $('resName').textContent = s.n ? `· ${s.n}` : '';
+      const r = compute(s);
+      if (!r) {
+        ['resMachines', 'resExact', 'resOne', 'resOneSec', 'resReal', 'resUtil'].forEach((id) => { $(id).textContent = '–'; });
+        $('resIns').innerHTML = '';
+        $('status').textContent = 'Popraw zaznaczone pola.';
+        return save(s);
+      }
+      $('resMachines').textContent = fmt(r.machines);
+      $('resExact').textContent = fmt(r.exact);
+      $('resOne').textContent = fmt(r.onePerMin);
+      $('resOneSec').textContent = fmt(r.onePerMin / 60);
+      $('resReal').textContent = fmt(r.realPerMin);
+      $('resUtil').textContent = r.fullPerMin > 0 ? `${nf.format(Math.min(100, (r.realPerMin / r.fullPerMin) * 100))}%` : '–';
+      $('resIns').innerHTML = r.inputs.length
+        ? r.inputs.map((x) => `<div class="need"><strong>${esc(x.name || 'Wejście')}</strong>
+            <span class="r">${fmt(x.forTarget)} /min<small>przy 100% maszyn: ${fmt(x.full)} /min · ${fmt(x.perOut)} na 1 szt.</small></span></div>`).join('')
+        : '<p class="hint">Brak wejść, czyli np. ekstraktor. Dodaj je w kroku 2.</p>';
+      const short = r.fullPerMin < r.targetPerMin - 1e-9;
+      $('status').textContent = short
+        ? `Uwaga: liczba maszyn (${fmt(r.machines)}) nie wystarczy na ${fmt(r.targetPerMin)} szt./min. Brakuje ${fmt(r.targetPerMin - r.realPerMin)} szt./min.`
+        : `Cel: ${fmt(s.g)} ${UNIT[s.u]} = ${fmt(r.targetPerMin)} szt./min.`;
+      save(s);
+    }
+
+    /* ---------- Stan, link, schowek ---------- */
+    const encode = (st) => btoa(unescape(encodeURIComponent(JSON.stringify(st)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    const decode = (str) => JSON.parse(decodeURIComponent(escape(atob(str.replace(/-/g, '+').replace(/_/g, '/')))));
+    function save(st) { try { localStorage.setItem(LS_KEY, JSON.stringify(st)); } catch { /* tryb prywatny */ } }
+    function load() {
+      const m = location.hash.match(/^#s=([\w-]+)$/);
+      if (m) { try { return decode(m[1]); } catch { /* zły link */ } }
+      try { const raw = localStorage.getItem(LS_KEY); if (raw) return JSON.parse(raw); } catch { /* brak dostępu */ }
+      return DEFAULT;
+    }
+
+    function toast(msg) {
+      const t = $('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    async function copy(text, okMsg) {
+      try { await navigator.clipboard.writeText(text); toast(okMsg); }
+      catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.append(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        toast(ok ? okMsg : 'Nie udało się skopiować');
+      }
+    }
+
+    function summary() {
+      const s = readState();
+      const r = compute(s);
+      if (!r) return 'Kalkulator: popraw dane wejściowe.';
+      return [
+        `${s.n || 'Linia produkcyjna'} (StarRupture)`,
+        `1 maszyna: ${fmt(r.onePerMin)} szt./min`,
+        `Cel: ${fmt(r.targetPerMin)} szt./min → maszyny: ${fmt(r.machines)} (dokładnie ${fmt(r.exact)})`,
+        ...r.inputs.map((x) => `• ${x.name || 'Wejście'}: ${fmt(x.forTarget)} /min`),
+      ].join('\n');
+    }
+
+    /* ---------- Zdarzenia ---------- */
+    applyState(load());
+    $('calcForm').addEventListener('input', render);
+    $('calcForm').addEventListener('change', render);
+    $('calcForm').addEventListener('submit', (e) => e.preventDefault());
+    $('ins').addEventListener('click', (e) => {
+      if (!e.target.closest('.icon-btn')) return;
+      e.target.closest('.in-row').remove();
+      render();
+    });
+    $('addIn').addEventListener('click', () => { addIn('', 1, 'out'); render(); });
+    $('resetBtn').addEventListener('click', () => {
+      history.replaceState(null, '', location.pathname + location.search);
+      applyState(DEFAULT);
+      render();
+    });
+    $('shareBtn').addEventListener('click', () => {
+      const url = `${location.href.split('#')[0]}#s=${encode(readState())}`;
+      history.replaceState(null, '', url);
+      copy(url, 'Link skopiowany. Podeślij ekipie!');
+    });
+    $('copyBtn').addEventListener('click', () => copy(summary(), 'Podsumowanie skopiowane ✅'));
+    render();
+  })();
+  </script>
+</body>
+</html>

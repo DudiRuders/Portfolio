@@ -1,0 +1,1552 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BRAVVM · Psychotest: którą klasą z Darktide jesteś?</title>
+  <meta name="description" content="Psychotest w stylu kultowych gazetek dla nastolatków: odpowiedz na 14 pytań i sprawdź, którą klasą z Warhammer 40,000: Darktide jesteś. Na końcu plakat XXL!">
+  <meta name="theme-color" content="#ffe14d">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BRAVVM · Którą klasą z Darktide jesteś?">
+  <meta property="og:description" content="MEGA PSYCHOTEST! 14 pytań, 7 klas, 0% herezji. Na końcu plakat XXL z twoją postacią.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='%23e5162b' stroke='%23141414' stroke-width='5'/%3E%3Ctext x='32' y='47' font-size='38' text-anchor='middle' font-family='Impact,Arial Black,sans-serif' fill='white'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@700&family=Cinzel:wght@700;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #141414;
+      --paper: #fff;
+      --yellow: #ffe14d;
+      --yellow-2: #fff6b8;
+      --pink: #ff2d87;
+      --pink-2: #ffd6e8;
+      --purple: #6b21a8;
+      --lilac: #ecdcff;
+      --red: #e5162b;
+      --green: #4ade80;
+      --muted: #4b4b4b;
+      --f-head: 'Anton', Impact, 'Arial Narrow', sans-serif;
+      --f-body: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      --f-hand: 'Caveat', 'Comic Sans MS', cursive;
+      --f-imp: 'Cinzel', 'Times New Roman', serif;
+      --shadow: 6px 6px 0 var(--ink);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--f-body);
+      line-height: 1.5;
+      color: var(--ink);
+      background-color: var(--yellow);
+      background-image: radial-gradient(var(--pink) 2.2px, transparent 2.8px);
+      background-size: 24px 24px;
+      overflow-x: hidden;
+    }
+    [hidden] { display: none !important; }
+    button { font: inherit; color: inherit; }
+    :focus-visible { outline: 4px solid var(--purple); outline-offset: 3px; }
+
+    .page { max-width: 940px; margin: 0 auto; padding: 22px 16px 40px; }
+
+    /* ---------- Winieta gazetki ---------- */
+    .masthead {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px 12px;
+      margin: 10px 0 30px;
+    }
+    .logo {
+      position: relative;
+      margin: 0;
+      padding: 8px 20px 4px;
+      font-family: var(--f-head);
+      font-weight: 400;
+      font-size: clamp(58px, 14vw, 116px);
+      line-height: .92;
+      letter-spacing: .02em;
+      color: #fff;
+      background: var(--red);
+      border: 4px solid var(--ink);
+      box-shadow: var(--shadow);
+      text-shadow: 4px 4px 0 var(--ink);
+      transform: rotate(-2deg);
+      cursor: pointer;
+      user-select: none;
+    }
+    .logo-40k {
+      position: absolute;
+      top: -20px;
+      right: -14px;
+      display: grid;
+      place-items: center;
+      width: 60px;
+      height: 60px;
+      font-size: 21px;
+      color: var(--ink);
+      text-shadow: none;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: rotate(14deg);
+    }
+    .issue {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 14px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--ink);
+      transform: rotate(1deg);
+    }
+    .issue span + span::before { content: '★'; margin-right: 14px; color: var(--yellow); }
+
+    /* ---------- Wspólne klocki ---------- */
+    .card {
+      position: relative;
+      padding: 26px;
+      background: var(--paper);
+      border: 4px solid var(--ink);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .badge {
+      position: absolute;
+      top: -17px;
+      right: -8px;
+      padding: 4px 12px;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--pink);
+      border: 3px solid var(--ink);
+      box-shadow: 3px 3px 0 var(--ink);
+      transform: rotate(3deg);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      font: 900 17px/1.2 var(--f-body);
+      color: var(--ink);
+      text-decoration: none;
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+      transition: transform .1s, box-shadow .1s, background-color .15s;
+    }
+    .btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+    .btn:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--ink); }
+    .btn-go { padding: 14px 26px; font-size: 21px; text-transform: uppercase; background: var(--green); }
+    .btn-pink { color: #fff; background: var(--pink); }
+    .btn-small { padding: 8px 14px; font-size: 15px; }
+    .burst { position: relative; display: grid; place-items: center; text-align: center; }
+    .burst svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+    .burst > span { position: relative; }
+    .h-sec {
+      margin: 0;
+      font-family: var(--f-head);
+      font-weight: 400;
+      font-size: clamp(26px, 5vw, 34px);
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+    .h-sec + p { margin: 4px 0 14px; font-weight: 700; color: var(--muted); }
+
+    /* ---------- Okładka ---------- */
+    .cover-grid { display: grid; grid-template-columns: 1.65fr 1fr; gap: 26px; align-items: start; }
+    .kicker { margin: 0; font-family: var(--f-head); font-size: 30px; letter-spacing: .03em; color: var(--pink); text-transform: uppercase; }
+    .cover-title {
+      margin: 4px 0 14px;
+      font-family: var(--f-head);
+      font-weight: 400;
+      font-size: clamp(36px, 6.4vw, 56px);
+      line-height: 1.02;
+      text-transform: uppercase;
+    }
+    .cover-title mark {
+      padding: 0 .14em;
+      color: #fff;
+      background: var(--purple);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      text-shadow: 3px 3px 0 var(--ink);
+    }
+    .lead { margin: 0 0 20px; font-size: 18px; }
+    .meta { margin: 14px 0 0; font-size: 14px; font-weight: 800; color: var(--muted); }
+    .coverlines { display: grid; gap: 18px; }
+    .cl {
+      margin: 0;
+      padding: 12px 14px;
+      font-weight: 800;
+      line-height: 1.3;
+      background: #fff;
+      border: 3px solid var(--ink);
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .cl b { color: var(--pink); }
+    .cl:nth-child(1) { background: var(--pink-2); transform: rotate(-2deg); }
+    .cl:nth-child(1) b { color: var(--purple); }
+    .cl:nth-child(2) { transform: rotate(1.5deg); }
+    .cl:nth-child(3) { background: #dbeafe; transform: rotate(-1deg); }
+    .hand { font-family: var(--f-hand); font-size: 1.45em; line-height: 1; }
+    .cover-burst { justify-self: center; width: 172px; height: 172px; margin-top: 4px; }
+    .cover-burst > span {
+      font-family: var(--f-head);
+      font-size: 24px;
+      line-height: 1;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 2px 2px 0 var(--ink);
+      transform: rotate(-10deg);
+    }
+    .strip { margin-top: 30px; padding: 18px 20px 20px; }
+    .strip-title { margin: 0 0 12px; font-family: var(--f-head); font-weight: 400; font-size: 24px; text-transform: uppercase; }
+    .strip-row { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 10px; }
+    .strip-item { font-size: 12px; font-weight: 900; text-align: center; text-transform: uppercase; line-height: 1.15; overflow-wrap: anywhere; }
+    .strip-item .emblem { display: block; width: 100%; max-width: 78px; height: auto; margin: 0 auto 6px; }
+    .strip-item:nth-child(odd) .emblem { transform: rotate(-5deg); }
+    .strip-item:nth-child(even) .emblem { transform: rotate(4deg); }
+
+    /* ---------- Quiz ---------- */
+    .quiz-card { max-width: 720px; margin: 0 auto; }
+    .quiz-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .qnum { font-weight: 900; text-transform: uppercase; color: var(--pink); }
+    .tag {
+      padding: 3px 11px;
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .08em;
+      color: var(--purple);
+      background: var(--lilac);
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+    }
+    .progress { height: 16px; margin: 12px 0 20px; overflow: hidden; background: #fff; border: 3px solid var(--ink); border-radius: 999px; }
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      background: repeating-linear-gradient(45deg, var(--pink) 0 10px, #ff79b5 10px 20px);
+      transition: width .35s ease;
+    }
+    .question { margin: 0 0 20px; font-size: clamp(21px, 3.6vw, 26px); font-weight: 900; line-height: 1.25; }
+    .question:focus { outline: none; }
+    .options { display: grid; gap: 12px; }
+    .option {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      width: 100%;
+      padding: 12px 16px;
+      font: 700 17px/1.4 var(--f-body);
+      text-align: left;
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+      transition: transform .1s, box-shadow .1s, background-color .15s;
+    }
+    .option:hover { background: var(--yellow-2); transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+    .option.was-picked { background: var(--lilac); }
+    .option.is-picked { background: var(--pink-2); transform: translate(2px, 2px) rotate(-.6deg); box-shadow: 2px 2px 0 var(--ink); }
+    .letter {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      font-size: 15px;
+      font-weight: 900;
+      color: #fff;
+      background: var(--pink);
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+    }
+    .option.is-picked .letter { background: var(--purple); }
+    .quiz-nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: 20px; }
+    .link-btn {
+      padding: 6px 2px;
+      font: 800 15px var(--f-body);
+      color: var(--purple);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      background: none;
+      border: 0;
+      cursor: pointer;
+    }
+    .link-btn:disabled { visibility: hidden; }
+    .hint { font-size: 13px; color: var(--muted); }
+    @media (hover: none) { .hint { display: none; } }
+    .q-enter { animation: slideIn .3s ease both; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(18px); } }
+
+    /* ---------- Liczenie wyniku ---------- */
+    .loading-card { max-width: 520px; margin: 30px auto; text-align: center; }
+    .loading-aquila { width: min(240px, 80%); animation: flap .5s ease-in-out infinite alternate; }
+    @keyframes flap { to { transform: scale(1.07) rotate(-2deg); } }
+    #loadingText { min-height: 3em; margin: 14px 0 0; font-size: 20px; font-weight: 900; }
+
+    /* ---------- Plakat XXL ---------- */
+    .notice {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px 16px;
+      margin-bottom: 22px;
+      padding: 12px 16px;
+      font-weight: 800;
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .poster {
+      position: relative;
+      padding-bottom: 28px;
+      overflow: hidden;
+      background: #fff;
+      border: 5px solid var(--ink);
+      border-radius: 18px;
+      box-shadow: 10px 10px 0 var(--ink);
+    }
+    .poster-head {
+      padding: 14px 16px 20px;
+      text-align: center;
+      color: #fff;
+      background-color: var(--ink);
+      background-image: repeating-conic-gradient(from 0deg at 50% 115%, rgba(255, 255, 255, .07) 0 6deg, transparent 6deg 12deg);
+      border-bottom: 5px solid var(--ink);
+    }
+    .poster-banner { margin: 0; font-family: var(--f-imp); font-size: 13px; font-weight: 900; letter-spacing: .24em; color: var(--yellow); }
+    .poster-aquila { display: block; width: min(300px, 78%); margin: 8px auto 0; }
+    .hey {
+      margin: 8px 0 0;
+      font-family: var(--f-head);
+      font-size: clamp(42px, 9.5vw, 86px);
+      line-height: .95;
+      color: var(--yellow);
+      text-transform: uppercase;
+      text-shadow: 4px 4px 0 var(--pink);
+      transform: rotate(-2deg);
+    }
+    .poster-sub { margin: 10px 0 0; font-family: var(--f-head); font-size: clamp(20px, 4vw, 30px); letter-spacing: .03em; text-transform: uppercase; }
+    .hey-toggle { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 14px; font-size: 13px; font-weight: 800; color: #ddd; }
+    .chip {
+      padding: 3px 11px;
+      font: 800 13px var(--f-body);
+      color: #fff;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .chip[aria-pressed="true"] { color: var(--ink); background: var(--yellow); border-color: var(--yellow); }
+
+    .poster-grid { display: grid; grid-template-columns: 1.15fr 1fr; gap: 26px; padding: 28px 28px 0; }
+    .photo {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background-color: var(--c);
+      background-image:
+        radial-gradient(rgba(0, 0, 0, .17) 20%, transparent 23%),
+        repeating-conic-gradient(from 0deg at 50% 44%, rgba(255, 255, 255, .3) 0 9deg, transparent 9deg 18deg);
+      background-size: 12px 12px, 100% 100%;
+      border: 4px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 6px 6px 0 var(--ink);
+      transform: rotate(-1.2deg);
+    }
+    .emblem-big {
+      position: absolute;
+      top: 43%;
+      left: 50%;
+      width: 70%;
+      transform: translate(-50%, -50%) rotate(-4deg);
+      filter: drop-shadow(7px 7px 0 rgba(0, 0, 0, .85));
+    }
+    .photo-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .photo-badge { position: absolute; top: 12px; left: 12px; width: 27%; filter: drop-shadow(3px 3px 0 #000); }
+    .sticker-100 { position: absolute; top: 8px; right: 6px; width: 108px; height: 108px; transform: rotate(12deg); }
+    .sticker-100 > span { font-family: var(--f-head); font-size: 23px; line-height: .95; }
+    .photo-name {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      padding: 30px 12px 14px;
+      text-align: center;
+      background: linear-gradient(transparent, rgba(0, 0, 0, .5));
+    }
+    .photo-name strong {
+      display: block;
+      font-family: var(--f-head);
+      font-weight: 400;
+      font-size: clamp(42px, 8.5vw, 66px);
+      line-height: .95;
+      letter-spacing: .02em;
+      color: #fff;
+      text-transform: uppercase;
+      -webkit-text-stroke: 2px var(--ink);
+      paint-order: stroke fill;
+      text-shadow: 4px 4px 0 var(--ink);
+    }
+    .photo-name span {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 2px 10px;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      background: var(--yellow);
+      border: 2px solid var(--ink);
+      transform: rotate(-2deg);
+    }
+
+    .profile {
+      position: relative;
+      align-self: start;
+      padding: 16px 18px 26px;
+      background: var(--yellow-2);
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 5px 5px 0 var(--ink);
+      transform: rotate(.8deg);
+    }
+    .profile h3 { margin: 0 0 8px; font-family: var(--f-head); font-weight: 400; font-size: 30px; line-height: 1; text-transform: uppercase; color: var(--pink); }
+    .profile h3 small { margin-left: 6px; font-family: var(--f-hand); font-size: 24px; color: var(--ink); text-transform: none; }
+    .profile dl { display: grid; gap: 7px; margin: 0; }
+    .profile dl div { display: grid; grid-template-columns: 112px 1fr; gap: 8px; padding-bottom: 7px; border-bottom: 2px dashed rgba(0, 0, 0, .18); }
+    .profile dt { padding-top: 2px; font-size: 11.5px; font-weight: 900; letter-spacing: .06em; text-transform: uppercase; color: var(--purple); }
+    .profile dd { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.35; }
+    .stamp {
+      position: absolute;
+      right: 12px;
+      bottom: -15px;
+      padding: 4px 10px;
+      font-family: var(--f-imp);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: rgba(255, 255, 255, .85);
+      border: 3px double var(--red);
+      transform: rotate(-7deg);
+    }
+
+    .tagline {
+      margin: 30px 28px 0;
+      font-family: var(--f-head);
+      font-size: clamp(26px, 5vw, 40px);
+      line-height: 1.12;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .tagline span {
+      padding: 0 .22em;
+      color: var(--on);
+      background: var(--c);
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .poster-body { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; padding: 24px 28px 0; }
+    .desc { margin: 0; font-size: 17px; }
+    .desc::first-letter {
+      float: left;
+      margin: 5px 8px 0 0;
+      font-family: var(--f-head);
+      font-size: 3.3em;
+      line-height: .82;
+      color: var(--c);
+      -webkit-text-stroke: 1.5px var(--ink);
+    }
+    .facts { align-self: start; padding: 14px 16px 16px; background: #fff; border: 3px solid var(--ink); border-radius: 12px; box-shadow: 4px 4px 0 var(--ink); }
+    .facts h3 { margin: 0 0 10px; font-family: var(--f-head); font-weight: 400; font-size: 24px; line-height: 1; text-transform: uppercase; color: var(--red); }
+    .facts h3 small { display: block; margin-top: 3px; font-family: var(--f-body); font-size: 11px; font-weight: 900; letter-spacing: .08em; color: var(--muted); }
+    .facts ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .facts li { position: relative; padding-left: 28px; font-size: 14.5px; font-weight: 700; line-height: 1.4; }
+    .facts li::before {
+      content: '✓';
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: grid;
+      place-items: center;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--on);
+      background: var(--c);
+      border: 2px solid var(--ink);
+      border-radius: 50%;
+    }
+    .advice {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 26px 28px 0;
+      padding: 12px 16px;
+      background: var(--pink-2);
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+    }
+    .advice-ico {
+      display: grid;
+      flex: 0 0 auto;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      font-family: var(--f-imp);
+      font-size: 14px;
+      font-weight: 900;
+      color: var(--yellow);
+      background: var(--ink);
+      border: 3px solid var(--pink);
+      border-radius: 50%;
+    }
+    .advice b { display: block; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--purple); }
+    .advice p { margin: 2px 0 0; font-family: var(--f-hand); font-size: 25px; font-weight: 700; line-height: 1.1; }
+
+    .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 30px 0 0; }
+
+    /* ---------- DNA i galeria ---------- */
+    .dna { margin-top: 32px; }
+    .dna-row {
+      display: grid;
+      grid-template-columns: 42px 128px 1fr 54px;
+      grid-template-areas: "ico name bar pct";
+      gap: 6px 12px;
+      align-items: center;
+      padding: 5px 0;
+    }
+    .dna-row .emblem { grid-area: ico; width: 42px; height: 42px; }
+    .dna-name { grid-area: name; font-size: 14px; font-weight: 900; text-transform: uppercase; }
+    .dna-bar { grid-area: bar; height: 20px; overflow: hidden; background: #fff; border: 3px solid var(--ink); border-radius: 999px; }
+    .dna-bar i { display: block; width: 0; height: 100%; background: var(--c); transition: width .9s cubic-bezier(.2, .8, .2, 1); }
+    .dna-pct { grid-area: pct; font-weight: 900; text-align: right; font-variant-numeric: tabular-nums; }
+    .dna-row.is-top .dna-name { color: var(--pink); }
+
+    .gallery { margin-top: 34px; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 14px; }
+    .g-card {
+      position: relative;
+      padding: 12px 8px 12px;
+      text-align: center;
+      background: #fff;
+      border: 3px solid var(--ink);
+      border-radius: 12px;
+      box-shadow: 4px 4px 0 var(--ink);
+      cursor: pointer;
+      transition: transform .12s, box-shadow .12s, background-color .15s;
+    }
+    .g-card:hover { transform: translate(-2px, -2px) rotate(-1deg); box-shadow: 6px 6px 0 var(--ink); }
+    .g-card[aria-current="true"] { background: var(--yellow-2); }
+    .g-card .emblem { display: block; width: 74px; height: 74px; margin: 0 auto 6px; }
+    .g-card strong { display: block; font-family: var(--f-head); font-weight: 400; font-size: 20px; line-height: 1; text-transform: uppercase; }
+    .g-card small { display: block; margin-top: 3px; font-size: 12px; font-weight: 700; line-height: 1.25; color: var(--muted); }
+    .g-pct, .g-mine {
+      position: absolute;
+      top: -11px;
+      padding: 1px 8px;
+      font-size: 12px;
+      font-weight: 900;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+    }
+    .g-pct { right: -8px; color: #fff; background: var(--purple); }
+    .g-mine { left: -8px; text-transform: uppercase; color: #fff; background: var(--pink); transform: rotate(-6deg); }
+
+    /* ---------- Stopka i toast ---------- */
+    footer {
+      margin-top: 44px;
+      padding: 16px;
+      font-size: 13px;
+      text-align: center;
+      color: #2a2a2a;
+      background: rgba(255, 246, 184, .92);
+      border: 2px solid var(--ink);
+      border-radius: 12px;
+    }
+    .foot-brand { margin: 0; font-size: 12px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+    .fine { max-width: 640px; margin: 8px auto; }
+    .sources { display: inline-block; max-width: 640px; padding: 8px 14px; text-align: left; background: rgba(255, 255, 255, .7); border: 2px solid var(--ink); border-radius: 10px; }
+    .sources summary { font-weight: 800; cursor: pointer; }
+    .sources ul { margin: 8px 0 2px; padding-left: 18px; }
+    footer a { color: var(--purple); font-weight: 700; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      z-index: 50;
+      max-width: calc(100% - 32px);
+      padding: 10px 18px;
+      font-weight: 800;
+      text-align: center;
+      color: #fff;
+      background: var(--ink);
+      border: 3px solid var(--pink);
+      border-radius: 999px;
+      visibility: hidden;
+      transform: translate(-50%, calc(100% + 40px));
+      transition: transform .25s, visibility .25s;
+    }
+    .toast.show { visibility: visible; transform: translate(-50%, 0); }
+
+    /* ---------- Animacje ---------- */
+    .pop-in { animation: popIn .6s cubic-bezier(.2, 1.4, .4, 1) both; }
+    @keyframes popIn { from { opacity: 0; transform: scale(.86) rotate(-3deg); } }
+    .wobble { animation: wobble 2.4s ease-in-out infinite; }
+    @keyframes wobble { 50% { transform: rotate(5deg) scale(1.07); } }
+
+    /* ---------- Responsywność ---------- */
+    @media (max-width: 760px) {
+      .cover-grid { grid-template-columns: 1fr; }
+      .coverlines { grid-template-columns: 1fr 1fr; align-items: center; }
+      .cover-burst { width: 150px; height: 150px; }
+      .strip-row, .gallery-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .poster-grid, .poster-body { grid-template-columns: 1fr; padding: 22px 16px 0; }
+      .tagline, .advice { margin-right: 16px; margin-left: 16px; }
+      .card { padding: 22px 18px; }
+    }
+    @media (max-width: 520px) {
+      .coverlines { grid-template-columns: 1fr; }
+      .strip { padding: 16px 12px 18px; }
+      .strip-row { gap: 8px; }
+      .strip-item { font-size: 10.5px; letter-spacing: -.01em; }
+      .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .g-card:last-child { grid-column: 2; }
+      .g-card .emblem { width: 58px; height: 58px; }
+      .g-card strong { font-size: 17px; }
+      .g-card small { font-size: 11px; }
+      .dna-row { grid-template-columns: 42px 1fr 54px; grid-template-areas: "ico name pct" "ico bar bar"; }
+      .profile dl div { grid-template-columns: 1fr; gap: 0; }
+      .poster { box-shadow: 6px 6px 0 var(--ink); }
+      .sticker-100 { width: 88px; height: 88px; }
+      .sticker-100 > span { font-size: 19px; }
+      .actions .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ---------- Druk: sam plakat, jedna kartka A4 ----------
+       Kartka A4 jest węższa niż 760 px, więc bez tego łapałby się układ mobilny
+       i plakat rozjeżdżał na 3 strony. Plakat ma w druku stałą szerokość 1000 px
+       i jest skalowany przez zoom do 190 × 277 mm (A4 minus marginesy 10 mm). */
+    .print-only { display: none; }
+    @page { size: A4 portrait; margin: 10mm; }
+    @media print {
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      html, body { min-height: 0; background: #fff !important; }
+      .masthead, #cover, #quiz, #loading, #notice, .actions, .dna, .gallery, footer, .toast, .hey-toggle { display: none !important; }
+      .print-only { display: inline; }
+      .page { max-width: none; margin: 0; padding: 0; }
+      .poster {
+        width: 1000px;
+        margin: 0 auto;
+        zoom: .68;
+        border-width: 4px;
+        box-shadow: none;
+        animation: none;
+        break-inside: avoid;
+      }
+      .poster *, .poster *::before { animation: none !important; transition: none !important; }
+      .poster-head { padding: 12px 16px 16px; }
+      .poster-aquila { width: 220px; margin-top: 4px; }
+      .hey { margin-top: 4px; font-size: 76px; }
+      .poster-sub { margin-top: 6px; font-size: 28px; }
+      .poster-grid, .poster-body { grid-template-columns: 1.1fr 1fr; gap: 26px; padding: 24px 28px 0; }
+      .poster-body { grid-template-columns: 1.3fr 1fr; padding-top: 20px; }
+      .photo { aspect-ratio: auto; min-height: 580px; }
+      .photo-name strong { font-size: 62px; }
+      .sticker-100 { width: 108px; height: 108px; }
+      .sticker-100 > span { font-size: 23px; }
+      .profile dl div { grid-template-columns: 112px 1fr; gap: 8px; }
+      .tagline { margin: 24px 28px 0; font-size: 36px; }
+      .advice { margin: 20px 28px 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <p class="logo" id="logo" title="Wróć na okładkę">BRAVVM<span class="logo-40k" aria-hidden="true">40K</span></p>
+      <p class="issue"><span>Nr 999.M41</span><span>Magazyn dla Odrzuconych</span><span>Cena: 3 trony</span></p>
+    </header>
+
+    <main>
+      <!-- OKŁADKA -->
+      <section id="cover" class="screen" aria-labelledby="coverTitle">
+        <div class="cover-grid">
+          <div class="card cover-main">
+            <div class="badge">Mega psychotest!</div>
+            <p class="kicker">Sprawdź to!</p>
+            <h1 class="cover-title" id="coverTitle">Którą klasą z <mark>Darktide</mark> jesteś naprawdę?</h1>
+            <p class="lead">14 pytań, zero litości. Odpowiadaj szczerze – Inkwizytor Grendyl i tak zna prawdę, a Explikator Zola już ostrzy pióro. Na końcu czeka <b>PLAKAT XXL</b> z twoją postacią do powieszenia nad pryczą!</p>
+            <button type="button" class="btn btn-go" id="startBtn">Zaczynamy! <span aria-hidden="true">→</span></button>
+            <p class="meta">⏱ ok. 3 minuty · 7 klas · 0% herezji (prawie)</p>
+          </div>
+          <aside class="coverlines" aria-label="Także w tym numerze">
+            <p class="cl"><b>NOWOŚĆ!</b> Skitarii – nowa gwiazda Mourningstara. Czy serwoczaszka to już związek?</p>
+            <p class="cl"><b>Dr Grendyl odpowiada:</b> <span class="hand">„Mój Ogryn zjadł mi pamiętnik!”</span></p>
+            <p class="cl"><b>EKSKLUZYWNIE!</b> Psyker zdradza: „Głowa boli mnie tylko troszkę”</p>
+            <div class="burst cover-burst" id="coverBurst"><span>Plakat<br>XXL<br>w środku!</span></div>
+          </aside>
+        </div>
+        <div class="card strip">
+          <h2 class="strip-title">W tym numerze:</h2>
+          <div class="strip-row" id="strip"></div>
+        </div>
+      </section>
+
+      <!-- QUIZ -->
+      <section id="quiz" class="screen" aria-label="Psychotest" hidden>
+        <div class="card quiz-card">
+          <div class="quiz-top">
+            <span class="qnum">Pytanie <b id="qIdx">1</b> z <span id="qTotal">14</span></span>
+            <span class="tag" id="qTag"></span>
+          </div>
+          <div class="progress" id="progress" role="progressbar" aria-label="Postęp testu" aria-valuemin="0" aria-valuemax="14" aria-valuenow="0">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <div id="qBody">
+            <h2 class="question" id="qText" tabindex="-1"></h2>
+            <div class="options" id="options"></div>
+          </div>
+          <div class="quiz-nav">
+            <button type="button" class="link-btn" id="backBtn">← Cofnij</button>
+            <span class="hint">Skrót: klawisze A–D (albo 1–4), Backspace cofa</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- LICZENIE -->
+      <section id="loading" class="screen" hidden>
+        <div class="card loading-card">
+          <div id="loadingAquila"></div>
+          <p id="loadingText" aria-live="polite"></p>
+        </div>
+      </section>
+
+      <!-- WYNIK -->
+      <section id="result" class="screen" hidden>
+        <div id="notice"></div>
+        <div id="poster"></div>
+        <div class="actions">
+          <button type="button" class="btn btn-go" id="againBtn">Zagraj jeszcze raz 🔄</button>
+          <button type="button" class="btn btn-pink" id="shareBtn">Skopiuj link do plakatu 🔗</button>
+          <button type="button" class="btn" id="printBtn">Drukuj plakat 🖨️</button>
+        </div>
+        <section class="card dna" id="dna" aria-labelledby="dnaTitle" hidden>
+          <h2 class="h-sec" id="dnaTitle">Twoje DNA z Mourningstara</h2>
+          <p>Nikt nie jest w 100% jedną klasą. Tak wygląda twój skład:</p>
+          <div id="dnaRows"></div>
+        </section>
+        <section class="card gallery" aria-labelledby="galleryTitle">
+          <h2 class="h-sec" id="galleryTitle">Wszystkie plakaty z tego numeru</h2>
+          <p>Kliknij, żeby zobaczyć, kim mogła być twoja postać.</p>
+          <div class="gallery-grid" id="galleryGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <p class="foot-brand">BRAVVM · Psychotest dla Odrzuconych · Nr 999.M41</p>
+      <p class="fine"><a href="https://dudiruders.github.io/Portfolio/#po-godzinach">← Więcej projektów w portfolio</a> · <a href="https://github.com/DudiRuders/Gry">Kod na GitHubie</a></p>
+      <p class="fine">Nieoficjalny projekt fanowski zrobiony dla zabawy. Nie jest powiązany z Fatshark, Games Workshop ani wydawcą magazynu „Bravo”. Warhammer 40,000 i Darktide są znakami towarowymi ich właścicieli. Wszystkie grafiki narysowane od zera w SVG.</p>
+      <details class="sources">
+        <summary>Skąd te fakty? Źródła</summary>
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Warhammer_40,000:_Darktide" target="_blank" rel="noopener">Wikipedia: Warhammer 40,000: Darktide</a></li>
+          <li><a href="https://www.fatshark.se/news/darktides-new-class-arbites-out-now" target="_blank" rel="noopener">Fatshark: klasa Arbites już dostępna</a></li>
+          <li><a href="https://www.warhammer-community.com/en-gb/articles/z1yoepme/make-your-name-on-the-streets-as-hive-scum-with-a-new-class-for-warhammer-40000-darktide/" target="_blank" rel="noopener">Warhammer Community: Hive Scum</a></li>
+          <li><a href="https://www.fatshark.se/news/new-darktide-class-skitarii-out-now" target="_blank" rel="noopener">Fatshark: klasa Skitarii już dostępna</a></li>
+          <li><a href="https://darktide.wiki.fextralife.com/Classes" target="_blank" rel="noopener">Darktide Wiki: zdolności klas</a></li>
+        </ul>
+      </details>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><p style="text-align:center;font-weight:800">Ten psychotest potrzebuje JavaScriptu. Inkwizycja prosi o jego włączenie.</p></noscript>
+
+  <script>
+    'use strict';
+
+    /* =====================================================================
+       KLASY
+       color = kolor plakatu, on = kolor tekstu na tym kolorze
+       ===================================================================== */
+    const CLASSES = {
+      vet: {
+        slug: 'veteran',
+        name: 'Veteran',
+        sub: 'Strzelec wyborowy',
+        color: '#1f9a52',
+        on: '#fff',
+        tagline: 'Oko snajpera, nerwy z plastali!',
+        desc: 'Kiedy reszta drużyny panikuje, ty spokojnie przeładowujesz. Nie lubisz dramy, lubisz plan. I amunicję. Dużo amunicji. Na każdej imprezie widzisz zagrożenie, zanim ktokolwiek zdąży krzyknąć „SNAJPER!”, a twoje pingi to legenda Mourningstara. Niektórzy mówią, że to za dużo powagi jak na twój wiek. Ty odpowiadasz: „Kontakt, godzina druga”. I znowu masz rację.',
+        profile: [
+          ['Ksywka', 'Sierżant Ping'],
+          ['Znak zodiaku', 'Koziorożec (z lunetą)'],
+          ['Ulubiona broń', 'Karabin laserowy, a na deser granat'],
+          ['Ulubione danie', 'Racja żywnościowa. Smakuje jak tektura. Uwielbiasz.'],
+          ['Hobby', 'Czyszczenie broni, liczenie amunicji, pingowanie'],
+          ['Boi się', 'Pustego magazynka i drużyny, która ignoruje pingi'],
+          ['Twój typ', 'Ktoś, kto osłania flankę i nie zadaje pytań'],
+          ['Najlepszy duet', 'Ogryn: on stoi z przodu, ty strzelasz zza niego'],
+        ],
+        facts: [
+          'Jedna z czterech klas dostępnych od premiery gry (30 listopada 2022).',
+          'Specjalista od walki na dystans: zdejmuje elity i specjalistów, zanim narobią bałaganu.',
+          'Do wyboru ma Executioner’s Stance, Voice of Command i Infiltrate. Czyli: celuj, krzycz albo znikaj.',
+        ],
+        advice: 'Kochanie, nie każdy problem da się rozwiązać strzałem w głowę. Ale większość, nie oszukujmy się, tak.',
+      },
+      zea: {
+        slug: 'zealot',
+        name: 'Zealot',
+        sub: 'Kaznodzieja',
+        color: '#ffcc00',
+        on: '#141414',
+        tagline: 'Twoja wiara płonie. Dosłownie.',
+        desc: 'Masz w sobie więcej energii niż reaktor plazmowy i każdą wolną chwilę spędzasz na pierwszej linii. Słowa „odwrót” nie znasz, za to „herezję” odmieniasz przez wszystkie przypadki. Im gorzej idzie, tym mocniej walczysz – i to nie metafora, tylko twój talent. Przyjaciele kochają twój zapał, ale trochę się stresują, kiedy na grilla przynosisz miotacz ognia.',
+        profile: [
+          ['Ksywka', 'Zapałka'],
+          ['Znak zodiaku', 'Baran (płonący)'],
+          ['Ulubiona broń', 'Młot gromowy, eviscerator albo miotacz ognia, zależnie od nastroju'],
+          ['Ulubione danie', 'Post o chlebie i wodzie. Święconej.'],
+          ['Hobby', 'Śpiewanie hymnów na cały głos, kolekcjonowanie pieczęci czystości'],
+          ['Boi się', 'Niczego. No, może psykera przy wspólnym stole'],
+          ['Twój typ', 'Ktoś, kto rano odmawia z tobą litanię i nie gasi pożarów'],
+          ['Najlepszy duet', 'Weteran: ty wbiegasz w tłum, on sprząta resztki'],
+        ],
+        facts: [
+          'Klasa z premiery i mistrz walki wręcz przeciwko całym hordom.',
+          'Talent Martyrdom: im więcej ran, tym większe obrażenia. Bardzo zdrowe podejście.',
+          'Wpada w tłum z Fury of the Faithful, rozpływa się w Shroudfield albo dodaje drużynie otuchy Chorus of Spiritual Fortitude.',
+        ],
+        advice: 'Skarbie, nie wszystko, co się rusza, jest demonem. Ale sprawdzenie ogniem jeszcze nikomu nie zaszkodziło. Poza heretykami.',
+      },
+      psy: {
+        slug: 'psyker',
+        name: 'Psyker',
+        sub: 'Psykinetyk',
+        color: '#8b5cf6',
+        on: '#fff',
+        tagline: 'Czytasz w myślach. Czasem coś przy tym wybucha.',
+        desc: 'Jesteś najbardziej tajemniczą osobą w drużynie: patrzysz w dal, mówisz do siebie i wiesz rzeczy, o których nikt ci nie mówił. Jednym spojrzeniem rozsadzasz wrogom głowy, ale masz jedną słabość, czyli przegrzewanie. Kiedy za bardzo się nakręcisz, wybucha nie tylko impreza. Za plecami szepczą „wiedźma”, a i tak zawsze zapraszają cię do drużyny. Bez twojej tarczy nikt by nie wrócił z misji.',
+        profile: [
+          ['Ksywka', 'Bąbelek'],
+          ['Znak zodiaku', 'Ryby (pływające w Osnowie)'],
+          ['Ulubiona broń', 'Kostur mocy i własny mózg'],
+          ['Ulubione danie', 'Tabletki na ból głowy, garściami'],
+          ['Hobby', 'Telekineza, stawianie Tarota Imperatora, rozsadzanie głów'],
+          ['Boi się', 'Czarnych Okrętów i pełnego paska Peril'],
+          ['Twój typ', 'Ktoś, kto trzyma cię za rękę, gdy głowa się grzeje (i ma gaśnicę)'],
+          ['Najlepszy duet', 'Ogryn: nie boi się ciebie, bo nie do końca wie, czym jesteś'],
+        ],
+        facts: [
+          'Klasa z premiery, specjalista od dystansu i eliminowania elit mocą psioniczną.',
+          'Blitz Brain Rupture (dawniej Brain Burst) sprawia, że głowa wroga… no cóż, przestaje być głową.',
+          'Za mocne korzystanie z Osnowy grozi wybuchem samego psykera. Mówiliśmy: przegrzewanie.',
+        ],
+        advice: 'Złotko, oddychaj i licz do dziesięciu. Jeśli przy siódemce coś się zapali, odpuść.',
+      },
+      ogr: {
+        slug: 'ogryn',
+        name: 'Ogryn',
+        sub: 'Łamacz czaszek',
+        color: '#ff7a1a',
+        on: '#141414',
+        tagline: 'Wielkie serce, wielkie pięści, wielki kamień.',
+        desc: 'Jesteś najlepszym przyjacielem, jakiego można sobie wymarzyć. Lojalność masz większą niż bicepsy, a bicepsy masz jak beczki. Nie lubisz komplikować: problem? Wbiegasz w niego głową. Większy problem? Rzucasz w niego kamieniem. Twoi „mali przyjaciele” wiedzą, że zawsze ich zasłonisz. Może i liczenie do dziesięciu sprawia ci trudność, ale do jednego wielkiego rozpędu liczysz perfekcyjnie.',
+        profile: [
+          ['Ksywka', 'Misiek'],
+          ['Znak zodiaku', 'Byk. Ogryn sprawdzał. Ogryn jest bykiem.'],
+          ['Ulubiona broń', 'Ripper Gun, tarcza i ulubiony kamień'],
+          ['Ulubione danie', 'Tak.'],
+          ['Hobby', 'Przytulanie, szarżowanie, zbieranie ładnych kamieni'],
+          ['Boi się', 'Długich słów i pustego talerza'],
+          ['Twój typ', 'Ktoś mały, mądry i fajny. Ogryn będzie nosić.'],
+          ['Najlepszy duet', 'Psyker: ty robisz za ścianę, on robi czary. Potem razem jecie'],
+        ],
+        facts: [
+          'Klasa z premiery: czołg drużyny z największym zapasem zdrowia.',
+          'Szarżuje (Bull Rush, w wersji ulepszonej Indomitable), ściąga wrogów na siebie (Loyal Protector) albo sieje ołowiem (Point-Blank Barrage).',
+          'Jeden z jego „granatów” to dosłownie kamień. Nazywa się Big Friendly Rock. Serio.',
+        ],
+        advice: 'Misiu, kamień nie jest odpowiedzią na wszystko. …Dobra, na prawie wszystko.',
+      },
+      arb: {
+        slug: 'arbitrator',
+        name: 'Arbitrator',
+        sub: 'Stróż Lex Imperialis',
+        color: '#1d4ed8',
+        on: '#fff',
+        tagline: 'Ty nie łamiesz zasad. Ty JESTEŚ zasadami.',
+        desc: 'W drużynie skazańców jako jedyna osoba z odznaką nie siedzisz, tylko wsadzasz. Kochasz porządek, regulaminy i swojego psa, który ma w sobie więcej cybernetyki niż pół Mechanicusa. Za tarczą czujesz się jak w domu, a twój grafik jest tak równy, że serwitory płaczą z zazdrości. Plotki? Spisujesz. Bałagan? Pałka. Uśmiech? Tylko przy mastiffie.',
+        profile: [
+          ['Ksywka', 'Paragraf'],
+          ['Znak zodiaku', 'Waga (sprawiedliwości)'],
+          ['Ulubiona broń', 'Pałka energetyczna, tarcza szturmowa i strzelba z amunicją specjalną'],
+          ['Ulubione danie', 'Pączek zjedzony na patrolu'],
+          ['Hobby', 'Wypisywanie mandatów, tresura mastiffa, Lex Imperialis do poduszki'],
+          ['Boi się', 'Niewypełnionych formularzy'],
+          ['Twój typ', 'Ktoś z czystą kartoteką. Ewentualnie z ciekawą'],
+          ['Najlepszy duet', 'Hive Scum: przyjaciół trzymaj blisko, a podejrzanych jeszcze bliżej'],
+        ],
+        facts: [
+          'Pierwsza płatna klasa DLC. Na Mourningstarze od 23 czerwca 2025.',
+          'W przeciwieństwie do czterech klas z premiery nie jest więźniem, tylko stróżem prawa w czynnej służbie.',
+          'Walczy z cyber-mastiffem u boku, a tarczę łączy z bronią białą albo palną.',
+        ],
+        advice: 'Kotku, nie możesz aresztować własnej drużyny. Pytaliśmy. Inkwizycja się nie zgodziła.',
+      },
+      scum: {
+        slug: 'hive-scum',
+        name: 'Hive Scum',
+        sub: 'Szumowina z Ula',
+        color: '#ff2d87',
+        on: '#fff',
+        tagline: 'Masz kontakty, styl i stimm na każdą okazję.',
+        desc: 'Wychowało cię dno Ula Tertium i wyszło ci to na dobre. Masz najlepsze tatuaże w sektorze, dwa pistolety (bo po co komu jeden?) i znajomości, o których Inkwizycja woli nie wiedzieć. Załatwisz wszystko: amunicję, stimmy, wolny wieczór od sierżanta. Arbitrator ma na ciebie teczkę grubą jak Lex, ale jeszcze nikt niczego ci nie udowodnił.',
+        profile: [
+          ['Ksywka', 'Okazja'],
+          ['Znak zodiaku', 'Skorpion (z trucizną)'],
+          ['Ulubiona broń', 'Dwa pistolety naraz, kosa i solidny łom'],
+          ['Ulubione danie', 'Coś z czarnego rynku. Nie pytaj, co to'],
+          ['Hobby', 'Tatuaże, chemia stosowana, handel prawie legalny'],
+          ['Boi się', 'Cyber-mastiffa. On już zna twój zapach'],
+          ['Twój typ', 'Ktoś, kto odwróci uwagę, gdy ty pakujesz łup'],
+          ['Najlepszy duet', 'Zealot: ty dostarczasz stimmy, on robi z nich cuda'],
+        ],
+        facts: [
+          'W grze od 2 grudnia 2025. To druga płatna klasa DLC.',
+          'Jedyna klasa, która walczy dwiema broniami naraz, np. parą autopistoletów albo nożami.',
+          'Miesza własny stimm, nasącza broń toksynami i skręca chemiczne bomby. Chemia stosowana!',
+        ],
+        advice: 'Słoneczko, „pożyczyć” i „ukraść” to dwa różne słowa. Sprawdź w słowniku. A potem go oddaj.',
+      },
+      ski: {
+        slug: 'skitarii',
+        name: 'Skitarii',
+        sub: 'Alpha Primus Skitarius',
+        color: '#e0312b',
+        on: '#fff',
+        tagline: 'Ciało jest słabe. Na szczęście masz go coraz mniej.',
+        desc: 'Jesteś najlepiej zorganizowaną osobą w historii Mourningstara. Twój kalendarz ma numer wersji, emocje dostają łatki bezpieczeństwa, a serwoczaszka robi lepsze notatki niż cała klasa razem wzięta. Kochasz Omnissiaha, porządek i zapach świętego oleju. Ludzie mówią, że nie masz uczuć. Nieprawda: masz je w pliku konfiguracyjnym, tylko wyłączone. W drużynie to nowość, a już wszyscy chcą cię w składzie.',
+        profile: [
+          ['Ksywka', 'Bluetooth'],
+          ['Znak zodiaku', 'Wodnik (chłodzony cieczą)'],
+          ['Ulubiona broń', 'Karabin łukowy, buława łukowa i pistolet fosforowy'],
+          ['Ulubione danie', 'Pasta termoprzewodząca z opiłkami'],
+          ['Hobby', 'Aktualizacje, rytuały konserwacji, gadanie binarnym do tostera'],
+          ['Boi się', 'Rdzy, wirusów i słowa „analogowy”'],
+          ['Twój typ', 'Ktoś z otwartym portem i stabilnym łączem'],
+          ['Najlepszy duet', 'Arbitrator: oboje macie zwierzaka-robota. Wspólne spacery!'],
+        ],
+        facts: [
+          'Najnowsza klasa w grze: Alpha Primus Skitarius dołączył 23 czerwca 2026.',
+          'Ma serwoczaszkę, która strzela, rozwiązuje zagadki z danymi, a w wersji Medicae podnosi powalonych sojuszników.',
+          'Arsenał Mechanicus: karabin łukowy i galwaniczny, buława łukowa, miecz energetyczny i ostrza transoniczne.',
+        ],
+        advice: 'Dzióbku, wyłącz czasem tryb oszczędzania emocji. Przytul kogoś. Albo chociaż serwoczaszkę.',
+      },
+    };
+    const ORDER = ['vet', 'zea', 'psy', 'ogr', 'arb', 'scum', 'ski'];
+
+    /* =====================================================================
+       PYTANIA
+       p = klasa główna (+2 pkt), s = klasa poboczna (+1 pkt).
+       Bilans: każda klasa jest 8× główną i 8× poboczną.
+       ===================================================================== */
+    const QUESTIONS = [
+      { tag: 'STYL', q: 'Wieczorek zapoznawczy w kantynie Mourningstara. Jaka stylówka?', o: [
+        { t: 'Moro, nieśmiertelnik i pas z amunicją. Klasyka nie wychodzi z mody. Najwyżej z okopu.', p: 'vet', s: 'arb' },
+        { t: 'Wór pokutny i pieczęcie czystości. Dużo pieczęci. Pieczęci nigdy za dużo.', p: 'zea', s: 'ski' },
+        { t: 'Tatuaże od stóp do głów, włosy na żel i kurtka „pożyczona” wczoraj od kogoś z Ula.', p: 'scum', s: 'psy' },
+        { t: 'Ta sama kamizelka co zawsze. Wygodna. Pachnie mną.', p: 'ogr', s: 'vet' },
+      ] },
+      { tag: 'MIŁOŚĆ', q: 'Crush pisze do ciebie przez voks: „nudzę się 😏”. Co odpisujesz?', o: [
+        { t: 'Nic. Już wiem, co napisze w następnej wiadomości. Serio, lepiej było tego nie wiedzieć.', p: 'psy', s: 'scum' },
+        { t: '„Używanie voksu po godzinie policyjnej, artykuł 47 Lex Imperialis. Widzimy się w celi, skarbie 💋”', p: 'arb', s: 'vet' },
+        { t: '„01110100 01100001 01101011”. Czyli „tak” w jedynym prawdziwym języku miłości.', p: 'ski', s: 'zea' },
+        { t: '„OGRYN TEŻ SIĘ NUDZI. OGRYN PRZYNIESIE KAMIEŃ. ŁADNY KAMIEŃ.”', p: 'ogr', s: 'psy' },
+      ] },
+      { tag: 'SZKOŁA', q: 'Klasówka z historii Imperium, a w głowie pustka. Jaki plan?', o: [
+        { t: 'Ostatnia ławka, idealna linia strzału na kartkę prymusa. Czysty snajping.', p: 'vet', s: 'ski' },
+        { t: 'Ściągi prosto z Ula. Kosztowały trzy trony i jedną przysługę, o którą lepiej nie pytać.', p: 'scum', s: 'ogr' },
+        { t: 'Modlitwa do Imperatora. Jak nie zdam, to był test wiary, a ten zaliczam zawsze.', p: 'zea', s: 'arb' },
+        { t: 'Patrzę nauczycielowi głęboko w oczy. Leci mu krew z nosa. Szóstka.', p: 'psy', s: 'scum' },
+      ] },
+      { tag: 'IMPREZA', q: 'Piątek wieczór w Ulu Tertium. Gdzie cię szukać?', o: [
+        { t: 'W podziemnym barze, gdzie nikt nie pyta, skąd mam tyle stimmów.', p: 'scum', s: 'psy' },
+        { t: 'Na nalocie na podziemny bar, w którym ktoś ma podejrzanie dużo stimmów.', p: 'arb', s: 'vet' },
+        { t: 'W kantynie, przy trzecim garnku gulaszu. Albo czwartym. Ogryn nie liczy.', p: 'ogr', s: 'vet' },
+        { t: 'W kaplicy maszyn. Śpiewam generatorowi. On też potrzebuje czułości.', p: 'ski', s: 'zea' },
+      ] },
+      { tag: 'PRZYJAŹŃ', q: 'Ktoś obgaduje twoją psiapsiółę na korytarzu. Reakcja?', o: [
+        { t: 'Staję obok niej. Po prostu staję. Rzucam cień na pół korytarza. Plotki ustają.', p: 'ogr', s: 'scum' },
+        { t: 'Krzyczę „HEREZJA!” i podpalam temat. Dosłownie.', p: 'zea', s: 'psy' },
+        { t: 'Spisuję plotkarzy i wypisuję mandat za zakłócanie porządku publicznego.', p: 'arb', s: 'zea' },
+        { t: 'Oznaczam cel pingiem. Reszta drużyny wie, co robić.', p: 'vet', s: 'ski' },
+      ] },
+      { tag: 'ZWIERZAKI', q: 'Twój wymarzony zwierzak?', o: [
+        { t: 'Cyber-mastiff. Aportuje heretyków i merda hydraulicznym ogonem.', p: 'arb', s: 'vet' },
+        { t: 'Serwoczaszka. Lata za mną, świeci, strzela i rozwiązuje zagadki. Lepsza niż niejeden chłopak.', p: 'ski', s: 'arb' },
+        { t: 'Coś z Osnowy, co szepcze mi do ucha. Nie, nie dam ci tego pogłaskać.', p: 'psy', s: 'zea' },
+        { t: 'Szczur z Ula wytresowany do podkradania portfeli. Wabi się Szef.', p: 'scum', s: 'ogr' },
+      ] },
+      { tag: 'PAMIĘTNIK', q: 'Co najczęściej zapisujesz w pamiętniku?', o: [
+        { t: 'Listę grzeszników. Jest długa. Ty też na niej jesteś.', p: 'zea', s: 'arb' },
+        { t: 'Nic. Pamiętnik zapisuje się sam. Charakter pisma jakby nie mój.', p: 'psy', s: 'ogr' },
+        { t: 'Licznik zestrzeleń. Właśnie zaczynam trzeci zeszyt.', p: 'vet', s: 'scum' },
+        { t: 'Logi systemowe. Wpis nr 4096: wykryto uczucie. Zgłoszono jako błąd.', p: 'ski', s: 'arb' },
+      ] },
+      { tag: 'RANDKA', q: 'Pierwsza randka! Dokąd zabierasz drugą połówkę?', o: [
+        { t: 'Na strzelnicę. Romantyczny zachód słońca oglądany przez lunetę.', p: 'vet', s: 'ski' },
+        { t: 'Na kolację. Jem za dwoje, a potem odnoszę cię do domu na rękach. Na jednej ręce.', p: 'ogr', s: 'psy' },
+        { t: 'Na dach kopuły Ula. Bilety? Wejście jest tam, gdzie się włamiemy.', p: 'scum', s: 'psy' },
+        { t: 'Na przesłuchanie. Ja pytam, ty mówisz prawdę. Najszczersza randka w całym sektorze.', p: 'arb', s: 'zea' },
+      ] },
+      { tag: 'IDOL', q: 'Jaki plakat wisi nad twoją pryczą?', o: [
+        { t: 'Święta Celestyna w aureoli. Całuję ją na dobranoc.', p: 'zea', s: 'ogr' },
+        { t: 'Schemat reaktora plazmowego. Spójrz tylko na te zawory. Poezja.', p: 'ski', s: 'vet' },
+        { t: 'Imperator na Złotym Tronie. Czasem do mnie mruga. Nikt mi nie wierzy.', p: 'psy', s: 'ogr' },
+        { t: '„Lex Imperialis, tom 1 z 34 000”. Bez obrazków. Same paragrafy.', p: 'arb', s: 'scum' },
+      ] },
+      { tag: 'SZLABAN', q: 'Szlaban! Nie wolno ci wychodzić z kwatery. Co robisz?', o: [
+        { t: 'Wychodzę szybem wentylacyjnym. Znam go lepiej niż własną kieszeń. I cudze kieszenie też.', p: 'scum', s: 'vet' },
+        { t: 'Wychodzę przez ścianę. Drzwi i tak były za małe.', p: 'ogr', s: 'arb' },
+        { t: 'Siedzę grzecznie w pokoju. Moja projekcja astralna idzie na imprezę.', p: 'psy', s: 'ski' },
+        { t: 'Osiem godzin w stacji ładującej. Szlaban? Raczej tryb uśpienia.', p: 'ski', s: 'zea' },
+      ] },
+      { tag: 'SCHOLA', q: 'Projekt grupowy w Scholi Progenium. Jaką rolę bierzesz?', o: [
+        { t: 'Dowodzę. Wydaję rozkazy krzykiem i nagle wszyscy pracują szybciej.', p: 'vet', s: 'ski' },
+        { t: 'Pilnuję porządku. Kto ściąga, ten siedzi.', p: 'arb', s: 'psy' },
+        { t: 'Rozpalam w zespole ducha walki. Czasem też sam zespół.', p: 'zea', s: 'ogr' },
+        { t: 'Noszę wszystko. Plecaki, ławki, nauczyciela.', p: 'ogr', s: 'scum' },
+      ] },
+      { tag: 'WAKACJE', q: 'Wymarzone wakacje?', o: [
+        { t: 'Gdziekolwiek, byle jak najdalej od Czarnych Okrętów.', p: 'psy', s: 'ogr' },
+        { t: 'Pielgrzymka na Marsa. Kąpiele w świętych olejach i all inclusive z aktualizacją oprogramowania.', p: 'ski', s: 'zea' },
+        { t: 'Last minute na czarny rynek. Wracam z walizką, której nie było przy wyjeździe.', p: 'scum', s: 'arb' },
+        { t: 'Krucjata przez trzy światy-ule. Opalenizna od miotacza ognia gratis.', p: 'zea', s: 'vet' },
+      ] },
+      { tag: 'MOTTO', q: 'Jakie motto wpisujesz koleżance do pamiętnika?', o: [
+        { t: '„Wystarczy jeden dobry strzał.”', p: 'vet', s: 'ski' },
+        { t: '„Duży kamień rozwiązuje duże problemy.”', p: 'ogr', s: 'ski' },
+        { t: '„Lex nie śpi. Ja też nie.”', p: 'arb', s: 'zea' },
+        { t: '„Wszystko ma swoją cenę. Ty też.”', p: 'scum', s: 'psy' },
+      ] },
+      { tag: 'DOM', q: 'W kwaterze psuje się lodówka. Co robisz?', o: [
+        { t: 'Namaszczam ją świętym olejem i odmawiam litanię. Działa. Nikt nie wie dlaczego.', p: 'ski', s: 'scum' },
+        { t: 'Patrzę na nią tak intensywnie, że drzwiczki same się otwierają. Telekineza > instrukcja.', p: 'psy', s: 'ogr' },
+        { t: 'Rozkręcam, czyszczę, skręcam. Zostaje jedna śrubka. Chowam ją na czarną godzinę.', p: 'vet', s: 'scum' },
+        { t: 'To demon. Wszystko jest demonem, jeśli dobrze się przyjrzeć. Biorę miotacz ognia.', p: 'zea', s: 'arb' },
+      ] },
+    ];
+
+    /* Prawdziwe zdjęcia na plakacie (opcjonalnie): wrzuć screeny swoich postaci
+       do folderu img/ i wpisz ścieżki, np. { ogr: 'img/ogryn.jpg' }.
+       Bez wpisu plakat pokazuje insygnia klasy narysowane w SVG. */
+    const PHOTOS = {};
+
+    /* =====================================================================
+       GRAFIKI SVG (wszystko rysowane od zera)
+       ===================================================================== */
+    function starPath(cx, cy, rOut, rIn, points, rot = -90) {
+      const pts = [];
+      for (let i = 0; i < points * 2; i++) {
+        const r = i % 2 ? rIn : rOut;
+        const a = ((rot + (i * 180) / points) * Math.PI) / 180;
+        pts.push(`${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`);
+      }
+      return `M${pts.join('L')}Z`;
+    }
+
+    function gearPath(cx, cy, rOut, rIn, teeth) {
+      const step = (Math.PI * 2) / teeth;
+      const pts = [];
+      for (let i = 0; i < teeth; i++) {
+        const a = i * step - Math.PI / 2;
+        pts.push([a, rIn], [a + step * 0.12, rOut], [a + step * 0.42, rOut], [a + step * 0.54, rIn]);
+      }
+      return `M${pts.map(([a, r]) => `${(cx + r * Math.cos(a)).toFixed(1)} ${(cy + r * Math.sin(a)).toFixed(1)}`).join('L')}Z`;
+    }
+
+    const EMBLEMS = {
+      vet: () => `
+        <path d="${starPath(60, 60, 57, 51, 20)}" fill="#1f9a52"/>
+        <circle cx="60" cy="60" r="40" fill="#efe8cf"/>
+        <circle cx="60" cy="60" r="25" fill="none"/>
+        <path d="M60 22v20M60 78v20M22 60h20M78 60h20"/>
+        <circle cx="60" cy="60" r="7" fill="#e5162b"/>`,
+      zea: () => `
+        <path d="M47 76 35 113l11-7 8 10 6-36z" fill="#f4e4bc"/>
+        <path d="M73 76l12 37-11-7-8 10-6-36z" fill="#f4e4bc"/>
+        <path d="M44 92l8 2M42 100l8 2M76 92l-8 2M78 100l-8 2" stroke-width="2.5"/>
+        <path d="${starPath(60, 50, 42, 36, 20)}" fill="#c1121f"/>
+        <circle cx="60" cy="50" r="27" fill="#e5162b" stroke-width="3"/>
+        <g transform="translate(0 3)">
+          <path d="M60 25c9 10 14 17 12 27-1 8-6 13-12 13s-12-5-12-12c0-6 3-10 6-14 1 5 4 7 6 7-2-7-2-14 0-21z" fill="#ffcc00"/>
+          <path d="M60 46c3 4 5 7 4 11-1 3-2 5-4 5s-4-2-4-5c0-4 2-7 4-11z" fill="#ff7a1a" stroke-width="2.5"/>
+        </g>`,
+      psy: () => `
+        <path d="${starPath(60, 60, 58, 42, 14)}" fill="#8b5cf6"/>
+        <path d="M14 60Q60 16 106 60 60 104 14 60z" fill="#fff"/>
+        <circle cx="60" cy="60" r="19" fill="#c4b5fd"/>
+        <circle cx="60" cy="60" r="8" fill="#141414"/>
+        <circle cx="66" cy="54" r="3.5" fill="#fff" stroke="none"/>
+        <path d="M62 2 52 22h8l-6 15 17-21h-9l7-14z" fill="#ffe14d" stroke-width="3"/>`,
+      ogr: () => `
+        <path d="M20 80C10 58 26 30 54 25c26-5 52 11 50 37-1 26-22 36-46 36-20-1-32-6-38-18z" fill="#a8a29e"/>
+        <path d="M30 46c6 2 10 6 12 12M88 40l-6 9M80 87l9-5" fill="none" stroke-width="3"/>
+        <circle cx="76" cy="40" r="3" fill="#78716c" stroke="none"/>
+        <circle cx="34" cy="77" r="2.5" fill="#78716c" stroke="none"/>
+        <circle cx="48" cy="60" r="4.5" fill="#141414" stroke="none"/>
+        <circle cx="72" cy="60" r="4.5" fill="#141414" stroke="none"/>
+        <ellipse cx="39" cy="70" rx="6" ry="3.5" fill="#ff7eb6" stroke="none"/>
+        <ellipse cx="81" cy="70" rx="6" ry="3.5" fill="#ff7eb6" stroke="none"/>
+        <path d="M51 71q9 9 18 0" fill="none" stroke-width="3.5"/>
+        <path d="M94 22c-4-8-15-6-13 3 1 6 13 13 13 13s12-7 13-13c2-9-9-11-13-3z" fill="#ff2d87" stroke-width="3"/>`,
+      arb: () => `
+        <path d="M60 8l42 14v34c0 28-18 46-42 56-24-10-42-28-42-56V22z" fill="#1d4ed8"/>
+        <path d="M60 19l32 11v26c0 22-14 37-32 45-18-8-32-23-32-45V30z" fill="none" stroke="#ffe14d" stroke-width="3"/>
+        <path d="${starPath(60, 39, 9, 4, 5)}" fill="#ffe14d" stroke-width="2.5"/>
+        <text x="60" y="72" text-anchor="middle" font-family="Cinzel, 'Times New Roman', serif" font-weight="900" font-size="24" fill="#ffe14d" stroke="#141414" stroke-width="1.5" paint-order="stroke">LEX</text>
+        <g fill="#ffe14d" stroke-width="2">
+          <ellipse cx="60" cy="90" rx="6.5" ry="5"/>
+          <circle cx="50.5" cy="82" r="2.8"/><circle cx="56.5" cy="78.5" r="2.8"/>
+          <circle cx="63.5" cy="78.5" r="2.8"/><circle cx="69.5" cy="82" r="2.8"/>
+        </g>`,
+      scum: () => `
+        <path d="${starPath(60, 60, 57, 40, 11)}" fill="#ff2d87"/>
+        <g transform="rotate(-45 60 60)">
+          <path d="M60 8l8 22-2 36H54l-2-36z" fill="#e5e7eb"/>
+          <path d="M60 16v44" stroke-width="2" opacity=".45"/>
+          <rect x="52" y="66" width="16" height="32" rx="3" fill="#7c4a1e"/>
+          <path d="M52 75l16-4M52 83l16-4M52 91l16-4" stroke-width="2.5"/>
+        </g>
+        <g transform="rotate(45 60 60)">
+          <rect x="51" y="24" width="18" height="52" rx="3" fill="#e0f2fe"/>
+          <rect x="53" y="46" width="14" height="28" fill="#a3e635" stroke="none"/>
+          <rect x="51" y="24" width="18" height="52" rx="3" fill="none"/>
+          <path d="M51 36h7M51 46h7M51 56h7" stroke-width="2.5"/>
+          <path d="M60 24V10M49 10h22M44 24h32"/>
+          <path d="M60 76v26" stroke-width="3"/>
+        </g>`,
+      ski: () => `
+        <path d="${gearPath(60, 60, 57, 47, 12)}" fill="#e0312b"/>
+        <circle cx="60" cy="60" r="35" fill="#f5f0e1"/>
+        <path d="M40 58c0-18 9-27 20-27s20 9 20 27c0 8-4 12-8 14v9H48v-9c-4-2-8-6-8-14z" fill="#fff"/>
+        <path d="M60 31c11 0 20 9 20 27 0 8-4 12-8 14v9H60z" fill="#9ca3af" stroke="none"/>
+        <path d="M60 31v50" stroke-width="2.5"/>
+        <path d="M40 58c0-18 9-27 20-27s20 9 20 27c0 8-4 12-8 14v9H48v-9c-4-2-8-6-8-14z" fill="none"/>
+        <circle cx="51" cy="56" r="6" fill="#141414"/>
+        <circle cx="69" cy="56" r="7" fill="#22d3ee"/>
+        <circle cx="69" cy="56" r="2.5" fill="#ecfeff" stroke="none"/>
+        <path d="M60 62l-3 6h6z" fill="#141414" stroke-width="2"/>
+        <path d="M53 74v7M58 74v7M63 74v7M68 74v7" stroke-width="2"/>
+        <circle cx="75" cy="44" r="1.8" fill="#141414" stroke="none"/>
+        <circle cx="76" cy="66" r="1.8" fill="#141414" stroke="none"/>`,
+    };
+
+    function emblem(key, cls = '', decorative = false) {
+      const a11y = decorative ? 'aria-hidden="true"' : `role="img" aria-label="Insygnia klasy ${CLASSES[key].name}"`;
+      return `<svg class="emblem ${cls}" viewBox="0 0 120 120" ${a11y}>
+        <g stroke="#141414" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">${EMBLEMS[key]()}</g></svg>`;
+    }
+
+    const AQ_WING = `
+      <path d="M112 50C92 38 56 26 10 24l18 14-14 4 24 10-14 6 26 6-10 8 26 2-6 8 28-2 24 2z"/>
+      <path d="M30 31l24 15M46 31l22 17M62 34l20 16" fill="none" stroke-width="2.5"/>`;
+    const AQ_HEAD = `
+      <path d="M108 54C104 46 98 42 94 36c-4-8 0-16 8-17 8-1 13 5 12 13l4 22z"/>
+      <path d="M95 24 78 28l6 3-4 5 14-2z"/>
+      <circle cx="102" cy="26" r="2.4" fill="#141414" stroke="none"/>`;
+    const MIRROR = 'matrix(-1 0 0 1 240 0)';
+
+    function aquila(cls = '') {
+      return `<svg class="aquila ${cls}" viewBox="0 14 240 106" role="img" aria-label="Akwila – dwugłowy orzeł Imperium">
+        <g fill="#f5c518" stroke="#141414" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+          ${AQ_WING}<g transform="${MIRROR}">${AQ_WING}</g>
+          <path d="M110 84l-8 26 12-10 6 14 6-14 12 10-8-26z"/>
+          <path d="M106 46h28l-3 34-11 12-11-12z"/>
+          ${AQ_HEAD}<g transform="${MIRROR}">${AQ_HEAD}</g>
+          <circle cx="120" cy="62" r="7" fill="#e5162b"/>
+        </g></svg>`;
+    }
+
+    function burst(color, points = 16) {
+      return `<svg viewBox="0 0 100 100" aria-hidden="true"><path d="${starPath(50, 50, 48, 38, points)}" fill="${color}" stroke="#141414" stroke-width="3" stroke-linejoin="round"/></svg>`;
+    }
+
+    /* =====================================================================
+       PUNKTACJA
+       Remis rozstrzyga liczba odpowiedzi głównych, potem ta wybrana najpóźniej.
+       ===================================================================== */
+    function computeScores(answers) {
+      const score = {}, picks = {}, last = {};
+      ORDER.forEach((k) => { score[k] = 0; picks[k] = 0; last[k] = -1; });
+      answers.forEach((ai, qi) => {
+        const o = QUESTIONS[qi].o[ai];
+        score[o.p] += 2;
+        picks[o.p] += 1;
+        last[o.p] = qi;
+        if (o.s) score[o.s] += 1;
+      });
+      const ranked = [...ORDER].sort((a, b) => score[b] - score[a] || picks[b] - picks[a] || last[b] - last[a]);
+      return { winner: ranked[0], ranked, score };
+    }
+
+    // Procenty metodą największych reszt, żeby zawsze sumowały się do 100.
+    // Przy równych resztach pierwszeństwo ma klasa wyżej w rankingu.
+    function percents({ score, ranked }) {
+      const total = ranked.reduce((sum, k) => sum + score[k], 0) || 1;
+      const raw = ranked.map((k) => ({ k, v: (score[k] * 100) / total }));
+      const out = {};
+      let used = 0;
+      raw.forEach((r) => { out[r.k] = Math.floor(r.v); used += out[r.k]; });
+      raw.sort((a, b) => (b.v % 1) - (a.v % 1)).slice(0, 100 - used).forEach((r) => { out[r.k] += 1; });
+      return out;
+    }
+
+    /* =====================================================================
+       INTERFEJS
+       ===================================================================== */
+    const $ = (sel) => document.querySelector(sel);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const LETTERS = ['A', 'B', 'C', 'D'];
+    const HEY = { girl: 'TAK, DZIEWCZYNO!', boy: 'TAK, CHŁOPAKU!', con: 'TAK, SKAZAŃCU!' };
+    const HEY_LABEL = { girl: 'dziewczyno', boy: 'chłopaku', con: 'skazańcu' };
+    const LOADING = [
+      'Inkwizytor Grendyl przegląda twoje akta…',
+      'Ogryn liczy punkty na palcach… zabrakło palców…',
+      'Psyker zna już wynik, ale udaje zaskoczenie…',
+      'Serwoczaszka drukuje plakat w formacie XXL…',
+    ];
+    const store = {
+      get(key) { try { return localStorage.getItem(key); } catch { return null; } },
+      set(key, val) { try { localStorage.setItem(key, val); } catch { /* tryb prywatny – trudno */ } },
+    };
+
+    const state = {
+      idx: 0,
+      answers: [],
+      busy: false,
+      result: null,
+      view: null,
+      hey: HEY[store.get('bravvm-hey')] ? store.get('bravvm-hey') : 'girl',
+    };
+
+    function showScreen(id) {
+      ['cover', 'quiz', 'loading', 'result'].forEach((s) => { $(`#${s}`).hidden = s !== id; });
+      window.scrollTo(0, 0);
+    }
+
+    function toast(msg) {
+      const el = $('#toast');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => el.classList.remove('show'), 2600);
+    }
+
+    /* ---------- Quiz ---------- */
+    function startQuiz() {
+      state.idx = 0;
+      state.answers = [];
+      history.replaceState(null, '', location.pathname + location.search);
+      showScreen('quiz');
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[state.idx];
+      const total = QUESTIONS.length;
+      $('#qIdx').textContent = state.idx + 1;
+      $('#qTotal').textContent = total;
+      $('#qTag').textContent = q.tag;
+      $('#progressBar').style.width = `${(state.idx / total) * 100}%`;
+      $('#progress').setAttribute('aria-valuenow', state.idx);
+      $('#qText').textContent = q.q;
+      $('#options').innerHTML = q.o.map((o, i) => `
+        <button type="button" class="option${state.answers[state.idx] === i ? ' was-picked' : ''}" data-i="${i}">
+          <span class="letter">${LETTERS[i]}</span><span>${o.t}</span>
+        </button>`).join('');
+      $('#backBtn').disabled = state.idx === 0;
+
+      const body = $('#qBody');
+      body.classList.remove('q-enter');
+      void body.offsetWidth; // restart animacji
+      body.classList.add('q-enter');
+      $('#qText').focus({ preventScroll: true });
+
+      const top = $('#quiz').getBoundingClientRect().top;
+      if (top < 0) $('#quiz').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    function choose(i) {
+      if (state.busy || !QUESTIONS[state.idx].o[i]) return;
+      state.busy = true;
+      state.answers[state.idx] = i;
+      $(`#options .option[data-i="${i}"]`).classList.add('is-picked');
+      setTimeout(() => {
+        state.busy = false;
+        if (state.idx < QUESTIONS.length - 1) {
+          state.idx += 1;
+          renderQuestion();
+        } else {
+          finish();
+        }
+      }, reduceMotion ? 60 : 280);
+    }
+
+    function goBack() {
+      if (state.busy || state.idx === 0) return;
+      state.idx -= 1;
+      renderQuestion();
+    }
+
+    function finish() {
+      $('#progressBar').style.width = '100%';
+      state.result = computeScores(state.answers.slice(0, QUESTIONS.length));
+      showScreen('loading');
+      const el = $('#loadingText');
+      let m = 0;
+      el.textContent = LOADING[0];
+      const timer = setInterval(() => { m = (m + 1) % LOADING.length; el.textContent = LOADING[m]; }, 520);
+      setTimeout(() => {
+        clearInterval(timer);
+        showResult(state.result.winner, 'mine');
+      }, reduceMotion ? 300 : 2100);
+    }
+
+    /* ---------- Plakat ---------- */
+    function heyToggleHTML() {
+      const chips = Object.keys(HEY).map((k) =>
+        `<button type="button" class="chip" data-hey="${k}" aria-pressed="${k === state.hey}">${HEY_LABEL[k]}</button>`).join('');
+      return `<div class="hey-toggle" role="group" aria-label="Jak się do ciebie zwracać?"><span>Zwracaj się do mnie:</span>${chips}</div>`;
+    }
+
+    function posterHTML(key, mode) {
+      const c = CLASSES[key];
+      const [hey, sub] = {
+        mine: [HEY[state.hey], 'To jest twoja postać!'],
+        preview: ['A gdyby…?', 'Podgląd plakatu innej klasy'],
+        shared: ['Plakat dla ciebie!', 'Ktoś właśnie pokazał ci swoją postać'],
+      }[mode];
+      const photo = PHOTOS[key]
+        ? `<img class="photo-img" src="${PHOTOS[key]}" alt="${c.name}: zdjęcie postaci">${emblem(key, 'photo-badge')}`
+        : emblem(key, 'emblem-big');
+      return `
+        <article class="poster pop-in" style="--c:${c.color};--on:${c.on}" aria-labelledby="posterName">
+          <header class="poster-head">
+            <p class="poster-banner">+++ PLAKAT XXL<span class="print-only"> · WYTNIJ I POWIEŚ NAD PRYCZĄ</span> +++</p>
+            ${aquila('poster-aquila')}
+            <p class="hey" id="heyText">${hey}</p>
+            <p class="poster-sub">${sub}</p>
+            ${mode === 'mine' ? heyToggleHTML() : ''}
+          </header>
+          <div class="poster-grid">
+            <figure class="photo">
+              ${photo}
+              <div class="burst sticker-100" aria-hidden="true"><div class="wobble" style="position:absolute;inset:0">${burst('#ffe14d', 14)}</div><span>100%<br>${mode === 'mine' ? 'TY!' : 'HIT!'}</span></div>
+              <figcaption class="photo-name"><strong id="posterName">${c.name}</strong><span>${c.sub}</span></figcaption>
+            </figure>
+            <div class="profile">
+              <h3>Metryczka <small>karta idola</small></h3>
+              <dl>${c.profile.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+              <div class="stamp" aria-hidden="true">=][= Zatwierdzono =][=</div>
+            </div>
+          </div>
+          <p class="tagline"><span>${c.tagline}</span></p>
+          <div class="poster-body">
+            <p class="desc">${c.desc}</p>
+            <div class="facts">
+              <h3>100% prawda! <small>Fakty prosto z gry</small></h3>
+              <ul>${c.facts.map((f) => `<li>${f}</li>`).join('')}</ul>
+            </div>
+          </div>
+          <div class="advice">
+            <div class="advice-ico" aria-hidden="true">=][=</div>
+            <div><b>Dr Grendyl radzi:</b><p>${c.advice}</p></div>
+          </div>
+        </article>`;
+    }
+
+    function noticeHTML(mode) {
+      if (mode === 'mine') return '';
+      if (state.result) {
+        return `<div class="notice"><span>Oglądasz plakat innej klasy.</span>
+          <button type="button" class="btn btn-small" data-act="mine">← Wróć do mojego plakatu</button></div>`;
+      }
+      const msg = mode === 'shared' ? 'Ktoś udostępnił ci swój wynik. A kim jesteś TY?' : 'Ciekawe, czy to twoja klasa?';
+      return `<div class="notice"><span>${msg}</span>
+        <button type="button" class="btn btn-small btn-go" data-act="start">Zrób psychotest →</button></div>`;
+    }
+
+    function renderDNA() {
+      const { ranked, winner } = state.result;
+      const pct = percents(state.result);
+      $('#dnaRows').innerHTML = ranked.map((k) => `
+        <div class="dna-row${k === winner ? ' is-top' : ''}" style="--c:${CLASSES[k].color}">
+          ${emblem(k, '', true)}
+          <span class="dna-name">${CLASSES[k].name}</span>
+          <span class="dna-bar" aria-hidden="true"><i data-w="${pct[k]}"></i></span>
+          <span class="dna-pct">${pct[k]}%</span>
+        </div>`).join('');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.querySelectorAll('.dna-bar i').forEach((bar) => { bar.style.width = `${bar.dataset.w}%`; });
+      }));
+    }
+
+    function renderGallery(current) {
+      const pct = state.result ? percents(state.result) : null;
+      $('#galleryGrid').innerHTML = ORDER.map((k) => {
+        const c = CLASSES[k];
+        const mine = state.result && state.result.winner === k;
+        return `
+          <button type="button" class="g-card" data-k="${k}" ${k === current ? 'aria-current="true"' : ''}>
+            ${mine ? '<span class="g-mine">Twoja!</span>' : ''}
+            ${pct ? `<span class="g-pct">${pct[k]}%</span>` : ''}
+            ${emblem(k, '', true)}
+            <strong>${c.name}</strong><small>${c.sub}</small>
+          </button>`;
+      }).join('');
+    }
+
+    function showResult(key, mode) {
+      state.view = key;
+      $('#notice').innerHTML = noticeHTML(mode);
+      $('#poster').innerHTML = posterHTML(key, mode);
+      $('#againBtn').textContent = state.result ? 'Zagraj jeszcze raz 🔄' : 'Zrób psychotest 📝';
+      $('#dna').hidden = !state.result;
+      if (state.result) renderDNA();
+      renderGallery(key);
+      history.replaceState(null, '', `#wynik=${CLASSES[key].slug}`);
+      showScreen('result');
+    }
+
+    function modeFor(key) {
+      if (!state.result) return 'shared';
+      return key === state.result.winner ? 'mine' : 'preview';
+    }
+
+    async function shareResult() {
+      const c = CLASSES[state.view];
+      const url = `${location.href.split('#')[0]}#wynik=${c.slug}`;
+      if (navigator.share && window.matchMedia('(pointer: coarse)').matches) {
+        try {
+          await navigator.share({ title: 'BRAVVM · psychotest', text: `Wyszło mi: ${c.name}! A ty którą klasą z Darktide jesteś?`, url });
+          return;
+        } catch (err) {
+          if (err && err.name === 'AbortError') return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        toast('Link skopiowany! Wyślij psiapsiółce 💌');
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = url;
+        document.body.append(ta);
+        ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        toast(ok ? 'Link skopiowany! Wyślij psiapsiółce 💌' : 'Nie udało się skopiować. Link jest w pasku adresu 😉');
+      }
+    }
+
+    function route() {
+      const m = location.hash.match(/^#wynik=([a-z-]+)$/);
+      const key = m && ORDER.find((k) => CLASSES[k].slug === m[1]);
+      if (key) showResult(key, modeFor(key));
+      else showScreen('cover');
+    }
+
+    /* ---------- Zdarzenia ---------- */
+    $('#startBtn').addEventListener('click', startQuiz);
+    $('#againBtn').addEventListener('click', startQuiz);
+    $('#backBtn').addEventListener('click', goBack);
+    $('#shareBtn').addEventListener('click', shareResult);
+    $('#printBtn').addEventListener('click', () => window.print());
+    $('#logo').addEventListener('click', () => {
+      history.replaceState(null, '', location.pathname + location.search);
+      showScreen('cover');
+    });
+
+    $('#options').addEventListener('click', (e) => {
+      const btn = e.target.closest('.option');
+      if (btn) choose(Number(btn.dataset.i));
+    });
+
+    $('#result').addEventListener('click', (e) => {
+      const card = e.target.closest('.g-card');
+      const chip = e.target.closest('.chip');
+      const act = e.target.closest('[data-act]');
+      if (card) {
+        showResult(card.dataset.k, modeFor(card.dataset.k));
+      } else if (chip) {
+        state.hey = chip.dataset.hey;
+        store.set('bravvm-hey', state.hey);
+        $('#heyText').textContent = HEY[state.hey];
+        document.querySelectorAll('.chip').forEach((b) => b.setAttribute('aria-pressed', b === chip));
+      } else if (act) {
+        if (act.dataset.act === 'mine') showResult(state.result.winner, 'mine');
+        else startQuiz();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if ($('#quiz').hidden || e.ctrlKey || e.metaKey || e.altKey) return;
+      const key = e.key.toLowerCase();
+      const i = key.length === 1 ? Math.max('abcd'.indexOf(key), '1234'.indexOf(key)) : -1;
+      if (i >= 0) {
+        e.preventDefault();
+        choose(i);
+      } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        goBack();
+      }
+    });
+
+    window.addEventListener('hashchange', route);
+
+    /* ---------- Start ---------- */
+    $('#coverBurst').insertAdjacentHTML('afterbegin', burst('#ff2d87', 16));
+    $('#strip').innerHTML = ORDER.map((k) => `<div class="strip-item">${emblem(k, '', true)}<span>${CLASSES[k].name}</span></div>`).join('');
+    $('#loadingAquila').innerHTML = aquila('loading-aquila');
+    route();
+  </script>
+</body>
+</html>

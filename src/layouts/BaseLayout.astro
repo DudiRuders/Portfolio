@@ -6,9 +6,16 @@ import GearBackground from '../components/GearBackground.astro';
 
 interface Props {
   title?: string;
+  description?: string;
+  noindex?: boolean;
 }
 
-const { title = 'Mateusz Wienskowski — Full-stack Developer & Automation Expert' } = Astro.props;
+const {
+  title = 'Mateusz Wienskowski — Full-stack Developer & Automation Expert',
+  description = 'Automatyzuję marketing i biznes: ETL, automatyzacja dokumentów, dashboardy KPI, wideo z danych i integracje AI. Do tego kalkulatory do gier i inne projekty po godzinach.',
+  noindex = false,
+} = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -17,10 +24,18 @@ const { title = 'Mateusz Wienskowski — Full-stack Developer & Automation Exper
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
-  <meta name="description" content="Full-stack Developer & Automation Expert. Automatyzuję marketing i biznes." />
+  <meta name="description" content={description} />
   <meta name="theme-color" content="#0b1120" />
+  {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1120'/%3E%3Crect x='2' y='2' width='60' height='60' rx='13' fill='none' stroke='%2310B981' stroke-opacity='.5' stroke-width='3'/%3E%3Ctext x='32' y='41' font-family='Consolas,monospace' font-size='24' font-weight='700' text-anchor='middle' fill='%2334D399'%3EMW%3C/text%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
@@ -54,6 +69,17 @@ const { title = 'Mateusz Wienskowski — Full-stack Developer & Automation Exper
         document.addEventListener('DOMContentLoaded', initReveal);
       } else {
         initReveal();
+      }
+
+      // Poświata kart podąża za kursorem (tylko mysz)
+      if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('pointermove', function(e) {
+          var card = e.target.closest && e.target.closest('.glass-card, .glass-card-accent, .repo-card');
+          if (!card) return;
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        }, { passive: true });
       }
     })();
   </script>

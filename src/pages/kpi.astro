@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseNav from '../components/CaseNav.astro';
 ---
 
 <BaseLayout title="KPI Dashboard — Case Study | Mateusz Wienskowski">
-  <main class="mx-auto max-w-4xl px-4 py-20 md:py-32">
+  <article class="mx-auto max-w-4xl px-4 py-20 md:py-32">
 
     <div class="badge-neon mb-6 reveal"><span class="badge-dot"></span> Business Intelligence • Metabase • SQL</div>
 
@@ -22,6 +23,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span>Zobacz kod (GitHub)</span>
       </a>
     </div>
+    <p class="repo-note mt-4 text-sm text-slate-500 reveal reveal-delay-3">W repozytorium: infrastruktura (docker-compose z Metabase i PostgreSQL) i przykładowe zapytanie. Dane i zapytania produkcyjne są objęte NDA.</p>
 
     <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 reveal">
       <div class="glass-card p-5 text-center"><div class="metric-value">15+</div><div class="metric-label">arkuszy Excel zastąpionych</div></div>
@@ -68,43 +70,50 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <!-- SQL -->
     <div class="mt-16 reveal">
       <h2 class="text-2xl font-bold text-white">Fragment kodu SQL</h2>
-      <p class="mt-2 text-slate-500 text-sm">Widok obliczający wzrost sprzedaży rok do roku z Window Functions</p>
+      <p class="mt-2 text-slate-500 text-sm">Wzrost przychodu miesiąc do miesiąca (MoM) z CTE i funkcją okna <span class="font-mono text-emerald-400 text-xs">LAG</span>. Plik 1:1 z repozytorium.</p>
       <div class="mt-6 code-window">
         <div class="code-window-header">
           <div class="code-window-dots"><span></span><span></span><span></span></div>
-          <span class="code-window-title">kpi_sales_yoy.sql</span>
+          <span class="code-window-title">sql/sales_kpi_logic.sql</span>
         </div>
-        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-slate-500">-- Widok: wzrost sprzedaży YoY per kategoria</span>
-<span class="text-purple-400">CREATE OR REPLACE VIEW</span> <span class="text-blue-400">kpi_sales_yoy</span> <span class="text-purple-400">AS</span>
-
-<span class="text-purple-400">WITH</span> <span class="text-blue-400">monthly_sales</span> <span class="text-purple-400">AS</span> (
+        <pre class="p-5 text-sm font-mono leading-relaxed text-slate-300 overflow-x-auto"><code><span class="text-purple-400">WITH</span> <span class="text-blue-400">MonthlySales</span> <span class="text-purple-400">AS</span> (
     <span class="text-purple-400">SELECT</span>
-        DATE_TRUNC(<span class="text-emerald-400">'month'</span>, order_date) <span class="text-purple-400">AS</span> month,
-        category,
-        SUM(revenue) <span class="text-purple-400">AS</span> total_revenue,
-        COUNT(DISTINCT order_id) <span class="text-purple-400">AS</span> order_count
-    <span class="text-purple-400">FROM</span> orders
-    <span class="text-purple-400">WHERE</span> status <span class="text-purple-400">!=</span> <span class="text-emerald-400">'cancelled'</span>
-    <span class="text-purple-400">GROUP BY</span> <span class="text-emerald-400">1</span>, <span class="text-emerald-400">2</span>
+        <span class="text-purple-400">DATE_TRUNC</span>(<span class="text-emerald-400">'month'</span>, order_date) <span class="text-purple-400">AS</span> reporting_month,
+        <span class="text-purple-400">COUNT</span>(<span class="text-purple-400">DISTINCT</span> order_id) <span class="text-purple-400">AS</span> total_orders,
+        <span class="text-purple-400">COUNT</span>(<span class="text-purple-400">DISTINCT</span> customer_id) <span class="text-purple-400">AS</span> unique_customers,
+        <span class="text-purple-400">SUM</span>(total_amount) <span class="text-purple-400">AS</span> total_revenue
+    <span class="text-purple-400">FROM</span>
+        sales_data
+    <span class="text-purple-400">WHERE</span>
+        status = <span class="text-emerald-400">'completed'</span>
+    <span class="text-purple-400">GROUP BY</span>
+        1
 ),
-
-<span class="text-blue-400">with_yoy</span> <span class="text-purple-400">AS</span> (
-    <span class="text-purple-400">SELECT</span> *,
-        LAG(total_revenue, <span class="text-emerald-400">12</span>) <span class="text-purple-400">OVER</span> (
-            <span class="text-purple-400">PARTITION BY</span> category
-            <span class="text-purple-400">ORDER BY</span> month
-        ) <span class="text-purple-400">AS</span> revenue_prev_year
-    <span class="text-purple-400">FROM</span> monthly_sales
+<span class="text-blue-400">MoM_Calculations</span> <span class="text-purple-400">AS</span> (
+    <span class="text-purple-400">SELECT</span>
+        reporting_month,
+        total_orders,
+        unique_customers,
+        total_revenue,
+        <span class="text-purple-400">LAG</span>(total_revenue, 1) <span class="text-purple-400">OVER</span> (<span class="text-purple-400">ORDER BY</span> reporting_month) <span class="text-purple-400">AS</span> previous_month_revenue
+    <span class="text-purple-400">FROM</span>
+        <span class="text-blue-400">MonthlySales</span>
 )
+<span class="text-purple-400">SELECT</span>
+    reporting_month,
+    total_orders,
+    unique_customers,
+    total_revenue,
+    previous_month_revenue,
 
-<span class="text-purple-400">SELECT</span> *,
-    <span class="text-purple-400">CASE WHEN</span> revenue_prev_year = <span class="text-emerald-400">0</span> <span class="text-purple-400">THEN NULL</span>
-         <span class="text-purple-400">ELSE</span> ROUND(
-             (total_revenue - revenue_prev_year) / revenue_prev_year * <span class="text-emerald-400">100</span>, <span class="text-emerald-400">2</span>
-         )
-    <span class="text-purple-400">END AS</span> yoy_growth_pct
-<span class="text-purple-400">FROM</span> with_yoy
-<span class="text-purple-400">ORDER BY</span> month <span class="text-purple-400">DESC</span>;</code></pre>
+    <span class="text-purple-400">ROUND</span>(
+        ((total_revenue - previous_month_revenue) / <span class="text-purple-400">NULLIF</span>(previous_month_revenue, 0)) * 100,
+        2
+    ) <span class="text-purple-400">AS</span> mom_growth_percentage
+<span class="text-purple-400">FROM</span>
+    <span class="text-blue-400">MoM_Calculations</span>
+<span class="text-purple-400">ORDER BY</span>
+    reporting_month <span class="text-purple-400">DESC</span>;</code></pre>
       </div>
     </div>
 
@@ -134,5 +143,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <span class="tech-tag">Docker</span>
       </div>
     </div>
-  </main>
+    <CaseNav current="kpi" />
+
+  </article>
 </BaseLayout>
