@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import GearBackground from '../components/GearBackground.astro';
+import RunningKitten from '../components/RunningKitten.astro';
 
 interface Props {
   title?: string;
@@ -51,6 +52,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     </main>
     <Footer />
   </div>
+
+  <RunningKitten />
 
   <script is:inline>
     // Scroll reveal observer

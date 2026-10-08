@@ -1,0 +1,194 @@
+---
+/**
+ * Mały kotek, który co jakiś czas przebiega przez dół ekranu na każdej stronie:
+ * biegnie, w połowie się potyka, robi fikołka, chwilę kręci mu się w głowie i biegnie dalej.
+ * Pierwszy raz po 25–70 s, potem co 1–3 min. Od razu: window.dispatchEvent(new Event('nicpon:run')).
+ * Przy prefers-reduced-motion nie biega wcale.
+ */
+import kittenSvg from '../assets/nicpon/kitten.svg?raw';
+---
+
+<div class="kitten" id="kitten" aria-hidden="true" data-frame="run0">
+  <div class="kitten-flip">
+    <div class="kitten-body" set:html={kittenSvg} />
+    <span class="kitten-shadow"></span>
+  </div>
+  <span class="kitten-dust"><i></i><i></i><i></i></span>
+  <span class="kitten-meow">Miau!</span>
+</div>
+
+<style is:global>
+  .kitten {
+    position: fixed;
+    bottom: 6px;
+    left: 0;
+    z-index: 70;
+    display: none;
+    width: 88px;
+    height: 64px;
+    pointer-events: none;
+    will-change: transform;
+  }
+  .kitten.run { display: block; }
+  .kitten-flip { position: absolute; inset: 0; }
+  .kitten.left .kitten-flip { transform: scaleX(-1); }
+  .kitten-body { position: absolute; inset: 0; transform-origin: 50% 65%; pointer-events: auto; cursor: pointer; }
+  .kitten-svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.25)); }
+  .kitten-shadow {
+    position: absolute;
+    bottom: -2px;
+    left: 18%;
+    width: 64%;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    filter: blur(2px);
+    transform: scaleX(var(--shadow, 1));
+  }
+  .kitten .kf, .kitten .kf-stars { display: none; }
+  .kitten[data-frame='run0'] .kf-run0,
+  .kitten[data-frame='run1'] .kf-run1,
+  .kitten[data-frame='run2'] .kf-run2,
+  .kitten[data-frame='run3'] .kf-run3,
+  .kitten[data-frame='ball'] .kf-ball,
+  .kitten.dizzy .kf-stars { display: inline; }
+  .kitten.dizzy .kf-stars { animation: kitten-stars 0.3s steps(2) infinite; }
+  @keyframes kitten-stars { 50% { opacity: 0.3; } }
+
+  .kitten-dust { position: absolute; bottom: 2px; left: 40%; }
+  .kitten-dust i {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgba(203, 213, 225, 0.55);
+    opacity: 0;
+  }
+  .kitten.puff .kitten-dust i { animation: kitten-dust 0.55s ease-out forwards; }
+  .kitten.puff .kitten-dust i:nth-child(2) { animation-delay: 0.05s; --dx: -18px; }
+  .kitten.puff .kitten-dust i:nth-child(3) { animation-delay: 0.1s; --dx: 16px; }
+  @keyframes kitten-dust {
+    0% { opacity: 0.9; transform: translate(0, 0) scale(0.6); }
+    100% { opacity: 0; transform: translate(var(--dx, 0px), -14px) scale(1.4); }
+  }
+
+  .kitten-meow {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    padding: 2px 8px;
+    font: 700 12px/1.4 'JetBrains Mono', monospace;
+    white-space: nowrap;
+    color: #0b1120;
+    background: #d1fae5;
+    border-radius: 8px;
+    opacity: 0;
+    transform: translate(-50%, 4px);
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .kitten.meow .kitten-meow { opacity: 1; transform: translate(-50%, -4px); }
+</style>
+
+<script>
+  const el = document.getElementById('kitten') as HTMLElement | null;
+  const body = el?.querySelector<HTMLElement>('.kitten-body');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (el && body) {
+    const SIZE = 88;
+    let running = false;
+
+    const run = () => {
+      if (running || reduceMotion) return;
+      running = true;
+      const toRight = Math.random() < 0.5;
+      const vw = window.innerWidth;
+      const startX = toRight ? -SIZE : vw;
+      const dir = toRight ? 1 : -1;
+      const tripX = toRight ? vw * (0.35 + Math.random() * 0.25) : vw * (0.4 + Math.random() * 0.25);
+      let speed = Math.max(220, vw / 4.5);
+      let x = startX;
+      let phase: 'run' | 'trip' | 'roll' | 'dizzy' | 'away' = 'run';
+      let phaseStart = performance.now();
+      let last = phaseStart;
+      let frameAt = 0;
+      let frame = 0;
+
+      el.classList.add('run');
+      el.classList.toggle('left', !toRight);
+      el.dataset.frame = 'run0';
+
+      const set = (y: number, rot: number) => {
+        el.style.transform = `translate(${x}px, ${-y}px)`;
+        body.style.transform = `rotate(${rot * dir}deg)`;
+      };
+      const go = (p: typeof phase, now: number) => { phase = p; phaseStart = now; };
+
+      body.onclick = () => {
+        el.classList.add('meow');
+        speed *= 1.6;
+        setTimeout(() => el.classList.remove('meow'), 900);
+      };
+
+      const tick = (now: number) => {
+        const dt = Math.min(0.05, (now - last) / 1000);
+        last = now;
+        const t = now - phaseStart;
+        let y = 0;
+        let rot = 0;
+
+        if (phase === 'run' || phase === 'away') {
+          x += dir * speed * (phase === 'away' ? 1.15 : 1) * dt;
+          if (now - frameAt > 80) { frameAt = now; frame = (frame + 1) % 4; el.dataset.frame = `run${frame}`; }
+          y = frame === 1 || frame === 2 ? 2 : 0;
+          if (phase === 'run' && (toRight ? x >= tripX : x <= tripX)) {
+            go('trip', now);
+            el.classList.add('puff');
+          }
+        } else if (phase === 'trip') {
+          // potknięcie: przód leci w dół
+          rot = Math.min(1, t / 140) * 28;
+          x += dir * speed * 0.6 * dt;
+          if (t > 140) { go('roll', now); el.dataset.frame = 'ball'; }
+        } else if (phase === 'roll') {
+          // fikołek: kulka toczy się łukiem i robi pełny obrót
+          const p = Math.min(1, t / 620);
+          x += dir * speed * 0.55 * dt;
+          y = Math.sin(p * Math.PI) * 26;
+          rot = 28 + p * 332;
+          el.style.setProperty('--shadow', String(1 - Math.sin(p * Math.PI) * 0.5));
+          if (p >= 1) {
+            go('dizzy', now);
+            el.dataset.frame = 'run0';
+            el.classList.remove('puff');
+            el.classList.add('dizzy');
+          }
+        } else if (phase === 'dizzy') {
+          // chwila oszołomienia: kiwanie się z gwiazdkami nad głową
+          rot = Math.sin(t / 60) * 6;
+          if (t > 700) { go('away', now); el.classList.remove('dizzy'); }
+        }
+
+        set(y, rot);
+        const gone = toRight ? x > vw + SIZE : x < -SIZE * 2;
+        if (gone) {
+          el.classList.remove('run', 'left', 'puff', 'dizzy', 'meow');
+          el.style.removeProperty('--shadow');
+          running = false;
+          return;
+        }
+        requestAnimationFrame(tick);
+      };
+      set(0, 0);
+      requestAnimationFrame(tick);
+    };
+
+    window.addEventListener('nicpon:run', run);
+    if (!reduceMotion) {
+      const loop = () => {
+        if (!document.hidden) run();
+        setTimeout(loop, 60000 + Math.random() * 120000);
+      };
+      setTimeout(loop, 25000 + Math.random() * 45000);
+    }
+  }
+</script>

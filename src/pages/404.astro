@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { Image } from 'astro:assets';
-import nicponImg from '../assets/nicpon.png';
+import NicponCat from '../components/NicponCat.astro';
 
 const root = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
@@ -13,8 +12,8 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, '');
     <p class="mt-4 text-xl text-slate-300 reveal reveal-delay-2">Nicpoń przeszukał wszystkie pipeline’y i tej strony nie ma.</p>
     <p class="mt-2 text-slate-500 reveal reveal-delay-2">Możliwe, że zrzucił ją z biurka w ramach testów chaosu.</p>
 
-    <div class="mx-auto mt-12 w-full max-w-sm reveal reveal-delay-3">
-      <Image src={nicponImg} alt="Kot Nicpoń przy klawiaturze" widths={[400, 800]} sizes="384px" class="w-full h-auto rounded-[28px] shadow-2xl" />
+    <div class="mx-auto mt-12 w-full max-w-md reveal reveal-delay-3">
+      <NicponCat autoType />
     </div>
 
     <div class="mt-12 flex flex-wrap items-center justify-center gap-4 reveal reveal-delay-4">
@@ -23,3 +22,8 @@ const root = import.meta.env.BASE_URL.replace(/\/$/, '');
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Na 404 kotek przebiega od razu, żeby było weselej
+  window.setTimeout(() => window.dispatchEvent(new Event('nicpon:run')), 2500);
+</script>

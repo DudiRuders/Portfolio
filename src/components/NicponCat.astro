@@ -1,0 +1,244 @@
+---
+/**
+ * Interaktywny Nicpoń: wektorowy pixel art generowany z oryginalnego PNG
+ * (scripts/build-nicpon.py). Oczy patrzą za kursorem, kot mruga, macha ogonem
+ * i stuka w klawiaturę. Zdarzenia z zewnątrz:
+ *   window 'nicpon:type'  – jedno uderzenie w klawisz (np. z terminala),
+ *   window 'nicpon:turbo' – szybka seria pisania,
+ *   klik w kota          – zadowolone oczka.
+ */
+import catSvg from '../assets/nicpon/nicpon-cat.svg?raw';
+
+interface Props {
+  class?: string;
+  /** Kot sam od czasu do czasu coś pisze (gdy na stronie nie ma terminala). */
+  autoType?: boolean;
+}
+
+const { class: className = '', autoType = false } = Astro.props;
+---
+
+<span class:list={['nicpon', className]} data-nicpon data-autotype={autoType ? '1' : '0'} data-eyes="open" data-tail="2">
+  <span class="nicpon-stage" set:html={catSvg} />
+</span>
+
+<style is:global>
+  .nicpon { position: relative; display: block; width: 100%; perspective: 900px; }
+  .nicpon-stage {
+    display: block;
+    transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.25s ease-out;
+  }
+  .nicpon .nc-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.45));
+  }
+  .nicpon .nc-back { transform: translate(var(--bx, 0px), var(--by, 0px)); transition: transform 0.3s ease-out; }
+
+  .nicpon .nc-lid,
+  .nicpon .nc-tail-f { display: none; }
+  .nicpon[data-eyes='half'] .nc-lid-half,
+  .nicpon[data-eyes='closed'] .nc-lid-closed,
+  .nicpon[data-eyes='happy'] .nc-lid-happy,
+  .nicpon[data-tail='0'] .nc-tail-f0,
+  .nicpon[data-tail='1'] .nc-tail-f1,
+  .nicpon[data-tail='2'] .nc-tail-f2,
+  .nicpon[data-tail='3'] .nc-tail-f3,
+  .nicpon[data-tail='4'] .nc-tail-f4 { display: inline; }
+
+  .nicpon .nc-key { fill: #5eead4; opacity: 0; transition: opacity 0.35s; }
+  .nicpon .nc-key.on { opacity: 0.95; transition: opacity 0.03s; }
+  .nicpon .nc-strip { fill: #5eead4; opacity: 0.5; transition: opacity 0.3s; }
+  .nicpon.typing .nc-strip { opacity: 1; }
+  .nicpon .nc-paw { transition: transform 0.05s; }
+  .nicpon .nc-paw.press { transform: translateY(1px); }
+  .nicpon .nc-ear { transition: transform 0.12s; }
+  .nicpon.perk .nc-ear-l { transform: translate(-1px, -1px); }
+  .nicpon.perk .nc-ear-r { transform: translate(1px, -1px); }
+  .nicpon .nc-light {
+    mix-blend-mode: soft-light;
+    opacity: var(--glow, 0.65);
+    transition: opacity 0.25s;
+    animation: nc-flicker 6s ease-in-out infinite;
+  }
+  @keyframes nc-flicker {
+    0%, 100% { filter: brightness(1); }
+    48% { filter: brightness(1.15); }
+    50% { filter: brightness(0.9); }
+    52% { filter: brightness(1.1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nicpon-stage { transform: none; }
+    .nicpon .nc-light { animation: none; }
+  }
+</style>
+
+<script>
+  type Key = { el: SVGPathElement; x: number; y: number };
+  const VIEW_W = 159;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const rand = (a: number, b: number) => a + Math.random() * (b - a);
+  const clamp = (v: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, v));
+
+  document.querySelectorAll<HTMLElement>('[data-nicpon]').forEach((root) => {
+    const svg = root.querySelector('svg');
+    if (!svg) return;
+    const stage = root.querySelector<HTMLElement>('.nicpon-stage')!;
+    const eyes = [...root.querySelectorAll<SVGGElement>('.nc-eye')].map((eye) => ({
+      cx: Number(eye.dataset.cx),
+      cy: Number(eye.dataset.cy),
+      pupil: eye.querySelector<SVGGElement>('.nc-pupil')!,
+    }));
+    const paws = [root.querySelector<SVGGElement>('.nc-paw-l')!, root.querySelector<SVGGElement>('.nc-paw-r')!];
+    const pawX = [60, 98];
+    const keys: Key[] = [...root.querySelectorAll<SVGPathElement>('.nc-key')].map((el) => ({
+      el,
+      x: Number(el.dataset.x),
+      y: Number(el.dataset.y),
+    }));
+
+    let pointer: { x: number; y: number } | null = null;
+    let lastMove = performance.now();
+    let wander = { x: 0, y: 1 };
+    let mood: 'open' | 'happy' = 'open';
+    let blinking = false;
+    let sleepy = false;
+
+    const setEyes = (state: string) => { root.dataset.eyes = state; };
+    const restingEyes = () => (mood === 'happy' ? 'happy' : sleepy ? 'half' : 'open');
+
+    /* ---------- Oczy za kursorem ---------- */
+    // Jeden kierunek patrzenia liczony ze środka twarzy: oba oczy patrzą równolegle, bez zeza
+    const faceX = eyes.reduce((s, e) => s + e.cx, 0) / (eyes.length || 1);
+    const faceY = eyes.reduce((s, e) => s + e.cy, 0) / (eyes.length || 1);
+    function look() {
+      const r = svg!.getBoundingClientRect();
+      const scale = r.width / VIEW_W;
+      let ox = wander.x;
+      let oy = wander.y;
+      if (pointer) {
+        const dx = (pointer.x - (r.left + faceX * scale)) / scale;
+        const dy = (pointer.y - (r.top + faceY * scale)) / scale;
+        ox = clamp(Math.round(dx / 10), -2, 2);
+        oy = clamp(Math.round(dy / 12), -1, 1);
+      }
+      eyes.forEach((eye) => { eye.pupil.style.transform = `translate(${ox}px, ${oy}px)`; });
+    }
+
+    /* ---------- Przechylenie 3D, paralaksa i nastawione uszy ---------- */
+    function tilt() {
+      if (reduceMotion || !pointer) return;
+      const r = stage.getBoundingClientRect();
+      const nx = clamp((pointer.x - (r.left + r.width / 2)) / (window.innerWidth / 2), -1, 1);
+      const ny = clamp((pointer.y - (r.top + r.height / 2)) / (window.innerHeight / 2), -1, 1);
+      stage.style.setProperty('--ry', `${(nx * 7).toFixed(2)}deg`);
+      stage.style.setProperty('--rx', `${(-ny * 5).toFixed(2)}deg`);
+      stage.style.setProperty('--bx', `${(-nx * 3).toFixed(2)}px`);
+      stage.style.setProperty('--by', `${(-ny * 2).toFixed(2)}px`);
+      const headX = r.left + (80 / VIEW_W) * r.width;
+      const headY = r.top + (25 / VIEW_W) * r.width;
+      const near = Math.hypot(pointer.x - headX, pointer.y - headY) < r.width * 0.28;
+      root.classList.toggle('perk', near);
+    }
+
+    let frame = 0;
+    window.addEventListener('pointermove', (e) => {
+      pointer = { x: e.clientX, y: e.clientY };
+      lastMove = performance.now();
+      if (sleepy) { sleepy = false; if (!blinking) setEyes(restingEyes()); }
+      if (!frame) frame = requestAnimationFrame(() => { frame = 0; look(); tilt(); });
+    }, { passive: true });
+    document.addEventListener('pointerleave', () => { pointer = null; look(); });
+
+    /* ---------- Mruganie i przymrużanie przy bezczynności ---------- */
+    function blink() {
+      if (mood === 'happy') return schedule();
+      blinking = true;
+      const steps: [string, number][] = [['half', 55], ['closed', 95], ['half', 55]];
+      if (Math.random() < 0.2) steps.push(['open', 120], ['half', 55], ['closed', 90], ['half', 55]);
+      let t = 0;
+      steps.forEach(([state, ms]) => { setTimeout(() => setEyes(state), t); t += ms; });
+      setTimeout(() => { blinking = false; setEyes(restingEyes()); schedule(); }, t);
+    }
+    function schedule() { setTimeout(blink, rand(2400, 6000)); }
+    schedule();
+
+    setInterval(() => {
+      const idle = performance.now() - lastMove;
+      if (idle > 6000) {
+        pointer = null;
+        wander = { x: Math.round(rand(-2, 2)), y: Math.round(rand(-1, 1)) };
+        look();
+      }
+      if (idle > 15000 && !sleepy && mood === 'open') {
+        sleepy = true;
+        if (!blinking) setEyes('half');
+      }
+    }, 1600);
+
+    /* ---------- Ogon ---------- */
+    const TAIL = [2, 3, 4, 3, 2, 1, 0, 1];
+    let tailStep = 0;
+    let tailFast = 0;
+    function wag() {
+      root.dataset.tail = String(TAIL[tailStep++ % TAIL.length]);
+      setTimeout(wag, performance.now() < tailFast ? 85 : 170);
+    }
+    if (!reduceMotion) wag();
+
+    /* ---------- Stukanie w klawiaturę ---------- */
+    let pawIndex = 0;
+    let lastType = 0;
+    let typingTimer = 0;
+    function lightKey(near: number) {
+      const pool = keys.filter((k) => Math.abs(k.x - near) < 16);
+      const key = (pool.length ? pool : keys)[Math.floor(Math.random() * (pool.length || keys.length))];
+      if (!key) return;
+      key.el.classList.add('on');
+      setTimeout(() => key.el.classList.remove('on'), 110);
+    }
+    function type() {
+      const now = performance.now();
+      if (now - lastType < 45) return;
+      lastType = now;
+      const i = pawIndex++ % 2;
+      paws[i].classList.add('press');
+      setTimeout(() => paws[i].classList.remove('press'), 85);
+      lightKey(pawX[i] + rand(-6, 6));
+      root.classList.add('typing');
+      root.style.setProperty('--glow', '0.85');
+      clearTimeout(typingTimer);
+      typingTimer = window.setTimeout(() => {
+        root.classList.remove('typing');
+        root.style.removeProperty('--glow');
+      }, 500);
+    }
+    function burst(count: number, gap: number) {
+      for (let k = 0; k < count; k++) setTimeout(type, k * gap + rand(0, gap / 2));
+    }
+    window.addEventListener('nicpon:type', type);
+    window.addEventListener('nicpon:turbo', () => {
+      tailFast = performance.now() + 2500;
+      burst(36, 55);
+    });
+    if (root.dataset.autotype === '1' && !reduceMotion) {
+      const auto = () => { burst(Math.round(rand(6, 16)), rand(80, 140)); setTimeout(auto, rand(2600, 5200)); };
+      setTimeout(auto, 1200);
+    }
+
+    /* ---------- Głaskanie ---------- */
+    root.addEventListener('click', () => {
+      mood = 'happy';
+      sleepy = false;
+      setEyes('happy');
+      tailFast = performance.now() + 1500;
+      setTimeout(() => { mood = 'open'; if (!blinking) setEyes(restingEyes()); }, 1400);
+    });
+
+    look();
+  });
+</script>

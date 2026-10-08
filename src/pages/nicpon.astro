@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SpecialMonitor from '../components/SpecialMonitor.astro';
-import { Image } from 'astro:assets';
-import nicponImg from '../assets/nicpon.png';
+import NicponCat from '../components/NicponCat.astro';
 
 const terminalLines = [
   'init system_observer --kot=Nicpoń',
@@ -42,12 +41,11 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
       <div class="flex flex-col items-center gap-12 order-1 lg:order-2">
         <SpecialMonitor title="LINKEDIN" subtitle="POŁĄCZONO" boot="0s" href="https://www.linkedin.com/in/mateusz-wienskowski" buttonText="ZOBACZ PROFIL" />
 
-        <div class="observer flex flex-col items-center w-full max-w-[400px]">
+        <div class="observer flex flex-col items-center w-full max-w-[460px]">
           <div class="relative w-full">
             <p class="cat-bubble" id="catBubble" role="status" aria-live="polite"></p>
             <button type="button" class="cat-btn" id="catBtn" aria-label="Pogłaszcz Nicponia">
-              <Image src={nicponImg} alt="Kot Nicpoń przy klawiaturze" widths={[400, 800]} sizes="400px" class="cat-img w-full h-auto rounded-[32px]" loading="eager" />
-              <span class="cat-glow" aria-hidden="true"></span>
+              <NicponCat />
             </button>
             <div class="cat-fx" id="catFx" aria-hidden="true"></div>
           </div>
@@ -106,23 +104,10 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
     border: 0;
     border-radius: 32px;
     cursor: pointer;
-    animation: breathe 4.5s ease-in-out infinite;
   }
   .cat-btn:focus-visible { outline: 3px solid #34d399; outline-offset: 6px; }
-  .cat-img { position: relative; z-index: 1; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6); }
-  .cat-glow {
-    position: absolute;
-    inset: -14px;
-    z-index: 0;
-    border-radius: 44px;
-    background: radial-gradient(closest-side, rgba(16, 185, 129, 0.35), transparent);
-    filter: blur(12px);
-    animation: glow 4.5s ease-in-out infinite;
-  }
   .cat-btn.boop { animation: boop 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
   .cat-btn.spin { animation: spin 1.2s cubic-bezier(0.5, 0, 0.3, 1); }
-  @keyframes breathe { 50% { transform: translateY(-6px) scale(1.01); } }
-  @keyframes glow { 50% { opacity: 0.55; transform: scale(1.04); } }
   @keyframes boop { 40% { transform: scale(0.94, 1.04); } 70% { transform: scale(1.03, 0.97); } }
   @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -195,7 +180,7 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
 
   @media (prefers-reduced-motion: reduce) {
     .particles { display: none; }
-    .cat-btn, .cat-glow { animation: none; }
+    .cat-btn { animation: none; }
   }
 </style>
 
@@ -252,6 +237,8 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
     clicks += 1;
     if (clicks % 7 === 0) {
       say('TRYB TURBO MRUCZENIA 200% 🚀');
+      window.dispatchEvent(new Event('nicpon:turbo'));
+      window.dispatchEvent(new Event('nicpon:run'));
       if (!reduceMotion) {
         replay(btn, 'spin');
         document.body.classList.add('purr');
@@ -284,6 +271,7 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
         row.append(caret);
         for (const ch of line) {
           caret.before(ch);
+          if (ch !== ' ') window.dispatchEvent(new Event('nicpon:type'));
           await sleep(28 + Math.random() * 40);
         }
         caret.remove();
@@ -298,7 +286,7 @@ const particles = Array.from({ length: 16 }, (_, i) => ({
   }
   if (!reduceMotion) {
     window.setTimeout(typeLoop, 900);
-    window.setTimeout(() => say('Mrrr… system online.'), 1700);
+    window.setTimeout(() => say('Nicpoń: mój cichy pomocnik!'), 1700);
   }
 
   /* ---------- Ślady łapek za kursorem (tylko mysz) ---------- */
